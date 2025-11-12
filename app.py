@@ -87,12 +87,12 @@ def home():
     <body>
         <div class="container">
             <div class="header">
-                <h1>íº€ AI-Nexus Enterprise Dashboard</h1>
+                <h1>º€ AI-Nexus Enterprise Dashboard</h1>
                 <p>Advanced AI-Powered DeFi Arbitrage System</p>
             </div>
 
             <div class="wealth-section">
-                <h2>í²° Your AI Wealth Engine</h2>
+                <h2>²° Your AI Wealth Engine</h2>
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin: 25px 0;">
                     <div style="background: rgba(0,0,0,0.3); padding: 20px; border-radius: 10px;">
                         <h3>Total Profits</h3>
@@ -108,9 +108,9 @@ def home():
                     </div>
                 </div>
                 
-                <button class="btn" onclick="connectWallet()">í´— Connect Wallet</button>
-                <button class="btn" onclick="deployEngine()">íº€ Deploy AI Engine</button>
-                <button class="btn" onclick="withdrawProfits()">í²¸ Withdraw Profits</button>
+                <button class="btn" onclick="connectWallet()">´— Connect Wallet</button>
+                <button class="btn" onclick="deployEngine()">º€ Deploy AI Engine</button>
+                <button class="btn" onclick="withdrawProfits()">²¸ Withdraw Profits</button>
                 <button class="btn" onclick="executeFeatures()">âš¡ Execute Killer Features</button>
                 
                 <div id="wallet-status" style="margin-top: 20px;"></div>
@@ -118,7 +118,7 @@ def home():
 
             <div class="status-grid">
                 <div class="status-card">
-                    <h3>í´– AI System Status</h3>
+                    <h3>´– AI System Status</h3>
                     <p>Confidence: <span style="color: #00ff00;">94.7%</span></p>
                     <p>Active Strategies: <span style="color: #00ff00;">8/8</span></p>
                     <p>Success Rate: <span style="color: #00ff00;">94.2%</span></p>
@@ -130,7 +130,7 @@ def home():
                     <p>Uptime: <span style="color: #00ff00;">99.9%</span></p>
                 </div>
                 <div class="status-card">
-                    <h3>í¾¯ Killer Features</h3>
+                    <h3>¾¯ Killer Features</h3>
                     <p>Ghost Whisper: <span style="color: #00ff00;">Active</span></p>
                     <p>Predictive Oracle: <span style="color: #00ff00;">Active</span></p>
                     <p>MEV-Inverse: <span style="color: #00ff00;">Active</span></p>
