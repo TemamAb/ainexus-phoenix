@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from flask import Flask, jsonify, request
 import os
 from datetime import datetime
@@ -123,7 +124,7 @@ def home():
                     <p>Success Rate: <span style="color: #00ff00;">94.2%</span></p>
                 </div>
                 <div class="status-card">
-                    <h3>Ìºê Network Status</h3>
+                    <h3>ÔøΩÔøΩ Network Status</h3>
                     <p>Multi-Chain: <span style="color: #00ff00;">8/8 Connected</span></p>
                     <p>Security: <span style="color: #00ff00;">100% Active</span></p>
                     <p>Uptime: <span style="color: #00ff00;">99.9%</span></p>
@@ -141,79 +142,78 @@ def home():
 
         <script>
             async function connectWallet() {
-                showResult('Ì¥Ñ Connecting wallet...');
+                showResult("Connecting wallet...");
                 try {
-                    const response = await fetch('/api/wallet/connect', {
-                        method: 'POST',
-                        headers: {'Content-Type': 'application/json'}
+                    const response = await fetch("/api/wallet/connect", {
+                        method: "POST",
+                        headers: {"Content-Type": "application/json"}
                     });
                     const data = await response.json();
-                    if (data.status === 'connected') {
-                        document.getElementById('wallet-status').innerHTML = 
-                            '<div style="color: #00ff00; font-weight: bold;">‚úÖ Connected: ' + data.address + '</div>';
-                        showResult('‚úÖ Wallet connected successfully! AI can now manage your funds.');
+                    if (data.status === "connected") {
+                        document.getElementById("wallet-status").innerHTML = 
+                            "<div style=\"color: #00ff00; font-weight: bold;\">Connected: " + data.address + "</div>";
+                        showResult("Wallet connected successfully! AI can now manage your funds.");
                     }
                 } catch (error) {
-                    showResult('‚ùå Connection failed. Please try again.');
+                    showResult("Connection failed. Please try again.");
                 }
             }
 
             async function deployEngine() {
-                showResult('Ì∫Ä Deploying AI engine...');
+                showResult("Deploying AI engine...");
                 try {
-                    const response = await fetch('/api/deploy', {
-                        method: 'POST',
-                        headers: {'Content-Type': 'application/json'}
+                    const response = await fetch("/api/deploy", {
+                        method: "POST",
+                        headers: {"Content-Type": "application/json"}
                     });
                     const data = await response.json();
-                    showResult('‚úÖ ' + data.message);
+                    showResult(data.message);
                 } catch (error) {
-                    showResult('‚ùå Deployment failed.');
+                    showResult("Deployment failed.");
                 }
             }
 
             async function withdrawProfits() {
-                showResult('Ì≤∏ Withdrawing profits...');
+                showResult("Withdrawing profits...");
                 try {
-                    const response = await fetch('/api/profits/withdraw', {
-                        method: 'POST',
-                        headers: {'Content-Type': 'application/json'}
+                    const response = await fetch("/api/profits/withdraw", {
+                        method: "POST",
+                        headers: {"Content-Type": "application/json"}
                     });
                     const data = await response.json();
-                    if (data.status === 'success') {
-                        document.getElementById('available-profit').textContent = '$0.00';
-                        showResult('‚úÖ Withdrawn $' + data.amount + '! Funds are in your wallet.');
+                    if (data.status === "success") {
+                        document.getElementById("available-profit").textContent = "$0.00";
+                        showResult("Withdrawn $" + data.amount + "! Funds are in your wallet.");
                     }
                 } catch (error) {
-                    showResult('‚ùå Withdrawal failed. Connect wallet first.');
+                    showResult("Withdrawal failed. Connect wallet first.");
                 }
             }
 
             async function executeFeatures() {
-                showResult('‚ö° Executing killer features...');
+                showResult("Executing killer features...");
                 try {
-                    const response = await fetch('/api/killer-features/execute', {
-                        method: 'POST',
-                        headers: {'Content-Type': 'application/json'}
+                    const response = await fetch("/api/killer-features/execute", {
+                        method: "POST",
+                        headers: {"Content-Type": "application/json"}
                     });
                     const data = await response.json();
-                    showResult('ÌæØ ' + data.message + ' - ' + data.opportunities_generated + ' opportunities found.');
+                    showResult(data.message + " - " + data.opportunities_generated + " opportunities found.");
                 } catch (error) {
-                    showResult('‚ùå Feature execution failed.');
+                    showResult("Feature execution failed.");
                 }
             }
 
             function showResult(message) {
-                const result = document.getElementById('action-result');
+                const result = document.getElementById("action-result");
                 result.innerHTML = message;
-                result.style.display = 'block';
+                result.style.display = "block";
                 setTimeout(() => {
-                    result.style.display = 'none';
+                    result.style.display = "none";
                 }, 5000);
             }
 
-            // Initialize
-            showResult('ÌæØ AI-Nexus Dashboard Loaded. Your AI wealth engine is ready.');
+            showResult("AI-Nexus Dashboard Loaded. Your AI wealth engine is ready.");
         </script>
     </body>
     </html>
