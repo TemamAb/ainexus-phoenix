@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: ainexus-ai-engine
+    env: python
+    buildCommand: |
+      pip install -r requirements.txt
+      echo "✅ Build completed - Project structure:"
+      find . -name "*.py" | head -10
+    startCommand: gunicorn app:app
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.9.0
+      - key: PYTHONPATH
+        value: /opt/render/project/src
