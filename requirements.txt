@@ -1,4 +1,3 @@
-# íº€ AI-NEXUS MINIMAL DEPENDENCIES
 flask==2.3.3
 web3==6.5.0
 numpy==1.24.3
