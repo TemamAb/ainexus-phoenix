@@ -1,0 +1,28 @@
+{
+  "environment": "testing",
+  "orchestrator_config": {
+    "cycle_interval": 1.0,
+    "scanner_config": {"min_profit_threshold": 50},
+    "ranking_config": {
+      "strategy_weights": {
+        "profit": 0.4,
+        "risk": 0.3,
+        "speed": 0.2,
+        "capital_efficiency": 0.1
+      }
+    },
+    "risk_config": {
+      "riskThresholds": {
+        "maxSinglePosition": 0.1,
+        "maxDailyLoss": 0.05,
+        "minProfitMargin": 0.002
+      }
+    }
+  },
+  "data_config": {
+    "active_chains": ["ethereum", "bsc"],
+    "aggregation_interval": 2.0,
+    "min_arb_threshold": 0.3
+  },
+  "test_timeout": 300
+}

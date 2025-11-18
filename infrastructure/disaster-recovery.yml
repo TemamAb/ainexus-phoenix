@@ -1,0 +1,20 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: disaster-recovery-validator
+  namespace: production
+spec:
+  schedule: "*/5 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: recovery-validator
+            image: ai-nexus/recovery-validator:latest
+            env:
+            - name: AWS_REGION
+              value: "us-east-1"
+            - name: BACKUP_ENABLED
+              value: "true"
+          restartPolicy: OnFailure

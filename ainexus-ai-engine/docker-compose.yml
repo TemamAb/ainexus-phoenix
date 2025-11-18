@@ -1,0 +1,90 @@
+version: '3.8'
+
+services:
+  # Frontend - React Dashboard
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - REACT_APP_API_URL=http://localhost:8080
+      - REACT_APP_WS_URL=ws://localhost:8081
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    networks:
+      - ainexus-network
+
+  # Backend API
+  api:
+    build: ./backend
+    ports:
+      - "8080:8080"
+      - "8081:8081"
+    environment:
+      - NODE_ENV=development
+      - DATABASE_URL=postgresql://ainexus:ainexus123@db:5432/ainexus
+      - REDIS_URL=redis://redis:6379
+      - JWT_SECRET=ainexus_super_secret_2024
+    depends_on:
+      - db
+      - redis
+    networks:
+      - ainexus-network
+
+  # Database
+  db:
+    image: postgres:14
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=ainexus
+      - POSTGRES_PASSWORD=ainexus123
+      - POSTGRES_DB=ainexus
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./backend/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - ainexus-network
+
+  # Redis
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - ainexus-network
+
+  # Monitoring
+  prometheus:
+    image: prom/prometheus:latest
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - ainexus-network
+
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3001:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    volumes:
+      - grafana_data:/var/lib/grafana
+    depends_on:
+      - prometheus
+    networks:
+      - ainexus-network
+
+volumes:
+  postgres_data:
+  redis_data:
+  grafana_data:
+
+networks:
+  ainexus-network:
+    driver: bridge

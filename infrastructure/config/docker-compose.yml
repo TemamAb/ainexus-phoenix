@@ -1,0 +1,48 @@
+﻿version: '3.8'
+
+services:
+  # Frontend - Simple static server
+  frontend:
+    image: nginx:alpine
+    ports:
+      - "3000:80"
+    volumes:
+      - ./frontend-html:/usr/share/nginx/html
+    networks:
+      - ainexus-net
+
+  # Backend API - Pre-built working version
+  api:
+    image: node:18-alpine
+    ports:
+      - "8080:8080"
+    working_dir: /app
+    volumes:
+      - ./api:/app
+    command: sh -c "cd /app && npm install && node server.js"
+    networks:
+      - ainexus-net
+
+  # Database
+  db:
+    image: postgres:14
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: ainexus
+      POSTGRES_PASSWORD: ainexus123
+      POSTGRES_DB: ainexus
+    networks:
+      - ainexus-net
+
+  # Redis
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+    networks:
+      - ainexus-net
+
+networks:
+  ainexus-net:
+    driver: bridge

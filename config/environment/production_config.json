@@ -1,0 +1,168 @@
+{
+  "app": {
+    "name": "AI-NEXUS Arbitrage System",
+    "version": "5.0.0",
+    "environment": "production",
+    "debug": false
+  },
+  "database": {
+    "postgres": {
+      "host": "localhost",
+      "port": 5432,
+      "database": "ainexus",
+      "username": "ainexus_user",
+      "password": "${DB_PASSWORD}",
+      "ssl": true,
+      "pool": {
+        "max": 50,
+        "min": 5,
+        "acquireTimeout": 60000,
+        "idleTimeout": 30000
+      }
+    },
+    "redis": {
+      "host": "localhost",
+      "port": 6379,
+      "password": "${REDIS_PASSWORD}",
+      "db": 0,
+      "keyPrefix": "ainexus:"
+    }
+  },
+  "blockchain": {
+    "networks": {
+      "ethereum": {
+        "rpc": "https://mainnet.infura.io/v3/${INFURA_API_KEY}",
+        "chainId": 1,
+        "gasStation": "https://api.etherscan.io/api",
+        "confirmations": 12
+      },
+      "arbitrum": {
+        "rpc": "https://arb1.arbitrum.io/rpc",
+        "chainId": 42161,
+        "confirmations": 50
+      },
+      "polygon": {
+        "rpc": "https://polygon-rpc.com",
+        "chainId": 137,
+        "confirmations": 128
+      },
+      "bsc": {
+        "rpc": "https://bsc-dataseed.binance.org",
+        "chainId": 56,
+        "confirmations": 15
+      }
+    },
+    "contracts": {
+      "uniswapV3Router": "0xE592427A0AEce92De3Edee1F18E0157C05861564",
+      "sushiswapRouter": "0xd9e1cE17f2641f24aE83637ab66a2cca9C378B9F",
+      "aaveLendingPool": "0x7d2768dE32b0b80b7a3454c06BdAc94A69DDc7A9",
+      "flashLoanArbitrage": "0x..."
+    }
+  },
+  "exchanges": {
+    "binance": {
+      "apiKey": "${BINANCE_API_KEY}",
+      "secret": "${BINANCE_SECRET_KEY}",
+      "sandbox": false,
+      "rateLimit": 1200
+    },
+    "coinbase": {
+      "apiKey": "${COINBASE_API_KEY}",
+      "secret": "${COINBASE_SECRET_KEY}",
+      "passphrase": "${COINBASE_PASSPHRASE}",
+      "sandbox": false
+    },
+    "kraken": {
+      "apiKey": "${KRAKEN_API_KEY}",
+      "privateKey": "${KRAKEN_PRIVATE_KEY}",
+      "sandbox": false
+    }
+  },
+  "trading": {
+    "arbitrage": {
+      "minProfitThreshold": 0.002,
+      "maxSlippage": 0.005,
+      "executionTimeout": 30000,
+      "maxPositionSize": 10000,
+      "cooldownPeriod": 1000
+    },
+    "risk": {
+      "dailyLossLimit": 1000,
+      "maxDrawdown": 0.1,
+      "varConfidence": 0.95,
+      "positionSizing": "kelly"
+    },
+    "fees": {
+      "exchange": 0.001,
+      "network": 0.0005,
+      "protocol": 0.0003
+    }
+  },
+  "ai": {
+    "models": {
+      "arbitragePredictor": {
+        "path": "./models/arbitrage_predictor",
+        "version": "v2.1.0",
+        "updateFrequency": 3600,
+        "confidenceThreshold": 0.7
+      },
+      "riskAssessor": {
+        "path": "./models/risk_assessor",
+        "version": "v1.5.0",
+        "confidenceThreshold": 0.8
+      }
+    },
+    "training": {
+      "dataRetention": 2592000,
+      "batchSize": 32,
+      "learningRate": 0.001,
+      "earlyStopping": true
+    }
+  },
+  "monitoring": {
+    "prometheus": {
+      "enabled": true,
+      "port": 9090,
+      "path": "/metrics"
+    },
+    "healthChecks": {
+      "interval": 30000,
+      "timeout": 5000,
+      "failureThreshold": 3
+    },
+    "alerts": {
+      "slackWebhook": "${SLACK_WEBHOOK_URL}",
+      "pagerDutyKey": "${PAGERDUTY_KEY}",
+      "email": "alerts@ainexus.com"
+    }
+  },
+  "security": {
+    "jwt": {
+      "secret": "${JWT_SECRET}",
+      "expiresIn": "24h",
+      "issuer": "ai-nexus"
+    },
+    "encryption": {
+      "algorithm": "aes-256-gcm",
+      "key": "${ENCRYPTION_KEY}"
+    },
+    "rateLimiting": {
+      "requestsPerMinute": 1000,
+      "burstLimit": 100
+    }
+  },
+  "performance": {
+    "caching": {
+      "ttl": 300,
+      "maxSize": 1000
+    },
+    "compression": {
+      "enabled": true,
+      "level": 6
+    },
+    "clustering": {
+      "enabled": true,
+      "workers": 4
+    }
+  }
+}

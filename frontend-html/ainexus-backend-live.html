@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Ì∫Ä AI-NEXUS - Backend Integrated</title>
+    <style>
+        body { background: #0f0f23; color: white; font-family: Arial; padding: 40px; text-align: center; }
+        .backend-status { background: #1a1a2e; padding: 20px; border-radius: 10px; margin: 20px auto; max-width: 600px; }
+        .module-list { text-align: left; margin: 20px 0; }
+    </style>
+</head>
+<body>
+    <h1>Ì∫Ä AI-NEXUS - Backend Integrated</h1>
+    <p>45 Production Modules Ready for Initialization</p>
+    
+    <div class="backend-status" id="backendStatus">
+        <h3>Backend Integration Status</h3>
+        <div id="statusMessage">Checking backend connectivity...</div>
+    </div>
+
+    <button onclick="checkBackend()" style="background: #8b5cf6; color: white; padding: 15px 30px; border: none; border-radius: 8px; margin: 10px;">
+        Ì¥ç Check Backend Connectivity
+    </button>
+
+    <button onclick="startRealEngine()" style="background: #10b981; color: white; padding: 15px 30px; border: none; border-radius: 8px; margin: 10px;">
+        Ì∫Ä START REAL BACKEND ENGINE
+    </button>
+
+    <div class="module-list">
+        <h4>Production Modules Ready:</h4>
+        <ul>
+            <li>MarketPredictor.py - AI Price Prediction</li>
+            <li>ExecutionOrchestrator.js - Trade Execution</li>
+            <li>FlashLoan.sol - Flash Loan Contracts</li>
+            <li>RiskEngine.js - Risk Management</li>
+            <li>CrossChainRelayer.js - Multi-chain</li>
+            <li>... and 40 more production modules</li>
+        </ul>
+    </div>
+
+    <script>
+        async function checkBackend() {
+            const response = await fetch('/backend-status');
+            const data = await response.json();
+            
+            document.getElementById('statusMessage').innerHTML = `
+                <strong>Status:</strong> ${data.status}<br>
+                <strong>AI Confidence:</strong> ${data.ai_confidence || 0}%<br>
+                <strong>Active Trades:</strong> ${data.active_trades || 0}<br>
+                <strong>Modules:</strong> ${data.modules_initialized || 'Not loaded'}
+            `;
+        }
+
+        async function startRealEngine() {
+            const response = await fetch('/api/start-engine', { method: 'POST' });
+            const result = await response.json();
+            
+            if (result.status === 'ENGINE_STARTED') {
+                alert(`‚úÖ REAL ENGINE STARTED!\nAI Confidence: ${result.ai_confidence}%\nActive Trades: ${result.active_trades}`);
+                checkBackend(); // Refresh status
+            } else {
+                alert('‚ùå Engine startup failed: ' + (result.error || 'Unknown error'));
+            }
+        }
+
+        // Check backend status on load
+        checkBackend();
+    </script>
+</body>
+</html>

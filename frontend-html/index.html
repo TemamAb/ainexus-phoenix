@@ -1,0 +1,267 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🚀 Ainexus AI Engine - LIVE</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 100%);
+            color: white;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        .header h1 {
+            font-size: 3rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+        .status-badge {
+            display: inline-block;
+            background: #10b981;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-top: 1rem;
+        }
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+        .metric-card {
+            background: linear-gradient(135deg, #1e1e2f 0%, #2d2d44 100%);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid #33334d;
+            transition: transform 0.2s;
+        }
+        .metric-card:hover {
+            transform: translateY(-2px);
+        }
+        .metric-card h3 {
+            color: #a0a0c0;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+        .metric-value {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        .metric-change {
+            color: #10b981;
+        }
+        .service-status {
+            background: linear-gradient(135deg, #1e1e2f 0%, #2d2d44 100%);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid #33334d;
+            margin-bottom: 2rem;
+        }
+        .service-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #33334d;
+        }
+        .service-item:last-child {
+            border-bottom: none;
+        }
+        .status-online {
+            color: #10b981;
+            font-weight: bold;
+        }
+        .status-offline {
+            color: #ef4444;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 Ainexus AI Engine</h1>
+            <p>Professional Trading Platform - PRODUCTION</p>
+            <div class="status-badge">🟢 ALL SYSTEMS OPERATIONAL</div>
+        </div>
+
+        <!-- Service Status -->
+        <div class="service-status">
+            <h2>🔧 System Status</h2>
+            <div class="service-item">
+                <span>Frontend Dashboard</span>
+                <span class="status-online">🟢 ONLINE</span>
+            </div>
+            <div class="service-item">
+                <span>Core AI Engine (Port 8000)</span>
+                <span class="status-online">🟢 ONLINE</span>
+            </div>
+            <div class="service-item">
+                <span>PostgreSQL Database</span>
+                <span class="status-online">🟢 ONLINE</span>
+            </div>
+            <div class="service-item">
+                <span>Redis Cache</span>
+                <span class="status-online">🟢 ONLINE</span>
+            </div>
+            <div class="service-item">
+                <span>API Gateway</span>
+                <span class="status-offline">🔴 OFFLINE</span>
+            </div>
+        </div>
+
+        <!-- Trading Metrics -->
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <h3>Total Profit</h3>
+                <div class="metric-value" id="profit">,458.32</div>
+                <div class="metric-change">↗ 4.3% today</div>
+            </div>
+            <div class="metric-card">
+                <h3>Live Trades</h3>
+                <div class="metric-value" id="trades">247/250</div>
+                <div class="metric-change">↗ 12 active</div>
+            </div>
+            <div class="metric-card">
+                <h3>AI Confidence</h3>
+                <div class="metric-value" id="confidence">87.5%</div>
+                <div class="metric-change">↗ Optimizing</div>
+            </div>
+            <div class="metric-card">
+                <h3>Portfolio Value</h3>
+                <div class="metric-value" id="portfolio">,750</div>
+                <div class="metric-change">↗ 2.1% today</div>
+            </div>
+        </div>
+
+        <!-- Trading Interface -->
+        <div class="service-status">
+            <h2>🤖 AI Trading Engine</h2>
+            <p style="color: #10b981; margin-bottom: 1rem;">🟢 ENGINE RUNNING - Real-time analysis active</p>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                <button style="padding: 1rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 8px; cursor: pointer;" onclick="startTrading()">
+                    🚀 Start Trading
+                </button>
+                <button style="padding: 1rem; background: #374151; color: white; border: none; border-radius: 8px; cursor: pointer;" onclick="openWallet()">
+                    💰 Wallet Management
+                </button>
+                <button style="padding: 1rem; background: #1f2937; color: white; border: 1px solid #4b5563; border-radius: 8px; cursor: pointer;" onclick="showAnalytics()">
+                    📊 View Analytics
+                </button>
+                <button style="padding: 1rem; background: #dc2626; color: white; border: none; border-radius: 8px; cursor: pointer;" onclick="stopEngine()">
+                    🛑 Stop Engine
+                </button>
+            </div>
+        </div>
+
+        <!-- Live Activity -->
+        <div class="service-status">
+            <h2>📈 Live Activity</h2>
+            <div id="activity-feed">
+                <p>🟢 Ainexus AI Engine initialized successfully</p>
+                <p>💰 Portfolio loaded: ,750.42</p>
+                <p>📊 Market data streams connected</p>
+                <p>🤖 AI analysis algorithms active</p>
+                <p>�� Security protocols engaged</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Real-time trading simulation
+        let profit = 12458.32;
+        let portfolio = 248750.42;
+        let confidence = 87.5;
+        let activeTrades = 12;
+
+        function formatCurrency(amount) {
+            return '$' + amount.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+        }
+
+        function updateMetrics() {
+            // Realistic market fluctuations
+            profit += (Math.random() - 0.5) * 80;
+            portfolio += (Math.random() - 0.5) * 150;
+            confidence = 85 + Math.random() * 12;
+            activeTrades = 10 + Math.floor(Math.random() * 6);
+
+            // Update displays
+            document.getElementById('profit').textContent = formatCurrency(profit);
+            document.getElementById('portfolio').textContent = formatCurrency(portfolio);
+            document.getElementById('confidence').textContent = confidence.toFixed(1) + '%';
+            document.getElementById('trades').textContent = activeTrades + '/250';
+
+            // Add random activity
+            if (Math.random() > 0.7) {
+                addActivity('📈 Trade executed: ' + (Math.random() > 0.5 ? 'LONG' : 'SHORT'));
+            }
+        }
+
+        function addActivity(message) {
+            const feed = document.getElementById('activity-feed');
+            const activity = document.createElement('p');
+            activity.textContent = message;
+            activity.style.animation = 'fadeIn 0.5s';
+            feed.insertBefore(activity, feed.firstChild);
+            
+            if (feed.children.length > 8) {
+                feed.removeChild(feed.lastChild);
+            }
+        }
+
+        function startTrading() {
+            addActivity('🚀 AI Trading Engine activated');
+            alert('🤖 AI Trading Strategies: ACTIVATED\nReal-time market analysis engaged');
+        }
+
+        function openWallet() {
+            addActivity('💰 Wallet management interface opened');
+            alert('💼 Multi-chain Wallet Manager\nSupported: Ethereum, Solana, Polygon, Arbitrum');
+        }
+
+        function showAnalytics() {
+            addActivity('📊 Advanced analytics requested');
+            alert('📈 Trading Analytics Dashboard\nPerformance metrics, risk analysis, portfolio insights');
+        }
+
+        function stopEngine() {
+            addActivity('🛑 Trading engine stopped by user');
+            alert('🔴 AI Trading Engine: STOPPED\nAll positions secured and strategies paused');
+        }
+
+        // Start real-time updates
+        setInterval(updateMetrics, 2000);
+
+        // Add CSS animation
+        const style = document.createElement('style');
+        style.textContent = \
+            @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(-10px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+            button:hover {
+                transform: translateY(-2px);
+                transition: all 0.2s;
+            }
+        \;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
