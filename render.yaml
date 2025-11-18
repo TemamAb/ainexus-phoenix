@@ -1,31 +1,11 @@
 services:
   - type: web
     name: ainexus-phoenix
-    env: python
-    buildCommand: |
-      python --version
-      pip install --upgrade pip setuptools wheel
-      pip install -r requirements.txt
-    startCommand: python app.py
+    docker:
+      dockerfilePath: ./Dockerfile
     envVars:
-      - key: PYTHON_VERSION
-        value: 3.11.0
-      - key: ENVIRONMENT
-        value: production
       - key: PORT
         value: 10000
-    autoDeploy: true
-
-  - type: worker
-    name: ainexus-trading-engine
-    env: python
-    buildCommand: |
-      python --version
-      pip install --upgrade pip setuptools wheel
-      pip install -r requirements.txt
-    startCommand: python start_engine.py
-    envVars:
-      - key: PYTHON_VERSION
-        value: 3.11.0
-      - key: ENVIRONMENT
+      - key: ENVIRONMENT  
         value: production
+    autoDeploy: true
