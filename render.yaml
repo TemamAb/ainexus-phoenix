@@ -2,11 +2,14 @@ services:
   - type: web
     name: ainexus-phoenix
     env: python
-    buildCommand: pip install -r requirements.txt
+    buildCommand: |
+      python --version
+      pip install --upgrade pip setuptools wheel
+      pip install -r requirements.txt
     startCommand: python app.py
     envVars:
       - key: PYTHON_VERSION
-        value: 3.11.0  # Explicitly set to 3.11
+        value: 3.11.0
       - key: ENVIRONMENT
         value: production
       - key: PORT
@@ -16,7 +19,10 @@ services:
   - type: worker
     name: ainexus-trading-engine
     env: python
-    buildCommand: pip install -r requirements.txt
+    buildCommand: |
+      python --version
+      pip install --upgrade pip setuptools wheel
+      pip install -r requirements.txt
     startCommand: python start_engine.py
     envVars:
       - key: PYTHON_VERSION

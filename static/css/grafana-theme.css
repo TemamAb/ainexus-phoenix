@@ -1,0 +1,221 @@
+:root {
+    --grafana-dark: #1e1e1e;
+    --grafana-panel: #2b2b2b;
+    --grafana-border: #363636;
+    --grafana-text: #d8d9da;
+    --grafana-green: #73bf69;
+    --grafana-red: #f2495c;
+    --grafana-blue: #5794f2;
+    --grafana-purple: #b877d9;
+    --grafana-orange: #ff9830;
+    --grafana-gray: #888;
+}
+
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+    font-family: 'Roboto', monospace; 
+}
+
+body { 
+    background: var(--grafana-dark); 
+    color: var(--grafana-text); 
+    padding: 20px; 
+    min-height: 100vh;
+}
+
+.dashboard-container { 
+    max-width: 1400px; 
+    margin: 0 auto; 
+}
+
+/* Header */
+.dashboard-header {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    gap: 20px;
+    margin-bottom: 30px;
+    padding: 25px;
+    background: var(--grafana-panel);
+    border-radius: 8px;
+    border: 1px solid var(--grafana-border);
+    align-items: center;
+}
+
+.header-title h1 { 
+    color: var(--grafana-green); 
+    font-size: 28px; 
+    font-weight: 300; 
+    margin-bottom: 8px; 
+}
+
+.header-subtitle {
+    font-size: 14px; 
+    color: var(--grafana-gray);
+}
+
+.status-pulse {
+    background: #0a2a0a;
+    border: 1px solid var(--grafana-green);
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    min-width: 200px;
+}
+
+.pulse-value { 
+    font-size: 24px; 
+    color: var(--grafana-green);
+    font-weight: 300;
+    margin: 8px 0;
+}
+
+.pulse-label { 
+    font-size: 12px; 
+    color: var(--grafana-gray);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Phase Grid */
+.phase-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.phase-card {
+    background: var(--grafana-panel);
+    border: 1px solid var(--grafana-border);
+    border-radius: 8px;
+    padding: 25px;
+    height: 280px;
+    display: flex;
+    flex-direction: column;
+}
+
+.phase-card.completed {
+    border-color: var(--grafana-green);
+}
+
+.phase-card.running {
+    border-color: var(--grafana-blue);
+    animation: pulse-border 2s infinite;
+}
+
+.phase-card.pending {
+    border-color: var(--grafana-border);
+}
+
+@keyframes pulse-border {
+    0% { border-color: var(--grafana-blue); }
+    50% { border-color: var(--grafana-green); }
+    100% { border-color: var(--grafana-blue); }
+}
+
+.phase-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+.phase-title {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--grafana-text);
+}
+
+.phase-countdown {
+    font-size: 14px;
+    color: var(--grafana-blue);
+    font-weight: 500;
+    font-family: 'Courier New', monospace;
+}
+
+.phase-status {
+    font-size: 12px;
+    padding: 6px 12px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    font-weight: 500;
+}
+
+.status-completed { background: var(--grafana-green); color: #000; }
+.status-running { background: var(--grafana-blue); color: #000; }
+.status-pending { background: var(--grafana-gray); color: #000; }
+
+.progress-container {
+    margin: 15px 0;
+}
+
+.progress-bar {
+    height: 8px;
+    background: #333;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 8px;
+}
+
+.progress-fill {
+    height: 100%;
+    background: var(--grafana-green);
+    border-radius: 4px;
+    transition: width 0.5s ease;
+}
+
+.progress-text {
+    font-size: 12px;
+    color: var(--grafana-gray);
+    text-align: center;
+}
+
+.phase-metrics {
+    margin-top: auto;
+}
+
+.metric-item {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    margin: 6px 0;
+    color: var(--grafana-text);
+}
+
+.metric-value {
+    color: var(--grafana-green);
+    font-weight: 500;
+}
+
+/* Global Countdown */
+.global-countdown {
+    background: var(--grafana-panel);
+    border: 1px solid var(--grafana-blue);
+    border-radius: 8px;
+    padding: 25px;
+    margin: 25px auto;
+    text-align: center;
+    max-width: 600px;
+}
+
+.countdown-timer {
+    font-size: 42px;
+    font-weight: 300;
+    color: var(--grafana-blue);
+    margin: 15px 0;
+    font-family: 'Courier New', monospace;
+}
+
+.countdown-phase {
+    font-size: 18px;
+    color: var(--grafana-text);
+    margin-bottom: 10px;
+}
+
+.countdown-estimate {
+    font-size: 14px;
+    color: var(--grafana-gray);
+}

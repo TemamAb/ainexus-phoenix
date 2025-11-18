@@ -1,7 +1,4 @@
-# ï¿½ï¿½ AI-NEXUS - RENDER COMPATIBLE DEPENDENCIES
-# Optimized for Python 3.11 (Render's default)
-
-# === CORE ESSENTIALS ===
+# íº€ AI-NEXUS MINIMAL DEPENDENCIES
 flask==2.3.3
 web3==6.5.0
 numpy==1.24.3
@@ -9,29 +6,5 @@ pandas==2.0.3
 requests==2.31.0
 python-dotenv==1.0.0
 jinja2==3.1.2
-
-# === COMPATIBILITY FIXES ===
-setuptools==65.5.0  # Fixed version for Render
+setuptools==65.5.0
 wheel==0.38.4
-pip==23.0.1
-
-# === BLOCKCHAIN ===
-eth-account==0.9.0
-eth-typing==3.4.0
-eth-utils==2.3.0
-ccxt==4.1.52
-
-# === FINANCIAL ===
-pandas-ta==0.3.14b0
-yfinance==0.2.18
-
-# === WEB & UTILITIES ===
-flask-cors==4.0.0
-flask-socketio==5.3.6
-python-socketio==5.8.0
-pyyaml==6.0.1
-psutil==5.9.5
-
-# === LIGHTWEIGHT AI/ML ===
-scikit-learn==1.2.2
-scipy==1.10.1

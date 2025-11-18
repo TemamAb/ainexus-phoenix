@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-NEXUS // Start Engine</title>
+    <link rel="stylesheet" href="static/css/grafana-theme.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Header -->
+        <div class="dashboard-header">
+            <div class="header-title">
+                <h1>AI-NEXUS QUANTUM ENGINE</h1>
+                <div class="header-subtitle">Start Engine v3.0 ‚Ä¢ 45 AI Modules ‚Ä¢ Institutional Arbitrage</div>
+            </div>
+            
+            <div class="status-pulse">
+                <div class="pulse-label">SYSTEM STATUS</div>
+                <div class="pulse-value" id="systemStatus">INITIALIZING</div>
+                <div class="pulse-label" id="uptimeCounter">00:00:00</div>
+            </div>
+
+            <div class="status-pulse">
+                <div class="pulse-label">LIVE TRADING IN</div>
+                <div class="pulse-value" id="liveCountdown">02:15</div>
+                <div class="pulse-label">6-PHASE TRANSFORMATION</div>
+            </div>
+        </div>
+
+        <!-- Global Countdown -->
+        <div class="global-countdown">
+            <div class="countdown-phase" id="currentPhase">Ì∫Ä STARTING PHASE 1: Environment Validation</div>
+            <div class="countdown-timer" id="globalTimer">02:15</div>
+            <div class="countdown-estimate" id="phaseEstimate">Next: Blockchain Infrastructure in 8.2s</div>
+            <div class="countdown-estimate" id="liveEstimate">Live Trading: 02:25 | Dashboard: 02:35</div>
+        </div>
+
+        <!-- 2x3 Phase Grid -->
+        <div class="phase-grid">
+            <!-- Phase 1 -->
+            <div class="phase-card completed">
+                <div class="phase-header">
+                    <div>
+                        <div class="phase-title">Ì¥ß PHASE 1</div>
+                        <div class="phase-countdown">Completed</div>
+                    </div>
+                    <div class="phase-status status-completed">COMPLETED</div>
+                </div>
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 100%"></div>
+                    </div>
+                    <div class="progress-text">2.1 seconds</div>
+                </div>
+                <div class="phase-metrics">
+                    <div class="metric-item">
+                        <span>Environment:</span>
+                        <span class="metric-value">Validated</span>
+                    </div>
+                    <div class="metric-item">
+                        <span>Connections:</span>
+                        <span class="metric-value">Active</span>
+                    </div>
+                    <div class="metric-item">
+                        <span>Performance:</span>
+                        <span class="metric-value">Optimal</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 2 -->
+            <div class="phase-card running">
+                <div class="phase-header">
+                    <div>
+                        <div class="phase-title">‚õìÔ∏è PHASE 2</div>
+                        <div class="phase-countdown" id="phase2Timer">08.2s</div>
+                    </div>
+                    <div class="phase-status status-running">RUNNING</div>
+                </div>
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 75%"></div>
+                    </div>
+                    <div class="progress-text">10.7 seconds total</div>
+                </div>
+                <div class="phase-metrics">
+                    <div class="metric-item">
+                        <span>Ethereum:</span>
+                        <span class="metric-value">Connected</span>
+                    </div>
+                    <div class="metric-item">
+                        <span>Polygon:</span>
+                        <span class="metric-value">Connected</span>
+                    </div>
+                    <div class="metric-item">
+                        <span>Arbitrum:</span>
+                        <span class="metric-value">Connecting...</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 3 -->
+            <div class="phase-card pending">
+                <div class="phase-header">
+                    <div>
+                        <div class="phase-title">Ì≥ä PHASE 3</div>
+                        <div class="phase-countdown" id="phase3Timer">20.9s</div>
+                    </div>
+                    <div class="phase-status status-pending">PENDING</div>
+                </div>
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 0%"></div>
+                    </div>
+                    <div class="progress-text">12.4 seconds</div>
+                </div>
+                <div class="phase-metrics">
+                    <div class="metric-item">
+                        <span>Streams:</span>
+                        <span class="metric-value">Ready</span>
+                    </div>
+                    <div class="metric-item">
+                        <span>Pairs:</span>
+                        <span class="metric-value">48,620+</span>
+                    </div>
+                    <div class="metric-item">
+                        <span>Frequency:</span>
+                        <span class="metric-value">150ms</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 4 -->
+            <div class="phase-card pending">
+                <div class="phase-header">
+                    <div>
+                        <div class="phase-title">Ì¥ñ PHASE 4</div>
+                        <div class="phase-countdown" id="phase4Timer">33.3s</div>
+                    </div>
+                    <div class="phase-status status-pending">PENDING</div>
+                </div>
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 0%"></div>
+                    </div>
+                    <div class="progress-text">15.8 seconds</div>
+                </div>
+                <div class="phase-metrics">
+                    <div class="metric-item">
+                        <span>Modules:</span>
+                        <span class="metric-value">0/45</span>
+                    </div>
+                    <div class="metric-item">
+                        <span>Calibration:</span>
+                        <span class="metric-value">Ready</span>
+                    </div>
+                    <div class="metric-item">
+                        <span>Performance:</span>
+                        <span class="metric-value">Optimal</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 5 -->
+            <div class="phase-card pending">
+                <div class="phase-header">
+                    <div>
+                        <div class="phase-title">Ìª°Ô∏è PHASE 5</div>
+                        <div class="phase-countdown" id="phase5Timer">49.1s</div>
+                    </div>
+                    <div class="phase-status status-pending">PENDING</div>
+                </div>
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 0%"></div>
+                    </div>
+                    <div class="progress-text">6.3 seconds</div>
+                </div>
+                <div class="phase-metrics">
+                    <div class="metric-item">
+                        <span>MEV Protection:</span>
+                        <span class="metric-value">Ready</span>
+                    </div>
+                    <div class="metric-item">
+                        <span>Risk Score:</span>
+                        <span class="metric-value">9.4/10</span>
+                    </div>
+                    <div class="metric-item">
+                        <span>Compliance:</span>
+                        <span class="metric-value">Active</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 6 -->
+            <div class="phase-card pending">
+                <div class="phase-header">
+                    <div>
+                        <div class="phase-title">‚ö° PHASE 6</div>
+                        <div class="phase-countdown" id="phase6Timer">55.4s</div>
+                    </div>
+                    <div class="phase-status status-pending">PENDING</div>
+                </div>
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 0%"></div>
+                    </div>
+                    <div class="progress-text">3.1s + 10s warmup</div>
+                </div>
+                <div class="phase-metrics">
+                    <div class="metric-item">
+                        <span>Flash Loans:</span>
+                        <span class="metric-value">Ready</span>
+                    </div>
+                    <div class="metric-item">
+                        <span>Arbitrage:</span>
+                        <span class="metric-value">Armed</span>
+                    </div>
+                    <div class="metric-item">
+                        <span>Execution:</span>
+                        <span class="metric-value">12ms</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        class StartEngine {
+            constructor() {
+                this.phases = [
+                    { id: 1, name: "Environment Validation", duration: 2.1, status: "completed", progress: 100 },
+                    { id: 2, name: "Blockchain Infrastructure", duration: 10.7, status: "running", progress: 75 },
+                    { id: 3, name: "Market Data Streaming", duration: 12.4, status: "pending", progress: 0 },
+                    { id: 4, name: "AI Strategy Optimization", duration: 15.8, status: "pending", progress: 0 },
+                    { id: 5, name: "Risk Assessment", duration: 6.3, status: "pending", progress: 0 },
+                    { id: 6, name: "Live Execution Ready", duration: 3.1, status: "pending", progress: 0 }
+                ];
+                
+                this.totalDuration = 50.4; // Sum of all phases
+                this.liveWarmup = 10;
+                this.startTime = Date.now();
+                this.currentPhase = 1;
+                
+                this.init();
+            }
+
+            init() {
+                this.startCountdown();
+                this.startUptimeCounter();
+                this.startPhaseSimulation();
+            }
+
+            startCountdown() {
+                setInterval(() => {
+                    this.updateCountdowns();
+                }, 100);
+            }
+
+            startUptimeCounter() {
+                setInterval(() => {
+                    const uptime = Math.floor((Date.now() - this.startTime) / 1000);
+                    const hours = Math.floor(uptime / 3600);
+                    const minutes = Math.floor((uptime % 3600) / 60);
+                    const seconds = uptime % 60;
+                    document.getElementById('uptimeCounter').textContent = 
+                        `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                }, 1000);
+            }
+
+            startPhaseSimulation() {
+                setInterval(() => {
+                    this.simulatePhaseProgress();
+                }, 2000);
+            }
+
+            updateCountdowns() {
+                const elapsed = (Date.now() - this.startTime) / 1000;
+                const remaining = Math.max(0, this.totalDuration - elapsed);
+                const liveRemaining = Math.max(0, this.totalDuration + this.liveWarmup - elapsed);
+                
+                // Update global countdown
+                document.getElementById('globalTimer').textContent = this.formatTime(remaining);
+                document.getElementById('liveCountdown').textContent = this.formatTime(liveRemaining);
+                
+                // Update current phase
+                const currentPhase = this.phases[this.currentPhase - 1];
+                document.getElementById('currentPhase').textContent = 
+                    `Ì∫Ä ${currentPhase.name.toUpperCase()}`;
+                
+                // Update phase estimates
+                let nextPhaseTime = 0;
+                for (let i = 0; i < this.currentPhase; i++) {
+                    nextPhaseTime += this.phases[i].duration;
+                }
+                const nextRemaining = Math.max(0, nextPhaseTime - elapsed);
+                
+                if (this.currentPhase < 6) {
+                    const nextPhase = this.phases[this.currentPhase];
+                    document.getElementById('phaseEstimate').textContent = 
+                        `Next: ${nextPhase.name} in ${nextRemaining.toFixed(1)}s`;
+                } else {
+                    document.getElementById('phaseEstimate').textContent = 
+                        `Final phase - Live trading starting soon`;
+                }
+                
+                document.getElementById('liveEstimate').textContent = 
+                    `Live Trading: ${this.formatTime(liveRemaining)} | Dashboard: ${this.formatTime(liveRemaining + 10)}`;
+                
+                // Update individual phase timers
+                this.updatePhaseTimers(elapsed);
+            }
+
+            updatePhaseTimers(elapsed) {
+                let accumulatedTime = 0;
+                
+                this.phases.forEach((phase, index) => {
+                    if (index > 0) {
+                        accumulatedTime += this.phases[index - 1].duration;
+                    }
+                    
+                    const phaseRemaining = Math.max(0, accumulatedTime - elapsed);
+                    const timerElement = document.getElementById(`phase${index + 1}Timer`);
+                    
+                    if (timerElement) {
+                        if (phase.status === 'completed') {
+                            timerElement.textContent = 'Completed';
+                        } else if (phase.status === 'running') {
+                            timerElement.textContent = `${phaseRemaining.toFixed(1)}s`;
+                        } else {
+                            timerElement.textContent = `${(accumulatedTime - elapsed).toFixed(1)}s`;
+                        }
+                    }
+                });
+            }
+
+            formatTime(seconds) {
+                const mins = Math.floor(seconds / 60);
+                const secs = Math.floor(seconds % 60);
+                return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+            }
+
+            simulatePhaseProgress() {
+                const currentPhase = this.phases[this.currentPhase - 1];
+                
+                if (currentPhase.status === 'running') {
+                    currentPhase.progress = Math.min(100, currentPhase.progress + 25);
+                    
+                    // Update progress bar
+                    const progressFill = document.querySelector('.phase-card.running .progress-fill');
+                    if (progressFill) {
+                        progressFill.style.width = `${currentPhase.progress}%`;
+                    }
+                    
+                    if (currentPhase.progress >= 100) {
+                        this.completeCurrentPhase();
+                    }
+                }
+            }
+
+            completeCurrentPhase() {
+                this.phases[this.currentPhase - 1].status = 'completed';
+                
+                if (this.currentPhase < 6) {
+                    this.currentPhase++;
+                    this.phases[this.currentPhase - 1].status = 'running';
+                    this.updatePhaseCards();
+                } else {
+                    this.activateLiveMode();
+                }
+            }
+
+            updatePhaseCards() {
+                this.phases.forEach((phase, index) => {
+                    const card = document.querySelector(`.phase-card:nth-child(${index + 1})`);
+                    if (card) {
+                        card.className = `phase-card ${phase.status}`;
+                    }
+                });
+            }
+
+            activateLiveMode() {
+                document.getElementById('systemStatus').textContent = 'LIVE TRADING';
+                document.getElementById('systemStatus').style.color = '#73bf69';
+                
+                setTimeout(() => {
+                    window.location.href = 'monitoring_dashboard.html';
+                }, this.liveWarmup * 1000);
+            }
+        }
+
+        // Initialize Start Engine
+        window.addEventListener('load', () => {
+            new StartEngine();
+        });
+    </script>
+</body>
+</html>

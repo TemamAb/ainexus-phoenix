@@ -1,0 +1,29 @@
+# íº€ AI-NEXUS LIGHTWEIGHT DEPENDENCIES
+# Core essentials only for initial deployment
+
+flask==2.3.3
+web3==6.5.0
+numpy==1.24.3
+pandas==2.0.3
+requests==2.31.0
+python-dotenv==1.0.0
+jinja2==3.1.2
+psutil==5.9.6
+
+# Web3 essentials
+eth-account==0.9.0
+eth-typing==3.4.0
+eth-utils==2.3.0
+
+# Financial analysis
+pandas-ta==0.3.14b0
+yfinance==0.2.18
+ccxt==4.1.52
+
+# Web interface
+flask-cors==4.0.0
+flask-socketio==5.3.6
+
+# Utilities
+pyyaml==6.0.1
+redis==5.0.1
