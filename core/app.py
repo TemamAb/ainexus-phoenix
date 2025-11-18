@@ -7,82 +7,16 @@ from datetime import datetime, timedelta
 import logging
 import threading
 import random
-import math
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'ai-nexus-adaptive-engine-2024')
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'ai-nexus-quantum-engine-2024')
 CORS(app)
 socketio = SocketIO(app, cors_allowed_origins="*", async_mode='threading')
 
-class AdaptiveProfitOptimizer:
-    def __init__(self):
-        self.optimization_mode = "MAXIMUM_CAPACITY"  # MAX_PROFIT, RISK_ADJUSTED, CONSISTENT
-        self.market_conditions = {
-            'volatility_index': 0.0,
-            'liquidity_depth': 0.0,
-            'arbitrage_spread': 0.0,
-            'network_congestion': 0.0
-        }
-        self.performance_metrics = {
-            'optimal_daily_range': {'min': 0, 'max': 0},
-            'current_capacity_utilization': 0.0,
-            'risk_adjusted_return': 0.0,
-            'capital_efficiency': 0.0
-        }
-    
-    def calculate_optimal_range(self, real_time_data):
-        """Calculate optimal profit range based on market conditions"""
-        base_capacity = 250000  # Base capacity in ideal conditions
-        
-        # Market condition multipliers
-        volatility_multiplier = 1 + (real_time_data['volatility_index'] * 2)
-        liquidity_multiplier = real_time_data['liquidity_depth'] * 1.5
-        spread_multiplier = real_time_data['arbitrage_spread'] * 3
-        congestion_penalty = 1 - (real_time_data['network_congestion'] * 0.5)
-        
-        # Calculate optimal range
-        optimal_max = base_capacity * volatility_multiplier * liquidity_multiplier * spread_multiplier * congestion_penalty
-        optimal_min = optimal_max * 0.4  # Conservative lower bound
-        
-        return {
-            'min': int(optimal_min),
-            'max': int(optimal_max),
-            'confidence': min(0.95, volatility_multiplier * liquidity_multiplier * 0.8)
-        }
-    
-    def set_optimization_strategy(self, strategy, target=None):
-        """Set optimization strategy based on user preference"""
-        strategies = {
-            "MAXIMUM_CAPACITY": {
-                'risk_tolerance': 0.18,
-                'capital_utilization': 0.92,
-                'slippage_tolerance': 0.004
-            },
-            "RISK_ADJUSTED": {
-                'risk_tolerance': 0.12,
-                'capital_utilization': 0.75,
-                'slippage_tolerance': 0.002
-            },
-            "CONSISTENT_GROWTH": {
-                'risk_tolerance': 0.15,
-                'capital_utilization': 0.85,
-                'slippage_tolerance': 0.003
-            },
-            "TARGET_DRIVEN": {
-                'risk_tolerance': 0.20 if target and target > 300000 else 0.15,
-                'capital_utilization': 0.95 if target and target > 300000 else 0.85,
-                'slippage_tolerance': 0.005 if target and target > 300000 else 0.003
-            }
-        }
-        
-        return strategies.get(strategy, strategies["MAXIMUM_CAPACITY"])
-
-# Global deployment state with adaptive optimization
-profit_optimizer = AdaptiveProfitOptimizer()
-
+# Global deployment state
 deployment_state = {
     'current_phase': 0,
     'total_phases': 6,
@@ -96,211 +30,68 @@ deployment_state = {
     'port': 10000,
     'countdown_active': False,
     'countdown_seconds': 0,
-    'countdown_target': None,
-    'optimization_strategy': 'MAXIMUM_CAPACITY',
-    'user_target': None,
-    'real_time_metrics': {
-        'optimal_daily_range': {'min': 0, 'max': 0},
-        'current_capacity': '0%',
-        'market_conditions': 'Analyzing...',
-        'risk_adjusted_roi': '0%'
-    }
+    'optimization_strategy': 'MAXIMUM_CAPACITY'
 }
 
+# âœ… FIXED ROUTING - All endpoints properly defined
+
 @app.route('/')
-def root():
-    """Root endpoint - adaptive profit engine"""
-    return jsonify({
-        'message': 'AI-NEXUS Adaptive Profit Engine Ready',
-        'python': '3.11',
-        'status': 'ADAPTIVE OPTIMIZATION ARMED',
-        'version': '3.1.0',
-        'optimization_strategy': deployment_state['optimization_strategy'],
-        'endpoints': {
-            'start_engine': '/start-engine',
-            'configure_strategy': '/configure-strategy',
-            'dashboard': '/dashboard',
-            'monitoring': '/monitoring',
-            'health': '/api/health'
-        },
-        'note': 'Profit targets adapt to real-time market conditions'
-    })
+def index():
+    """Main landing page - serves the start engine dashboard"""
+    return render_template('start_engine.html')
 
 @app.route('/configure-strategy')
 def configure_strategy():
     """Strategy configuration page"""
     return render_template('strategy_config.html')
 
-@app.route('/api/set-strategy', methods=['POST'])
-def set_strategy():
-    """API to set optimization strategy"""
-    try:
-        data = request.get_json()
-        strategy = data.get('strategy', 'MAXIMUM_CAPACITY')
-        target = data.get('target', None)
-        
-        deployment_state['optimization_strategy'] = strategy
-        deployment_state['user_target'] = target
-        
-        # Calculate optimal range based on strategy
-        market_data = {
-            'volatility_index': random.uniform(0.3, 0.9),
-            'liquidity_depth': random.uniform(0.6, 0.95),
-            'arbitrage_spread': random.uniform(0.002, 0.015),
-            'network_congestion': random.uniform(0.1, 0.4)
-        }
-        
-        optimal_range = profit_optimizer.calculate_optimal_range(market_data)
-        strategy_config = profit_optimizer.set_optimization_strategy(strategy, target)
-        
-        deployment_state['real_time_metrics'].update({
-            'optimal_daily_range': optimal_range,
-            'current_capacity': f"{int(strategy_config['capital_utilization'] * 100)}%",
-            'market_conditions': f"Volatility: {market_data['volatility_index']:.1%}",
-            'risk_adjusted_roi': f"{min(2.8, optimal_range['confidence'] * 3):.1%} daily"
-        })
-        
-        logger.info(f"í¾¯ Strategy set: {strategy}, Target: {target}")
-        
-        return jsonify({
-            'success': True,
-            'strategy': strategy,
-            'target': target,
-            'optimal_range': optimal_range,
-            'strategy_config': strategy_config
-        })
-    except Exception as e:
-        return jsonify({'success': False, 'error': str(e)}), 500
-
 @app.route('/start-engine')
 def start_engine():
-    """Start Engine with adaptive optimization"""
-    # Initialize with current strategy
-    market_data = {
-        'volatility_index': random.uniform(0.4, 0.85),
-        'liquidity_depth': random.uniform(0.7, 0.98),
-        'arbitrage_spread': random.uniform(0.003, 0.012),
-        'network_congestion': random.uniform(0.1, 0.3)
-    }
-    
-    optimal_range = profit_optimizer.calculate_optimal_range(market_data)
-    strategy_config = profit_optimizer.set_optimization_strategy(
-        deployment_state['optimization_strategy'],
-        deployment_state['user_target']
-    )
-    
+    """Start Engine endpoint - begins 6-phase deployment"""
     deployment_state.update({
         'current_phase': 1,
-        'status': 'adaptive_optimization',
+        'status': 'starting',
         'progress': 0,
-        'modules_loaded': 0,
-        'start_time': datetime.now().isoformat(),
         'countdown_active': True,
         'countdown_seconds': 180,
-        'countdown_target': (datetime.now() + timedelta(seconds=180)).isoformat(),
-        'real_time_metrics': {
-            'optimal_daily_range': optimal_range,
-            'current_capacity': f"{int(strategy_config['capital_utilization'] * 100)}%",
-            'market_conditions': f"Optimal Conditions" if market_data['volatility_index'] > 0.6 else "Moderate Conditions",
-            'risk_adjusted_roi': f"{min(3.2, optimal_range['confidence'] * 3.5):.1%} daily"
-        }
+        'start_time': datetime.now().isoformat()
     })
     
-    def execute_adaptive_deployment():
-        logger.info(f"íº€ Starting Adaptive Deployment - Strategy: {deployment_state['optimization_strategy']}")
-        
-        # PHASE 1: MARKET ANALYSIS & STRATEGY CALIBRATION
-        deployment_state.update({
-            'current_phase': 1,
-            'status': 'market_analysis',
-            'progress': 15
-        })
-        socketio.emit('deployment_update', deployment_state)
-        time.sleep(10)
-        
-        # Update with real market analysis
-        market_data = {
-            'volatility_index': random.uniform(0.5, 0.88),
-            'liquidity_depth': random.uniform(0.75, 0.96),
-            'arbitrage_spread': random.uniform(0.004, 0.018),
-            'network_congestion': random.uniform(0.05, 0.25)
-        }
-        
-        optimal_range = profit_optimizer.calculate_optimal_range(market_data)
-        deployment_state['real_time_metrics'].update({
-            'optimal_daily_range': optimal_range,
-            'market_conditions': f"Volatility: {market_data['volatility_index']:.1%}, Spread: {market_data['arbitrage_spread']:.2%}"
-        })
-        socketio.emit('deployment_update', deployment_state)
-        
-        # PHASE 2-6: Continue with adaptive optimization...
+    def execute_deployment():
         phases = [
-            ("Capital Allocation", 30, 12),
-            ("Strategy Optimization", 50, 25),
-            ("Risk Calibration", 70, 35),
-            ("Execution Setup", 85, 42),
-            ("Live Activation", 95, 45)
+            ("Environment Validation", 15, 8),
+            ("Blockchain Infrastructure", 30, 15),
+            ("Market Data Streaming", 50, 25),
+            ("AI Optimization", 70, 35),
+            ("Risk Assessment", 85, 42),
+            ("Live Execution Ready", 95, 45)
         ]
         
-        for phase_num, (phase_name, progress, modules) in enumerate(phases, 2):
+        for phase_num, (phase_name, progress, modules) in enumerate(phases, 1):
             deployment_state.update({
                 'current_phase': phase_num,
                 'status': phase_name.lower().replace(' ', '_'),
                 'progress': progress,
                 'modules_loaded': modules
             })
-            
-            # Update metrics with progressive improvement
-            improvement = (phase_num / 6) * 0.3
-            current_volatility = max(0.4, market_data['volatility_index'] + random.uniform(-0.1, 0.1))
-            current_spread = max(0.003, market_data['arbitrage_spread'] + random.uniform(-0.002, 0.002))
-            
-            updated_range = profit_optimizer.calculate_optimal_range({
-                'volatility_index': current_volatility,
-                'liquidity_depth': market_data['liquidity_depth'],
-                'arbitrage_spread': current_spread,
-                'network_congestion': market_data['network_congestion']
-            })
-            
-            deployment_state['real_time_metrics'].update({
-                'optimal_daily_range': updated_range,
-                'current_capacity': f"{min(95, 65 + (phase_num * 5))}%",
-                'risk_adjusted_roi': f"{min(3.8, 1.5 + (improvement * 2.3)):.1%} daily"
-            })
-            
             socketio.emit('deployment_update', deployment_state)
-            logger.info(f"í´§ {phase_name} - Optimal Range: ${updated_range['min']:,.0f}-${updated_range['max']:,.0f}")
-            time.sleep(12 if phase_num < 6 else 8)
+            logger.info(f"Phase {phase_num}: {phase_name}")
+            time.sleep(8)
         
-        # Final countdown and activation
+        # Countdown
         for i in range(5, 0, -1):
             deployment_state['countdown_seconds'] = i
             socketio.emit('deployment_update', deployment_state)
             time.sleep(1)
         
-        # Live activation
-        final_range = deployment_state['real_time_metrics']['optimal_daily_range']
         deployment_state.update({
             'progress': 100,
-            'status': 'adaptive_trading_active',
-            'countdown_active': False,
-            'real_time_metrics': {
-                'optimal_daily_range': final_range,
-                'current_capacity': "98%",
-                'market_conditions': "OPTIMAL",
-                'risk_adjusted_roi': f"{min(4.2, final_range['confidence'] * 4.5):.1%} daily"
-            }
+            'status': 'live_trading_active',
+            'countdown_active': False
         })
-        
-        socketio.emit('deployment_complete', {
-            'message': 'ADAPTIVE PROFIT ENGINE LIVE',
-            'strategy': deployment_state['optimization_strategy'],
-            'optimal_daily_range': final_range,
-            'confidence': final_range['confidence'],
-            'target_met': deployment_state['user_target'] and final_range['max'] >= deployment_state['user_target']
-        })
+        socketio.emit('deployment_complete', {'message': 'AI-NEXUS LIVE'})
     
-    thread = threading.Thread(target=execute_adaptive_deployment)
+    thread = threading.Thread(target=execute_deployment)
     thread.daemon = True
     thread.start()
     
@@ -308,46 +99,50 @@ def start_engine():
 
 @app.route('/dashboard')
 def dashboard():
+    """Dashboard page"""
     return render_template('start_engine.html')
 
 @app.route('/monitoring')
 def monitoring():
+    """Monitoring dashboard"""
     return render_template('monitoring_dashboard.html')
+
+@app.route('/api/health')
+def health():
+    """Health check endpoint"""
+    return jsonify({
+        'status': 'healthy',
+        'version': '3.1.0',
+        'python': '3.11',
+        'message': 'AI-NEXUS Running',
+        'timestamp': datetime.now().isoformat()
+    })
 
 @app.route('/api/deployment-status')
 def deployment_status():
+    """Deployment status API"""
     return jsonify(deployment_state)
 
-@app.route('/api/health')
-def health_check():
-    return jsonify({
-        'status': 'healthy',
-        'timestamp': datetime.now().isoformat(),
-        'version': '3.1.0',
-        'system': 'AI-NEXUS Adaptive Profit Engine',
-        'optimization_strategy': deployment_state['optimization_strategy']
-    })
-
-# Background tasks
-def strategy_optimizer():
-    """Continuous strategy optimization"""
-    while True:
-        if deployment_state['status'] in ['adaptive_trading_active', 'live_trading_active']:
-            # Simulate market changes and re-optimize
-            time.sleep(30)
-            # Would implement real optimization logic here
-        time.sleep(5)
+@app.route('/api/set-strategy', methods=['POST'])
+def set_strategy():
+    """Set optimization strategy"""
+    try:
+        data = request.get_json()
+        strategy = data.get('strategy', 'MAXIMUM_CAPACITY')
+        deployment_state['optimization_strategy'] = strategy
+        return jsonify({'success': True, 'strategy': strategy})
+    except Exception as e:
+        return jsonify({'success': False, 'error': str(e)}), 500
 
 @socketio.on('connect')
 def handle_connect():
     emit('deployment_update', deployment_state)
 
+@socketio.on('disconnect')
+def handle_disconnect():
+    logger.info('Client disconnected')
+
 if __name__ == '__main__':
-    # Start optimization thread
-    opt_thread = threading.Thread(target=strategy_optimizer)
-    opt_thread.daemon = True
-    opt_thread.start()
-    
     port = int(os.environ.get('PORT', 10000))
-    logger.info(f"íº€ AI-NEXUS Adaptive Profit Engine Starting")
+    logger.info(f"íº€ AI-NEXUS Starting on port {port}")
     socketio.run(app, host='0.0.0.0', port=port, debug=False)
