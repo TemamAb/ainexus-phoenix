@@ -1,14 +1,25 @@
 services:
   - type: web
-    name: ainexus-ai-engine
+    name: ainexus-phoenix
     env: python
-    buildCommand: |
-      pip install -r requirements.txt
-      echo "✅ Build completed - Project structure:"
-      find . -name "*.py" | head -10
-    startCommand: gunicorn app:app
+    buildCommand: pip install -r requirements.txt
+    startCommand: python app.py
     envVars:
       - key: PYTHON_VERSION
-        value: 3.9.0
-      - key: PYTHONPATH
-        value: /opt/render/project/src
+        value: 3.11.0  # Explicitly set to 3.11
+      - key: ENVIRONMENT
+        value: production
+      - key: PORT
+        value: 10000
+    autoDeploy: true
+
+  - type: worker
+    name: ainexus-trading-engine
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: python start_engine.py
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      - key: ENVIRONMENT
+        value: production
