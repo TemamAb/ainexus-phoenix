@@ -1,14 +1,30 @@
 services:
-  - type: web
-    name: ainexus-phoenix
+  ainexus-arbitrage-engine:
+    type: web
+    name: ainexus-production-engine
     env: python
-    buildCommand: pip install -r requirements.txt
-    startCommand: python app.py
+    buildCommand: |
+      pip install -r requirements.txt
+      chmod +x *.py
+    startCommand: python main_arbitrage_engine.py
     envVars:
       - key: PYTHON_VERSION
-        value: 3.11.0
-      - key: PORT
-        value: 10000
-      - key: START_ENGINE
-        value: "true"
+        value: 3.11
+      - key: ARBITRAGE_MODE
+        value: production
+      - key: DEPLOYMENT_ENV
+        value: live
+    plan: free
+    autoDeploy: true
+
+  ainexus-profit-monitor:
+    type: worker
+    name: ainexus-profit-monitor
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: python adaptive_profit_engine.py
+    envVars:
+      - key: MONITORING_MODE
+        value: production
+    plan: free
     autoDeploy: true

@@ -1,356 +1,114 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI-NEXUS // Quantum Optimization Engine</title>
-    <link rel="stylesheet" href="static/css/grafana-pro.css">
+    <title>AI-NEXUS PRODUCTION DASHBOARD</title>
+    <link rel="stylesheet" href="static/css/grafana-dark.css">
 </head>
-<body>
+<body class="ainexus-dashboard">
     <div class="dashboard-container">
-        <!-- Header with Status Pulse and Controls -->
-        <div class="dashboard-header">
-            <div class="header-title">
-                <h1>AI-NEXUS OPTIMIZATION ENGINE</h1>
-                <div class="header-subtitle">Perpetual AI Optimization ‚Ä¢ 24/7 Live Trading</div>
-            </div>
-            
-            <div class="status-pulse">
-                <div class="pulse-label">OPTIMIZATION CYCLE</div>
-                <div class="pulse-value" id="cycleTimer">15:00</div>
-                <div class="pulse-label" id="uptimeCounter">00:00:00</div>
-            </div>
-            
-            <div class="control-group">
-                <div class="control-label">REFRESH INTERVAL</div>
-                <select class="refresh-select" id="refreshInterval">
-                    <option value="1000">1 second</option>
-                    <option value="3000" selected>3 seconds</option>
-                    <option value="5000">5 seconds</option>
-                </select>
-            </div>
-            
-            <div class="control-group">
-                <div class="control-label">VIEW MODE</div>
-                <div class="view-toggle" id="viewToggle">
-                    <div class="view-option view-active" data-view="system">System</div>
-                    <div class="view-option" data-view="trading">Trading</div>
-                </div>
+        <div style="text-align: center; border-bottom: 2px solid #00ff00; padding-bottom: 20px;">
+            <h1 style="color: #00ff00; margin: 0;">Ì∫Ä AI-NEXUS QUANTUM ENGINE</h1>
+            <p style="color: #888;">PRODUCTION - LIVE ARBITRAGE</p>
+            <div style="display: inline-block; padding: 8px 16px; background: #00ff00; color: #000; border-radius: 20px; font-weight: bold;">
+                SYSTEM: INITIALIZING
             </div>
         </div>
 
-        <!-- Main Dashboard Grid -->
-        <div class="dashboard-grid">
-            <!-- System Phases -->
-            <div class="grafana-panel panel-6">
-                <div class="panel-header">
-                    <div class="panel-title">System Initialization Phases</div>
-                    <div class="panel-title" style="font-size: 11px; color: #888;" id="phaseProgress">2/6 Complete</div>
-                </div>
-                <div class="phase-grid" id="phasesContainer">
-                    <!-- Phases will be populated by JavaScript -->
-                </div>
+        <div class="phase-grid">
+            <!-- Phase 1: Environment Validation -->
+            <div class="phase-card completed">
+                <h3>Ì¥ß PHASE 1: Environment Validation</h3>
+                <div class="progress-bar"><div class="progress-fill" style="width: 100%"></div></div>
+                <div style="background: #00ff00; color: #000; padding: 6px 12px; border-radius: 4px; display: inline-block;">COMPLETED</div>
+                <ul>
+                    <li>‚úÖ Environment: Validated</li>
+                    <li>‚úÖ Connections: Active</li>
+                    <li>‚è±Ô∏è Duration: 2.1s</li>
+                </ul>
             </div>
 
-            <!-- System Events Stream -->
-            <div class="grafana-panel panel-6">
-                <div class="panel-header">
-                    <div class="panel-title">System Events Stream</div>
-                    <div class="panel-title" style="font-size: 11px; color: #888;">LATEST EVENTS ‚Ä¢ BOTTOM-TO-TOP</div>
-                </div>
-                <div class="events-container">
-                    <div class="events-scroll" id="systemEvents">
-                        <!-- Events will be populated by JavaScript -->
-                    </div>
-                </div>
+            <!-- Phase 2: Blockchain Infrastructure -->
+            <div class="phase-card running">
+                <h3>‚õìÔ∏è PHASE 2: Blockchain Infrastructure</h3>
+                <div class="progress-bar"><div class="progress-fill" style="width: 75%"></div></div>
+                <div style="background: #ffff00; color: #000; padding: 6px 12px; border-radius: 4px; display: inline-block;">RUNNING</div>
+                <ul>
+                    <li>‚úÖ Ethereum: Connected</li>
+                    <li>‚úÖ Polygon: Connected</li>
+                    <li>Ì¥Ñ Arbitrum: Connecting...</li>
+                </ul>
             </div>
 
-            <!-- Performance Metrics -->
-            <div class="grafana-panel panel-3">
-                <div class="panel-header">
-                    <div class="panel-title">Performance Metrics</div>
-                </div>
-                <div class="metrics-grid">
-                    <div class="metric-card">
-                        <div class="metric-label">AI Modules Active</div>
-                        <div class="metric-large" id="activeModules">2/45</div>
-                        <div class="metric-trend trend-positive">+2 this cycle</div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="metric-label">Execution Speed</div>
-                        <div class="metric-large" id="executionSpeed">12ms</div>
-                        <div class="metric-trend trend-positive">Target achieved</div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="metric-label">Optimization Cycles</div>
-                        <div class="metric-large" id="optimizationCycles">0</div>
-                        <div class="metric-trend trend-positive">24/7 operation</div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="metric-label">System Load</div>
-                        <div class="metric-large" id="systemLoad">42%</div>
-                        <div class="metric-trend trend-positive">Optimal</div>
-                    </div>
-                </div>
+            <!-- Phase 3: Market Data Streaming -->
+            <div class="phase-card">
+                <h3>Ì≥ä PHASE 3: Market Data Streaming</h3>
+                <div class="progress-bar"><div class="progress-fill" style="width: 0%"></div></div>
+                <div style="background: #666; color: #fff; padding: 6px 12px; border-radius: 4px; display: inline-block;">PENDING</div>
+                <ul>
+                    <li>Ì≥° Streams: Ready (48,620+)</li>
+                    <li>‚ö° Frequency: 150ms target</li>
+                </ul>
             </div>
 
-            <!-- Security & Reliability -->
-            <div class="grafana-panel panel-3">
-                <div class="panel-header">
-                    <div class="panel-title">Security & Reliability</div>
-                </div>
-                <div class="security-grid">
-                    <div class="security-card">
-                        <div class="security-value" style="color: var(--grafana-green);">99.7%</div>
-                        <div class="security-label">System Uptime</div>
-                    </div>
-                    <div class="security-card">
-                        <div class="security-value" style="color: var(--grafana-blue);">98.3%</div>
-                        <div class="security-label">AI Accuracy</div>
-                    </div>
-                    <div class="security-card">
-                        <div class="security-value" style="color: var(--grafana-purple);">100%</div>
-                        <div class="security-label">Data Integrity</div>
-                    </div>
-                    <div class="security-card">
-                        <div class="security-value" style="color: var(--grafana-orange);">94.2%</div>
-                        <div class="security-label">Success Rate</div>
-                    </div>
-                </div>
+            <!-- Phase 4: AI Strategy Optimization -->
+            <div class="phase-card">
+                <h3>Ì¥ñ PHASE 4: AI Strategy Optimization</h3>
+                <div class="progress-bar"><div class="progress-fill" style="width: 0%"></div></div>
+                <div style="background: #666; color: #fff; padding: 6px 12px; border-radius: 4px; display: inline-block;">PENDING</div>
+                <ul>
+                    <li>Ì∑† Modules: 0/45 activated</li>
+                    <li>ÌæØ Calibration: Ready</li>
+                </ul>
             </div>
 
-            <!-- Optimization Intelligence -->
-            <div class="grafana-panel panel-6">
-                <div class="panel-header">
-                    <div class="panel-title">Optimization Intelligence</div>
-                </div>
-                <div class="metrics-grid">
-                    <div class="metric-card">
-                        <div class="metric-label">Parameter Discovery Rate</div>
-                        <div class="metric-medium">New params: 12.4/min</div>
-                        <div class="metric-medium">Delta generation: Active</div>
-                        <div class="metric-trend trend-positive">+2.1% efficiency</div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="metric-label">Strategy Performance</div>
-                        <div class="metric-medium">Active strategies: 8</div>
-                        <div class="metric-medium">Calibration: Continuous</div>
-                        <div class="metric-trend trend-positive">Learning active</div>
-                    </div>
-                </div>
+            <!-- Phase 5: Risk Assessment -->
+            <div class="phase-card">
+                <h3>Ìª°Ô∏è PHASE 5: Risk Assessment</h3>
+                <div class="progress-bar"><div class="progress-fill" style="width: 0%"></div></div>
+                <div style="background: #666; color: #fff; padding: 6px 12px; border-radius: 4px; display: inline-block;">PENDING</div>
+                <ul>
+                    <li>Ìª°Ô∏è MEV Protection: Ready</li>
+                    <li>Ì≥ä Risk Score: 9.4/10</li>
+                </ul>
             </div>
 
-            <!-- Blockchain Infrastructure -->
-            <div class="grafana-panel panel-6">
-                <div class="panel-header">
-                    <div class="panel-title">Blockchain Infrastructure</div>
-                </div>
-                <div class="metrics-grid">
-                    <div class="metric-card">
-                        <div class="metric-label">Network Connectivity</div>
-                        <div class="metric-medium">Ethereum: Connected</div>
-                        <div class="metric-medium">Polygon: Connected</div>
-                        <div class="metric-medium">Arbitrum: Connecting</div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="metric-label">Data Streams</div>
-                        <div class="metric-medium">Active pairs: 48,620</div>
-                        <div class="metric-medium">Frequency: 150ms</div>
-                        <div class="metric-trend trend-positive">Optimal</div>
-                    </div>
-                </div>
+            <!-- Phase 6: Live Execution Ready -->
+            <div class="phase-card">
+                <h3>‚ö° PHASE 6: Live Execution Ready</h3>
+                <div class="progress-bar"><div class="progress-fill" style="width: 0%"></div></div>
+                <div style="background: #666; color: #fff; padding: 6px 12px; border-radius: 4px; display: inline-block;">PENDING</div>
+                <ul>
+                    <li>Ì≤∏ Flash Loans: Ready</li>
+                    <li>Ì¥Å Arbitrage: Armed</li>
+                </ul>
             </div>
         </div>
     </div>
 
     <script>
-        class AINexusDashboard {
+        // Production phase management
+        class ProductionEngine {
             constructor() {
-                this.phases = [
-                    { id: 1, name: "Environment Validation", status: "completed", progress: 100, duration: "2.1s", metrics: ["Environment: Validated", "Connections: Active"] },
-                    { id: 2, name: "Blockchain Infrastructure", status: "running", progress: 75, duration: "10.7s", metrics: ["Ethereum: Connected", "Polygon: Connected", "Arbitrum: Connecting"] },
-                    { id: 3, name: "Market Data Streaming", status: "pending", progress: 0, duration: "12.4s", metrics: ["Streams: Ready", "Pairs: 48,620+"] },
-                    { id: 4, name: "AI Strategy Optimization", status: "pending", progress: 0, duration: "15.8s", metrics: ["Modules: 0/45", "Calibration: Ready"] },
-                    { id: 5, name: "Risk Assessment", status: "pending", progress: 0, duration: "6.3s", metrics: ["MEV Protection: Ready", "Risk Score: 9.4/10"] },
-                    { id: 6, name: "24/7 Perpetual Mode", status: "pending", progress: 0, duration: "‚àû", metrics: ["Continuous Optimization", "Delta: 15-30min"] }
-                ];
-                
-                this.optimizationCycles = 0;
-                this.cycleTimer = 900; // 15 minutes in seconds
-                this.startTime = Date.now();
-                this.refreshInterval = 3000;
-                this.isLive = false;
-                
-                this.initializeDashboard();
+                this.phases = document.querySelectorAll('.phase-card');
+                this.currentPhase = 1;
+                this.startEngine();
             }
 
-            initializeDashboard() {
-                this.renderPhases();
-                this.setupEventListeners();
-                this.startDataPolling();
-                this.startUptimeCounter();
-                this.startPhaseSimulation();
-            }
-
-            renderPhases() {
-                const container = document.getElementById('phasesContainer');
-                container.innerHTML = this.phases.map(phase => `
-                    <div class="phase-card ${phase.status}">
-                        <div class="phase-header">
-                            <div class="phase-name">${phase.name}</div>
-                            <div class="phase-status status-${phase.status}">${phase.status}</div>
-                        </div>
-                        <div class="progress-container">
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width: ${phase.progress}%"></div>
-                            </div>
-                            <div class="progress-text">${phase.duration}</div>
-                        </div>
-                        <div class="phase-metrics">
-                            ${phase.metrics.map(metric => `
-                                <div class="metric-item">${metric}</div>
-                            `).join('')}
-                        </div>
-                    </div>
-                `).join('');
-                
-                this.updatePhaseProgress();
-            }
-
-            updatePhaseProgress() {
-                const completed = this.phases.filter(p => p.status === 'completed').length;
-                document.getElementById('phaseProgress').textContent = `${completed}/${this.phases.length} Complete`;
-            }
-
-            setupEventListeners() {
-                document.getElementById('refreshInterval').addEventListener('change', (e) => {
-                    this.refreshInterval = parseInt(e.target.value);
-                    this.restartPolling();
-                });
-
-                document.getElementById('viewToggle').addEventListener('click', (e) => {
-                    if (e.target.classList.contains('view-option')) {
-                        document.querySelectorAll('.view-option').forEach(opt => {
-                            opt.classList.remove('view-active');
-                        });
-                        e.target.classList.add('view-active');
-                    }
-                });
-            }
-
-            startDataPolling() {
-                this.pollingInterval = setInterval(() => {
-                    this.updateMetrics();
-                }, this.refreshInterval);
-            }
-
-            restartPolling() {
-                clearInterval(this.pollingInterval);
-                this.startDataPolling();
-            }
-
-            startUptimeCounter() {
+            startEngine() {
                 setInterval(() => {
-                    const uptime = Math.floor((Date.now() - this.startTime) / 1000);
-                    const hours = Math.floor(uptime / 3600);
-                    const minutes = Math.floor((uptime % 3600) / 60);
-                    const seconds = uptime % 60;
-                    document.getElementById('uptimeCounter').textContent = 
-                        `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-                }, 1000);
-            }
-
-            startPhaseSimulation() {
-                setInterval(() => {
-                    this.simulatePhaseProgress();
+                    this.updatePhases();
                 }, 2000);
             }
 
-            simulatePhaseProgress() {
-                const runningPhase = this.phases.find(p => p.status === 'running');
-                if (runningPhase) {
-                    runningPhase.progress = Math.min(100, runningPhase.progress + 25);
-                    
-                    if (runningPhase.progress >= 100) {
-                        runningPhase.status = 'completed';
-                        const nextPhase = this.phases.find(p => p.status === 'pending');
-                        if (nextPhase) {
-                            nextPhase.status = 'running';
-                            this.addSystemEvent('PHASE', `${runningPhase.name} completed`, 'Ready', 'phase');
-                            this.addSystemEvent('PHASE', `${nextPhase.name} started`, 'Running', 'phase');
-                            
-                            if (nextPhase.id === 6) {
-                                this.activatePerpetualMode();
-                            }
-                        }
-                    }
-                    this.renderPhases();
-                }
-            }
-
-            activatePerpetualMode() {
-                this.isLive = true;
-                this.addSystemEvent('SYSTEM', '24/7 Perpetual Mode Activated', 'Live', 'live');
-                this.startOptimizationCycle();
-            }
-
-            startOptimizationCycle() {
-                this.optimizationCycle = setInterval(() => {
-                    this.runOptimization();
-                }, 15000); // 15 minutes for demo
-            }
-
-            runOptimization() {
-                this.optimizationCycles++;
-                const improvement = (Math.random() * 3 + 1).toFixed(1);
-                
-                document.getElementById('optimizationCycles').textContent = this.optimizationCycles;
-                document.getElementById('activeModules').textContent = `${Math.min(45, 2 + this.optimizationCycles * 2)}/45`;
-                
-                this.addSystemEvent('OPTIMIZATION', `Cycle ${this.optimizationCycles} complete`, `+${improvement}%`, 'optimization');
-            }
-
-            addSystemEvent(type, details, value, eventClass) {
-                const eventsContainer = document.getElementById('systemEvents');
-                const timestamp = new Date().toLocaleTimeString('en-US', {hour12: false});
-                
-                const eventElement = document.createElement('div');
-                eventElement.className = `system-event event-${eventClass}`;
-                eventElement.innerHTML = `
-                    <div class="event-time">${timestamp}</div>
-                    <div class="event-details">${details}</div>
-                    <div class="event-value">${value}</div>
-                `;
-                
-                eventsContainer.insertBefore(eventElement, eventsContainer.firstChild);
-                
-                while (eventsContainer.children.length > 10) {
-                    eventsContainer.removeChild(eventsContainer.lastChild);
-                }
-                
-                eventsContainer.scrollTop = 0;
-            }
-
-            updateMetrics() {
-                if (this.isLive) {
-                    this.cycleTimer = Math.max(0, this.cycleTimer - (this.refreshInterval / 1000));
-                    const minutes = Math.floor(this.cycleTimer / 60);
-                    const seconds = Math.floor(this.cycleTimer % 60);
-                    document.getElementById('cycleTimer').textContent = 
-                        `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-                    
-                    if (this.cycleTimer <= 0) {
-                        this.cycleTimer = 900; // Reset to 15 minutes
-                        this.runOptimization();
-                    }
+            updatePhases() {
+                if (this.currentPhase < this.phases.length) {
+                    this.phases[this.currentPhase].classList.add('running');
+                    this.currentPhase++;
                 }
             }
         }
 
-        // Initialize dashboard
-        window.addEventListener('load', () => {
-            new AINexusDashboard();
-        });
+        new ProductionEngine();
     </script>
 </body>
 </html>
