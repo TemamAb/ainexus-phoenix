@@ -1,4 +1,1 @@
-web3==6.10.0
-aiohttp==3.9.1
-numpy==1.24.3
-pandas==2.0.3
+web3==6.10.0\naiohttp==3.9.1\nnumpy==1.24.3\npandas==2.0.3\nasyncio
