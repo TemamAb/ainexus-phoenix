@@ -2,20 +2,21 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
-# Copy requirements first for better caching
-COPY requirements.txt .
-
-# Install Python dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+# Install adaptive profit engine dependencies
+RUN pip install --no-cache-dir \
+    numpy==1.24.3 \
+    pandas==2.0.3 \
+    websockets==12.0 \
+    aiohttp==3.9.1
 
 # Copy application code
 COPY . .
 
-# Create necessary directories
-RUN mkdir -p logs static/css core/templates
+# Make scripts executable
+RUN chmod +x *.py
 
 # Expose port
-EXPOSE 10000
+EXPOSE 8080
 
-# Start the application
-CMD ["python", "app.py"]
+# Start adaptive profit engine
+CMD ["python", "adaptive_profit_engine.py"]
