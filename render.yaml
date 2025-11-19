@@ -1,13 +1,10 @@
 services:
-  ainexus-production-engine:
+  adaptive-profit-engine:
     type: web
-    name: ainexus-production-engine
-    env: python
-    buildCommand: pip install -r requirements.txt
-    startCommand: python main_arbitrage_engine.py
+    name: ainexus-adaptive-profit
+    env: docker
+    dockerfilePath: ./Dockerfile
     envVars:
-      - key: PYTHON_VERSION
-        value: 3.11
       - key: DEPLOYMENT_ENV
         value: production
     plan: free
