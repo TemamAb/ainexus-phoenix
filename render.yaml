@@ -1,11 +1,34 @@
 services:
   - type: web
-    name: ainexus-phoenix
-    docker:
-      dockerfilePath: ./Dockerfile
+    name: ainexus-phoenix-live
+    env: docker
+    plan: free
+    branch: main
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
     envVars:
+      - key: FLASK_ENV
+        value: production
+      - key: PYTHON_VERSION
+        value: 3.11.0
       - key: PORT
         value: 10000
-      - key: ENVIRONMENT  
-        value: production
+      - key: SECRET_KEY
+        generateValue: true
+    healthCheckPath: /api/health
     autoDeploy: true
+    numInstances: 1
+
+  - type: worker
+    name: ainexus-phoenix-worker
+    env: docker
+    plan: free
+    branch: main
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    command: python core/app.py
+    envVars:
+      - key: FLASK_ENV
+        value: production
+      - key: WORKER_MODE
+        value: true

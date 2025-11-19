@@ -1,7 +1,39 @@
+# Web Framework (Lightweight)
 flask==2.3.3
-web3==6.5.0
-numpy==1.24.3
-pandas==2.0.3
+flask-cors==4.0.0
+flask-socketio==5.3.6
+python-socketio==5.8.0
+eventlet==0.33.3
+
+# Web3 & Blockchain (Optimized)
+web3==6.11.0
+eth-account==0.9.0
+eth-typing==3.5.0
+eth-utils==2.3.0
+
+# Trading & Data
+ccxt==4.1.0
+pandas==2.1.3
+numpy==1.25.2
 requests==2.31.0
+
+# Database & Cache
+sqlalchemy==2.0.23
+psycopg2-binary==2.9.9
+redis==5.0.1
+
+# Utilities
 python-dotenv==1.0.0
-jinja2==3.1.2
+pyyaml==6.0.1
+celery==5.3.4
+
+# Security
+cryptography==41.0.8
+pyjwt==2.8.0
+
+# Monitoring
+prometheus-client==0.18.0
+
+# Development (Build time only - remove for production if needed)
+black==23.9.1
+pytest==7.4.2
