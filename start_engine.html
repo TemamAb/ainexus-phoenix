@@ -321,7 +321,7 @@
         <!-- Adaptive Controls -->
         <div class="adaptive-controls">
             <div class="adaptive-panel">
-                <div class="adaptive-title">ÌæØ ADAPTIVE PROFIT TARGETS</div>
+                <div class="adaptive-title">ADAPTIVE PROFIT TARGETS</div>
                 <div class="adaptive-metric">
                     <span>Current Target:</span>
                     <span class="metric-value" id="currentProfitTarget">$50K-$250K/day</span>
@@ -341,7 +341,7 @@
             </div>
 
             <div class="adaptive-panel">
-                <div class="adaptive-title">Ì≥ä CONFIDENCE METER</div>
+                <div class="adaptive-title">CONFIDENCE METER</div>
                 <div class="confidence-meter">
                     <div class="confidence-fill" id="confidenceFill"></div>
                     <div class="threshold-marker"></div>
@@ -361,14 +361,14 @@
                 </div>
                 <div class="adaptive-metric">
                     <span>Confidence Trend:</span>
-                    <span class="metric-value" id="confidenceTrend">‚ÜóÔ∏è RISING</span>
+                    <span class="metric-value" id="confidenceTrend">RISING</span>
                 </div>
             </div>
         </div>
 
         <!-- Global Countdown -->
         <div class="global-countdown">
-            <div class="countdown-phase" id="currentPhase">Ì∫Ä STARTING PHASE 1: Environment Validation</div>
+            <div class="countdown-phase" id="currentPhase">STARTING PHASE 1: Environment Validation</div>
             <div class="countdown-timer" id="globalTimer">02:15</div>
             <div class="countdown-estimate" id="phaseEstimate">Next: Blockchain Infrastructure in 8.2s</div>
             <div class="countdown-estimate">
@@ -383,7 +383,7 @@
             <div class="phase-card completed">
                 <div class="phase-header">
                     <div>
-                        <div class="phase-title">Ì¥ß PHASE 1</div>
+                        <div class="phase-title">PHASE 1</div>
                         <div class="phase-countdown">Completed</div>
                     </div>
                     <div class="phase-status status-completed">COMPLETED</div>
@@ -410,7 +410,7 @@
             <div class="phase-card running">
                 <div class="phase-header">
                     <div>
-                        <div class="phase-title">‚õìÔ∏è PHASE 2</div>
+                        <div class="phase-title">PHASE 2</div>
                         <div class="phase-countdown" id="phase2Timer">08.2s</div>
                     </div>
                     <div class="phase-status status-running">RUNNING</div>
@@ -437,7 +437,7 @@
             <div class="phase-card pending">
                 <div class="phase-header">
                     <div>
-                        <div class="phase-title">Ì≥ä PHASE 3</div>
+                        <div class="phase-title">PHASE 3</div>
                         <div class="phase-countdown" id="phase3Timer">20.9s</div>
                     </div>
                     <div class="phase-status status-pending">PENDING</div>
@@ -464,7 +464,7 @@
             <div class="phase-card pending">
                 <div class="phase-header">
                     <div>
-                        <div class="phase-title">Ì¥ñ PHASE 4</div>
+                        <div class="phase-title">PHASE 4</div>
                         <div class="phase-countdown" id="phase4Timer">33.3s</div>
                     </div>
                     <div class="phase-status status-pending">PENDING</div>
@@ -491,7 +491,7 @@
             <div class="phase-card pending">
                 <div class="phase-header">
                     <div>
-                        <div class="phase-title">Ìª°Ô∏è PHASE 5</div>
+                        <div class="phase-title">PHASE 5</div>
                         <div class="phase-countdown" id="phase5Timer">49.1s</div>
                     </div>
                     <div class="phase-status status-pending">PENDING</div>
@@ -518,7 +518,7 @@
             <div class="phase-card pending">
                 <div class="phase-header">
                     <div>
-                        <div class="phase-title">‚ö° PHASE 6</div>
+                        <div class="phase-title">PHASE 6</div>
                         <div class="phase-countdown" id="phase6Timer">55.4s</div>
                     </div>
                     <div class="phase-status status-pending">PENDING</div>
@@ -622,13 +622,13 @@
                     const trend = this.currentConfidence - this.confidenceHistory[this.confidenceHistory.length - 2];
                     const trendElement = document.getElementById('confidenceTrend');
                     if (trend > 0.5) {
-                        trendElement.textContent = "‚ÜóÔ∏è RISING";
+                        trendElement.textContent = "RISING";
                         trendElement.style.color = "#00ff00";
                     } else if (trend < -0.5) {
-                        trendElement.textContent = "‚ÜòÔ∏è FALLING";
+                        trendElement.textContent = "FALLING";
                         trendElement.style.color = "#ff4444";
                     } else {
-                        trendElement.textContent = "‚û°Ô∏è STABLE";
+                        trendElement.textContent = "STABLE";
                         trendElement.style.color = "#ff9900";
                     }
                 }
@@ -764,7 +764,7 @@
                 
                 const currentPhase = this.phases[this.currentPhase - 1];
                 document.getElementById('currentPhase').textContent = 
-                    `Ì∫Ä ${currentPhase.name.toUpperCase()}`;
+                    `${currentPhase.name.toUpperCase()}`;
                 
                 let nextPhaseTime = 0;
                 for (let i = 0; i < this.currentPhase; i++) {

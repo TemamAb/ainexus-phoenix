@@ -193,9 +193,14 @@ class AdaptiveDeploymentEngine:
         app = web.Application()
         
         async def start_engine(request):
-            with open('start_engine.html', 'r') as f:
-                content = f.read()
-            return web.Response(text=content, content_type='text/html')
+            try:
+                # Read file with explicit UTF-8 encoding
+                with open('start_engine.html', 'r', encoding='utf-8') as f:
+                    content = f.read()
+                return web.Response(text=content, content_type='text/html')
+            except Exception as e:
+                print(f"Error reading start_engine.html: {e}")
+                return web.Response(text="Start Engine - System Initializing", status=500)
         
         async def health_check(request):
             return web.json_response({
@@ -209,9 +214,14 @@ class AdaptiveDeploymentEngine:
             })
         
         async def monitoring_dashboard(request):
-            with open('monitoring_dashboard.html', 'r') as f:
-                content = f.read()
-            return web.Response(text=content, content_type='text/html')
+            try:
+                # Read file with explicit UTF-8 encoding
+                with open('monitoring_dashboard.html', 'r', encoding='utf-8') as f:
+                    content = f.read()
+                return web.Response(text=content, content_type='text/html')
+            except Exception as e:
+                print(f"Error reading monitoring_dashboard.html: {e}")
+                return web.Response(text="Monitoring Dashboard - Coming Soon", status=500)
 
         app.router.add_get('/', start_engine)
         app.router.add_get('/start_engine.html', start_engine)
