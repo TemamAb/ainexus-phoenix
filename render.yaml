@@ -1,14 +1,10 @@
 services:
   - type: web
-    name: ainexus-quantum-arbitrage
+    name: ainexus
     env: python
     plan: free
-    numInstances: 1
     buildCommand: pip install -r requirements.txt
-    startCommand: python core/app.py
+    startCommand: cd core && python app.py
     envVars:
-      - key: PORT
-        value: 8080
-      - key: PYTHONUTF8
-        value: 1
-    healthCheckPath: /health
+      - key: PYTHON_VERSION
+        value: 3.11.0
