@@ -6,19 +6,19 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 WORKDIR /app
 
-# Copy requirements FIRST for better caching
-COPY requirements.txt /app/requirements.txt
-
-# Install dependencies
-RUN pip install --no-cache-dir --timeout 60 -r /app/requirements.txt
-
-# Copy application code
-COPY . /app
-
-# Fix Python encoding
+# Set UTF-8 encoding for Python
 ENV PYTHONUTF8=1
 ENV PYTHONIOENCODING=utf-8
-ENV PYTHONUNBUFFERED=1
+ENV LANG=C.UTF-8
+
+# Copy requirements FIRST
+COPY requirements.txt .
+
+# Install dependencies
+RUN pip install --no-cache-dir --timeout 60 -r requirements.txt
+
+# Copy application code
+COPY . .
 
 EXPOSE 8080
 
