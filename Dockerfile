@@ -6,14 +6,16 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 WORKDIR /app
 
-# Copy requirements and install
-COPY requirements.txt .
-RUN pip install --no-cache-dir --timeout 30 -r requirements.txt
+# Copy requirements FIRST for better caching
+COPY requirements.txt /app/requirements.txt
 
-# Copy app
-COPY . .
+# Install dependencies
+RUN pip install --no-cache-dir --timeout 60 -r /app/requirements.txt
 
-# Performance env vars
+# Copy application code
+COPY . /app
+
+# Fix Python encoding
 ENV PYTHONUTF8=1
 ENV PYTHONIOENCODING=utf-8
 ENV PYTHONUNBUFFERED=1
@@ -21,7 +23,8 @@ ENV PYTHONUNBUFFERED=1
 EXPOSE 8080
 
 # Health check
-HEALTHCHECK --interval=10s --timeout=5s --start-period=3s --retries=2 \
+HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
     CMD curl -f http://localhost:8080/health || exit 1
 
+# Entry point
 CMD ["python", "core/app.py"]
