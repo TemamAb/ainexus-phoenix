@@ -1,11 +1,14 @@
 services:
-  ainexus-profit-engine:
-    type: worker
-    name: ainexus-profit-engine
-    env: docker
-    dockerfilePath: ./Dockerfile
-    envVars:
-      - key: DEPLOYMENT_ENV
-        value: production
+  - type: web
+    name: ainexus-quantum-arbitrage
+    env: python
     plan: free
-    autoDeploy: true
+    numInstances: 1
+    buildCommand: pip install -r requirements.txt
+    startCommand: python core/app.py
+    envVars:
+      - key: PORT
+        value: 8080
+      - key: PYTHONUTF8
+        value: 1
+    healthCheckPath: /health
