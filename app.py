@@ -6,7 +6,7 @@ from aiohttp import web
 
 async def start_engine(request):
     try:
-        with open('start_engine.html', 'r', encoding='utf-8') as f:
+        with open('./start_engine.html', 'r', encoding='utf-8') as f:
             content = f.read()
         return web.Response(text=content, content_type='text/html')
     except Exception as e:
@@ -25,7 +25,7 @@ async def health_check(request):
 async def init_app():
     app = web.Application()
     app.router.add_get('/', start_engine)
-    app.router.add_get('/start_engine.html', start_engine)
+    app.router.add_get('/./start_engine.html', start_engine)
     app.router.add_get('/monitoring_dashboard.html', monitoring_dashboard)
     app.router.add_get('/health', health_check)
     return app
