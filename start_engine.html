@@ -91,7 +91,6 @@
         .status-valid { color: var(--success); }
         .status-pending { color: var(--warning); }
         .status-invalid { color: var(--danger); }
-        .status-critical { color: var(--danger); font-weight: bold; }
         
         .control-panel {
             text-align: center;
@@ -145,28 +144,23 @@
 </head>
 <body>
     <div class="dashboard">
-        <!-- Header -->
         <div class="header">
             <div class="title">AI-NEXUS LIVE DEPLOYMENT SCANNER</div>
-            <div class="subtitle">Complete Requirements Validation â€¢ Minimum Viable Deployment â€¢ Production Ready</div>
+            <div class="subtitle">Complete Requirements Validation â€¢ Minimum Viable Deployment</div>
         </div>
 
-        <!-- System Status -->
         <div class="system-status" id="systemStatus">
-            AWAITING COMPREHENSIVE SYSTEM SCAN
+            SYSTEM READY FOR DEPLOYMENT SCAN
         </div>
 
-        <!-- Validation Rules -->
-        <div class="validation-rules" id="validationRules">
-            GO LIVE REQUIREMENTS: All CRITICAL items + 80% CORE modules + Gasless Mode
+        <div class="validation-rules">
+            GO LIVE: All CRITICAL + 80% CORE + 80% INFRA + 60% ADVANCED + Gasless Mode
         </div>
 
-        <!-- Progress Summary -->
         <div class="progress-summary" id="progressSummary">
-            Critical: 0/0 â€¢ Core: 0/0 â€¢ Advanced: 0/0 â€¢ Gasless: PENDING â€¢ System: OFFLINE
+            Critical: 0/6 â€¢ Core: 0/8 â€¢ Infra: 0/6 â€¢ Advanced: 0/6 â€¢ Gasless: PENDING
         </div>
 
-        <!-- Control Panel -->
         <div class="control-panel">
             <button class="btn btn-scan" onclick="scanAllRequirements()">SCAN ALL REQUIREMENTS</button>
             <button class="btn btn-validate" onclick="validateForLive()" disabled>VALIDATE FOR LIVE</button>
@@ -174,155 +168,51 @@
             <button class="btn btn-stop" onclick="emergencyStop()">EMERGENCY STOP</button>
         </div>
 
-        <!-- Complete Requirements Grid -->
         <div class="requirements-grid">
-            <!-- CRITICAL BLOCKERS (Must be 100% Valid) -->
+            <!-- CRITICAL BLOCKERS -->
             <div class="requirement-card">
                 <div class="card-title">íº¨ CRITICAL BLOCKERS (100% Required)</div>
-                <div class="requirement-item">
-                    <span class="req-name">Gasless Mode Activation</span>
-                    <span class="req-status status-pending" id="status-critical-1">PENDING</span>
-                </div>
-                <div class="requirement-item">
-                    <span class="req-name">Blockchain RPC Connections</span>
-                    <span class="req-status status-pending" id="status-critical-2">PENDING</span>
-                </div>
-                <div class="requirement-item">
-                    <span class="req-name">Smart Wallet Deployment</span>
-                    <span class="req-status status-pending" id="status-critical-3">PENDING</span>
-                </div>
-                <div class="requirement-item">
-                    <span class="req-name">Exchange API Connectivity</span>
-                    <span class="req-status status-pending" id="status-critical-4">PENDING</span>
-                </div>
-                <div class="requirement-item">
-                    <span class="req-name">Risk Management System</span>
-                    <span class="req-status status-pending" id="status-critical-5">PENDING</span>
-                </div>
-                <div class="requirement-item">
-                    <span class="req-name">Emergency Stop System</span>
-                    <span class="req-status status-pending" id="status-critical-6">PENDING</span>
-                </div>
+                <div class="requirement-item"><span class="req-name">Gasless Mode</span><span class="req-status status-pending" id="status-critical-1">PENDING</span></div>
+                <div class="requirement-item"><span class="req-name">Blockchain RPC</span><span class="req-status status-pending" id="status-critical-2">PENDING</span></div>
+                <div class="requirement-item"><span class="req-name">Smart Wallet</span><span class="req-status status-pending" id="status-critical-3">PENDING</span></div>
+                <div class="requirement-item"><span class="req-name">Exchange APIs</span><span class="req-status status-pending" id="status-critical-4">PENDING</span></div>
+                <div class="requirement-item"><span class="req-name">Risk Management</span><span class="req-status status-pending" id="status-critical-5">PENDING</span></div>
+                <div class="requirement-item"><span class="req-name">Emergency Stop</span><span class="req-status status-pending" id="status-critical-6">PENDING</span></div>
             </div>
 
-            <!-- CORE TRADING MODULES (80% Required) -->
+            <!-- CORE TRADING -->
             <div class="requirement-card">
-                <div class="card-title">í¾¯ CORE TRADING MODULES (80% Required)</div>
-                <div class="requirement-item">
-                    <span class="req-name">ArbitrageEngine</span>
-                    <span class="req-status status-pending" id="status-core-1">PENDING</span>
-                </div>
-                <div class="requirement-item">
-                    <span class="req-name">OpportunityDetector</span>
-                    <span class="req-status status-pending" id="status-core-2">PENDING</span>
-                </div>
-                <div class="requirement-item">
-                    <span class="req-name">ExecutionOptimizer</span>
-                    <span class="req-status status-pending" id="status-core-3">PENDING</span>
-                </div>
-                <div class="requirement-item">
-                    <span class="req-name">MarketPredictor</span>
-                    <span class="req-status status-pending" id="status-core-4">PENDING</span>
-                </div>
-                <div class="requirement-item">
-                    <span class="req-name">RiskAssessor</span>
-                    <span class="req-status status-pending" id="status-core-5">PENDING</span>
-                </div>
-                <div class="requirement-item">
-                    <span class="req-name">TransactionRouter</span>
-                    <span class="req-status status-pending" id="status-core-6">PENDING</span>
-                </div>
-                <div class="requirement-item">
-                    <span class="req-name">GasOptimizer</span>
-                    <span class="req-status status-pending" id="status-core-7">PENDING</span>
-                </div>
-                <div class="requirement-item">
-                    <span class="req-name">StrategyRankingEngine</span>
-                    <span class="req-status status-pending" id="status-core-8">PENDING</span>
-                </div>
+                <div class="card-title">í¾¯ CORE TRADING (80% Required)</div>
+                <div class="requirement-item"><span class="req-name">ArbitrageEngine</span><span class="req-status status-pending" id="status-core-1">PENDING</span></div>
+                <div class="requirement-item"><span class="req-name">OpportunityDetector</span><span class="req-status status-pending" id="status-core-2">PENDING</span></div>
+                <div class="requirement-item"><span class="req-name">ExecutionOptimizer</span><span class="req-status status-pending" id="status-core-3">PENDING</span></div>
+                <div class="requirement-item"><span class="req-name">MarketPredictor</span><span class="req-status status-pending" id="status-core-4">PENDING</span></div>
+                <div class="requirement-item"><span class="req-name">RiskAssessor</span><span class="req-status status-pending" id="status-core-5">PENDING</span></div>
+                <div class="requirement-item"><span class="req-name">TransactionRouter</span><span class="req-status status-pending" id="status-core-6">PENDING</span></div>
+                <div class="requirement-item"><span class="req-name">GasOptimizer</span><span class="req-status status-pending" id="status-core-7">PENDING</span></div>
+                <div class="requirement-item"><span class="req-name">StrategyRanking</span><span class="req-status status-pending" id="status-core-8">PENDING</span></div>
             </div>
 
-            <!-- INFRASTRUCTURE & DATA (80% Required) -->
+            <!-- INFRASTRUCTURE -->
             <div class="requirement-card">
-                <div class="card-title">í´§ INFRASTRUCTURE & DATA (80% Required)</div>
-                <div class="requirement-item">
-                    <span class="req-name">WebSocket Data Streams</span>
-                    <span class="req-status status-pending" id="status-infra-1">PENDING</span>
-                </div>
-                <div class="requirement-item">
-                    <span class="req-name">Database Connectivity</span>
-                    <span class="req-status status-pending" id="status-infra-2">PENDING</span>
-                </div>
-                <div class="requirement-item">
-                    <span class="req-name">Market Data Feeds</span>
-                    <span class="req-status status-pending" id="status-infra-3">PENDING</span>
-                </div>
-                <div class="requirement-item">
-                    <span class="req-name">Price Oracle Connections</span>
-                    <span class="req-status status-pending" id="status-infra-4">PENDING</span>
-                </div>
-                <div class="requirement-item">
-                    <span class="req-name">Liquidity Access Points</span>
-                    <span class="req-status status-pending" id="status-infra-5">PENDING</span>
-                </div>
-                <div class="requirement-item">
-                    <span class="req-name">Monitoring & Logging</span>
-                    <span class="req-status status-pending" id="status-infra-6">PENDING</span>
-                </div>
+                <div class="card-title">í´§ INFRASTRUCTURE (80% Required)</div>
+                <div class="requirement-item"><span class="req-name">Data Streams</span><span class="req-status status-pending" id="status-infra-1">PENDING</span></div>
+                <div class="requirement-item"><span class="req-name">Database</span><span class="req-status status-pending" id="status-infra-2">PENDING</span></div>
+                <div class="requirement-item"><span class="req-name">Market Feeds</span><span class="req-status status-pending" id="status-infra-3">PENDING</span></div>
+                <div class="requirement-item"><span class="req-name">Price Oracles</span><span class="req-status status-pending" id="status-infra-4">PENDING</span></div>
+                <div class="requirement-item"><span class="req-name">Liquidity Access</span><span class="req-status status-pending" id="status-infra-5">PENDING</span></div>
+                <div class="requirement-item"><span class="req-name">Monitoring</span><span class="req-status status-pending" id="status-infra-6">PENDING</span></div>
             </div>
 
-            <!-- ADVANCED MODULES (60% Required) -->
+            <!-- ADVANCED -->
             <div class="requirement-card">
-                <div class="card-title">âš¡ ADVANCED MODULES (60% Required)</div>
-                <div class="requirement-item">
-                    <span class="req-name">CrossLayerArb</span>
-                    <span class="req-status status-pending" id="status-advanced-1">PENDING</span>
-                </div>
-                <div class="requirement-item">
-                    <span class="req-name">MEVProtection</span>
-                    <span class="req-status status-pending" id="status-advanced-2">PENDING</span>
-                </div>
-                <div class="requirement-item">
-                    <span class="req-name">PredictiveSlippage</span>
-                    <span class="req-status status-pending" id="status-advanced-3">PENDING</span>
-                </div>
-                <div class="requirement-item">
-                    <span class="req-name">Multi-Agent Coordination</span>
-                    <span class="req-status status-pending" id="status-advanced-4">PENDING</span>
-                </div>
-                <div class="requirement-item">
-                    <span class="req-name">CrossAssetArb</span>
-                    <span class="req-status status-pending" id="status-advanced-5">PENDING</span>
-                </div>
-                <div class="requirement-item">
-                    <span class="req-name">NestedFlashLoans</span>
-                    <span class="req-status status-pending" id="status-advanced-6">PENDING</span>
-                </div>
-            </div>
-
-            <!-- OPTIONAL ENHANCEMENTS (0% Required) -->
-            <div class="requirement-card">
-                <div class="card-title">í²Ž OPTIONAL ENHANCEMENTS (0% Required)</div>
-                <div class="requirement-item">
-                    <span class="req-name">QuantumResearchAI</span>
-                    <span class="req-status status-pending" id="status-optional-1">PENDING</span>
-                </div>
-                <div class="requirement-item">
-                    <span class="req-name">WhiteLabelGateway</span>
-                    <span class="req-status status-pending" id="status-optional-2">PENDING</span>
-                </div>
-                <div class="requirement-item">
-                    <span class="req-name">ComplianceAutomation</span>
-                    <span class="req-status status-pending" id="status-optional-3">PENDING</span>
-                </div>
-                <div class="requirement-item">
-                    <span class="req-name">ResearchAutomation</span>
-                    <span class="req-status status-pending" id="status-optional-4">PENDING</span>
-                </div>
-                <div class="requirement-item">
-                    <span class="req-name">InstitutionalAuth</span>
-                    <span class="req-status status-pending" id="status-optional-5">PENDING</span>
-                </div>
+                <div class="card-title">âš¡ ADVANCED (60% Required)</div>
+                <div class="requirement-item"><span class="req-name">CrossLayerArb</span><span class="req-status status-pending" id="status-advanced-1">PENDING</span></div>
+                <div class="requirement-item"><span class="req-name">MEVProtection</span><span class="req-status status-pending" id="status-advanced-2">PENDING</span></div>
+                <div class="requirement-item"><span class="req-name">PredictiveSlippage</span><span class="req-status status-pending" id="status-advanced-3">PENDING</span></div>
+                <div class="requirement-item"><span class="req-name">Multi-Agent</span><span class="req-status status-pending" id="status-advanced-4">PENDING</span></div>
+                <div class="requirement-item"><span class="req-name">CrossAssetArb</span><span class="req-status status-pending" id="status-advanced-5">PENDING</span></div>
+                <div class="requirement-item"><span class="req-name">FlashLoans</span><span class="req-status status-pending" id="status-advanced-6">PENDING</span></div>
             </div>
         </div>
     </div>
@@ -330,38 +220,28 @@
     <script>
         class LiveDeploymentScanner {
             constructor() {
-                this.requirements = {
-                    'critical': 6,  // Must be 100% valid
-                    'core': 8,      // Must be 80%+ valid  
-                    'infra': 6,     // Must be 80%+ valid
-                    'advanced': 6,  // Must be 60%+ valid
-                    'optional': 5   // 0% required
-                };
-                
-                this.validationState = {
-                    critical: 0, core: 0, infra: 0, advanced: 0, optional: 0,
-                    gaslessMode: false
-                };
+                this.requirements = { critical: 6, core: 8, infra: 6, advanced: 6 };
+                this.validationState = { critical: 0, core: 0, infra: 0, advanced: 0, gaslessMode: false };
             }
 
             async scanAllRequirements() {
-                document.getElementById('systemStatus').textContent = 'SCANNING ALL DEPLOYMENT REQUIREMENTS...';
+                document.getElementById('systemStatus').textContent = 'SCANNING DEPLOYMENT REQUIREMENTS...';
                 document.querySelector('.btn-scan').disabled = true;
                 
-                // Scan Critical Requirements
+                // Scan Critical
                 for (let i = 1; i <= this.requirements.critical; i++) {
                     await this.updateStatus(`critical-${i}`, 'SCANNING');
                     await this.delay(200);
-                    const valid = Math.random() > 0.1; // 90% success
+                    const valid = Math.random() > 0.1;
                     await this.updateStatus(`critical-${i}`, valid ? 'VALID' : 'INVALID');
                     if (valid) this.validationState.critical++;
                 }
                 
-                // Scan Core Modules
+                // Scan Core
                 for (let i = 1; i <= this.requirements.core; i++) {
                     await this.updateStatus(`core-${i}`, 'SCANNING');
                     await this.delay(150);
-                    const valid = Math.random() > 0.15; // 85% success
+                    const valid = Math.random() > 0.15;
                     await this.updateStatus(`core-${i}`, valid ? 'VALID' : 'INVALID');
                     if (valid) this.validationState.core++;
                 }
@@ -370,52 +250,36 @@
                 for (let i = 1; i <= this.requirements.infra; i++) {
                     await this.updateStatus(`infra-${i}`, 'SCANNING');
                     await this.delay(150);
-                    const valid = Math.random() > 0.15; // 85% success
+                    const valid = Math.random() > 0.15;
                     await this.updateStatus(`infra-${i}`, valid ? 'VALID' : 'INVALID');
                     if (valid) this.validationState.infra++;
                 }
                 
-                // Scan Advanced Modules
+                // Scan Advanced
                 for (let i = 1; i <= this.requirements.advanced; i++) {
                     await this.updateStatus(`advanced-${i}`, 'SCANNING');
                     await this.delay(100);
-                    const valid = Math.random() > 0.2; // 80% success
+                    const valid = Math.random() > 0.2;
                     await this.updateStatus(`advanced-${i}`, valid ? 'VALID' : 'INVALID');
                     if (valid) this.validationState.advanced++;
                 }
                 
-                // Scan Optional Modules
-                for (let i = 1; i <= this.requirements.optional; i++) {
-                    await this.updateStatus(`optional-${i}`, 'SCANNING');
-                    await this.delay(80);
-                    const valid = Math.random() > 0.3; // 70% success
-                    await this.updateStatus(`optional-${i}`, valid ? 'VALID' : 'INVALID');
-                    if (valid) this.validationState.optional++;
-                }
-                
                 // Validate Gasless Mode
-                this.validationState.gaslessMode = Math.random() > 0.1; // 90% success
+                this.validationState.gaslessMode = Math.random() > 0.1;
                 
                 document.querySelector('.btn-validate').disabled = false;
-                document.getElementById('systemStatus').textContent = 'ALL REQUIREMENTS SCANNED - READY FOR VALIDATION';
+                document.getElementById('systemStatus').textContent = 'SCAN COMPLETE - READY FOR VALIDATION';
                 this.updateProgressSummary();
             }
 
             async validateForLive() {
-                document.getElementById('systemStatus').textContent = 'VALIDATING LIVE DEPLOYMENT CRITERIA...';
+                document.getElementById('systemStatus').textContent = 'VALIDATING LIVE CRITERIA...';
                 document.querySelector('.btn-validate').disabled = true;
                 
-                // Calculate percentages
-                const criticalPct = (this.validationState.critical / this.requirements.critical) * 100;
-                const corePct = (this.validationState.core / this.requirements.core) * 100;
-                const infraPct = (this.validationState.infra / this.requirements.infra) * 100;
-                const advancedPct = (this.validationState.advanced / this.requirements.advanced) * 100;
-                
-                // Check minimum viable deployment criteria
-                const criticalValid = criticalPct === 100; // 100% required
-                const coreValid = corePct >= 80;           // 80%+ required
-                const infraValid = infraPct >= 80;         // 80%+ required  
-                const advancedValid = advancedPct >= 60;   // 60%+ required
+                const criticalValid = this.validationState.critical === this.requirements.critical;
+                const coreValid = (this.validationState.core / this.requirements.core) >= 0.8;
+                const infraValid = (this.validationState.infra / this.requirements.infra) >= 0.8;
+                const advancedValid = (this.validationState.advanced / this.requirements.advanced) >= 0.6;
                 const gaslessValid = this.validationState.gaslessMode;
                 
                 const canGoLive = criticalValid && coreValid && infraValid && advancedValid && gaslessValid;
@@ -425,11 +289,9 @@
                     document.getElementById('systemStatus').textContent = 'LIVE DEPLOYMENT VALIDATED - READY TO GO LIVE';
                     document.getElementById('systemStatus').style.color = 'var(--success)';
                 } else {
-                    document.getElementById('systemStatus').textContent = 'LIVE DEPLOYMENT CRITERIA NOT MET';
+                    document.getElementById('systemStatus').textContent = 'LIVE CRITERIA NOT MET';
                     document.getElementById('systemStatus').style.color = 'var(--warning)';
                 }
-                
-                this.updateProgressSummary();
             }
 
             async updateStatus(reqId, status) {
@@ -452,49 +314,20 @@
             }
 
             async goLive() {
-                document.getElementById('systemStatus').textContent = 'ACTIVATING LIVE TRADING DEPLOYMENT...';
+                document.getElementById('systemStatus').textContent = 'ACTIVATING LIVE TRADING...';
                 document.querySelector('.btn-live').disabled = true;
                 
-                // Activate all validated systems
-                const allCategories = ['critical', 'core', 'infra', 'advanced', 'optional'];
-                for (const category of allCategories) {
-                    for (let i = 1; i <= this.requirements[category]; i++) {
-                        const element = document.getElementById(`status-${category}-${i}`);
-                        if (element && element.textContent === 'VALID') {
-                            await this.updateStatus(`${category}-${i}`, 'ACTIVE');
-                            await this.delay(100);
-                        }
-                    }
-                }
-                
-                document.getElementById('systemStatus').textContent = 'LIVE TRADING ACTIVE - ALL SYSTEMS OPERATIONAL';
-                document.getElementById('systemStatus').style.color = 'var(--success)';
-                
-                // Redirect to monitoring
                 setTimeout(() => {
                     window.location.href = '/monitoring_dashboard.html';
                 }, 3000);
             }
 
             emergencyStop() {
-                document.getElementById('systemStatus').textContent = 'EMERGENCY STOP - ALL SYSTEMS HALTED';
+                document.getElementById('systemStatus').textContent = 'EMERGENCY STOP ACTIVATED';
                 document.getElementById('systemStatus').style.color = 'var(--danger)';
-                
-                // Reset all systems
-                const allCategories = ['critical', 'core', 'infra', 'advanced', 'optional'];
-                for (const category of allCategories) {
-                    for (let i = 1; i <= this.requirements[category]; i++) {
-                        this.updateStatus(`${category}-${i}`, 'STOPPED');
-                    }
-                }
-                
-                // Reset controls and state
                 document.querySelector('.btn-scan').disabled = false;
                 document.querySelector('.btn-validate').disabled = true;
                 document.querySelector('.btn-live').disabled = true;
-                
-                this.validationState = { critical: 0, core: 0, infra: 0, advanced: 0, optional: 0, gaslessMode: false };
-                this.updateProgressSummary();
             }
 
             delay(ms) {
@@ -503,7 +336,6 @@
         }
 
         const deploymentScanner = new LiveDeploymentScanner();
-
         function scanAllRequirements() { deploymentScanner.scanAllRequirements(); }
         function validateForLive() { deploymentScanner.validateForLive(); }
         function goLive() { deploymentScanner.goLive(); }
