@@ -11,11 +11,11 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy application code
 COPY . .
 
-# Create necessary directories
-RUN mkdir -p logs static/css core/templates
+# Make scripts executable
+RUN chmod +x *.py
 
-# Expose port
-EXPOSE 10000
+# Expose port for web service
+EXPOSE 8080
 
-# Start the application
-CMD ["python", "app.py"]
+# Start the main arbitrage engine
+CMD ["python", "main_arbitrage_engine.py"]
