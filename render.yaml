@@ -1,7 +1,7 @@
 services:
-  adaptive-profit-engine:
-    type: web
-    name: ainexus-adaptive-profit
+  ainexus-profit-engine:
+    type: worker
+    name: ainexus-profit-engine
     env: docker
     dockerfilePath: ./Dockerfile
     envVars:
