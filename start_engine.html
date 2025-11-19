@@ -67,6 +67,21 @@
             color: #00ff00;
         }
 
+        .stability-timer {
+            text-align: center;
+            padding: 10px 20px;
+            background: rgba(255, 153, 0, 0.1);
+            border-radius: 8px;
+            border: 1px solid #ff9900;
+            margin-top: 10px;
+        }
+
+        .stability-countdown {
+            font-size: 16px;
+            font-weight: bold;
+            color: #ff9900;
+        }
+
         .adaptive-controls {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -165,6 +180,12 @@
         .adaptive-estimate {
             color: #ff9900;
             font-weight: bold;
+        }
+
+        .stability-status {
+            color: #ff9900;
+            font-weight: bold;
+            margin-top: 10px;
         }
 
         .phase-grid {
@@ -302,7 +323,7 @@
         <div class="dashboard-header">
             <div class="header-title">
                 <h1>AI-NEXUS QUANTUM ENGINE</h1>
-                <div class="header-subtitle">Adaptive Deployment v4.0 • 85% Confidence Gate • Dynamic Profit Targets</div>
+                <div class="header-subtitle">Adaptive Deployment v4.0 • 85% Confidence Gate • 30-Second Stability Timer</div>
             </div>
             
             <div class="status-pulse">
@@ -316,6 +337,13 @@
                 <div class="pulse-value" id="liveCountdown">02:15</div>
                 <div class="pulse-label" id="confidenceStatus">CONFIDENCE: 0%</div>
             </div>
+        </div>
+
+        <!-- Stability Timer (Hidden until confidence >= 85%) -->
+        <div class="stability-timer" id="stabilityTimer" style="display: none;">
+            <div class="pulse-label">STABILITY COUNTDOWN TO LIVE DASHBOARD</div>
+            <div class="stability-countdown" id="stabilityCountdown">30s</div>
+            <div class="pulse-label">Maintain 85%+ confidence for auto-redirect</div>
         </div>
 
         <!-- Adaptive Controls -->
@@ -375,6 +403,7 @@
                 <span class="adaptive-estimate" id="adaptiveEstimate">Adaptive Live ETA: 02:25</span> | 
                 Dashboard: 02:35
             </div>
+            <div class="stability-status" id="stabilityStatus"></div>
         </div>
 
         <!-- 2x3 Phase Grid -->
@@ -562,6 +591,13 @@
                 this.currentPhase = 1;
                 this.currentConfidence = 0;
                 this.confidenceHistory = [];
+                
+                // NEW: Stability timer variables
+                this.stabilityTimerActive = false;
+                this.stabilityStartTime = null;
+                this.stabilityDuration = 30; // 30 seconds required at 85%+ confidence
+                this.minConfidenceThreshold = 85;
+                
                 this.profitTargets = {
                     base: { min: 50000, max: 250000 },
                     scaled: { min: 150000, max: 750000 }
@@ -576,6 +612,50 @@
                 this.startPhaseSimulation();
                 this.startConfidenceSimulation();
                 this.connectToBackend();
+                this.startStabilityMonitoring();
+            }
+
+            startStabilityMonitoring() {
+                setInterval(() => {
+                    this.checkStabilityTimer();
+                }, 1000);
+            }
+
+            checkStabilityTimer() {
+                const stabilityTimerElement = document.getElementById('stabilityTimer');
+                const stabilityCountdownElement = document.getElementById('stabilityCountdown');
+                const stabilityStatusElement = document.getElementById('stabilityStatus');
+                
+                if (this.currentConfidence >= this.minConfidenceThreshold) {
+                    if (!this.stabilityTimerActive) {
+                        // Start stability timer
+                        this.stabilityTimerActive = true;
+                        this.stabilityStartTime = Date.now();
+                        stabilityTimerElement.style.display = 'block';
+                        stabilityStatusElement.textContent = 'STABILITY TIMER ACTIVE: Maintaining 85%+ confidence...';
+                        stabilityStatusElement.style.color = '#ff9900';
+                    }
+                    
+                    // Calculate remaining time
+                    const elapsed = (Date.now() - this.stabilityStartTime) / 1000;
+                    const remaining = Math.max(0, this.stabilityDuration - elapsed);
+                    
+                    stabilityCountdownElement.textContent = `${Math.ceil(remaining)}s`;
+                    
+                    // Check if stability period completed
+                    if (remaining <= 0) {
+                        this.activateLiveMode();
+                    }
+                } else {
+                    // Confidence dropped below threshold - reset timer
+                    if (this.stabilityTimerActive) {
+                        this.stabilityTimerActive = false;
+                        this.stabilityStartTime = null;
+                        stabilityTimerElement.style.display = 'none';
+                        stabilityStatusElement.textContent = 'STABILITY TIMER RESET: Confidence dropped below 85%';
+                        stabilityStatusElement.style.color = '#ff4444';
+                    }
+                }
             }
 
             startConfidenceSimulation() {
@@ -725,10 +805,6 @@
                 if (backendConfidence > 0) {
                     this.currentConfidence = this.currentConfidence * 0.6 + backendConfidence * 0.4;
                 }
-                
-                if (this.currentConfidence >= 85 && backendData.live_trading) {
-                    this.activateLiveMode();
-                }
             }
 
             startCountdown() {
@@ -837,8 +913,6 @@
                     this.currentPhase++;
                     this.phases[this.currentPhase - 1].status = 'running';
                     this.updatePhaseCards();
-                } else {
-                    this.activateLiveMode();
                 }
             }
 
@@ -852,14 +926,17 @@
             }
 
             activateLiveMode() {
-                if (this.currentConfidence >= 85) {
-                    document.getElementById('systemStatus').textContent = 'LIVE TRADING';
-                    document.getElementById('systemStatus').style.color = '#73bf69';
-                    
-                    setTimeout(() => {
-                        window.location.href = 'monitoring_dashboard.html';
-                    }, this.adaptiveWarmup * 1000);
-                }
+                document.getElementById('systemStatus').textContent = 'LIVE TRADING';
+                document.getElementById('systemStatus').style.color = '#73bf69';
+                
+                // Update status to show redirecting
+                document.getElementById('stabilityStatus').textContent = 'REDIRECTING TO LIVE DASHBOARD...';
+                document.getElementById('stabilityStatus').style.color = '#00ff00';
+                
+                // Redirect to monitoring dashboard after short delay
+                setTimeout(() => {
+                    window.location.href = 'monitoring_dashboard.html';
+                }, 2000);
             }
         }
 
