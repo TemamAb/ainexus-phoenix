@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 """
-Ì∫Ä AI-NEXUS QUANTUM ARBITRAGE - ADAPTIVE DEPLOYMENT ENGINE
-Ì≥ç Adaptive profit targets & confidence-based countdown
+AI-NEXUS QUANTUM ARBITRAGE - ADAPTIVE DEPLOYMENT ENGINE
+Adaptive profit targets & confidence-based countdown
 """
 
 import asyncio
@@ -29,55 +30,55 @@ class AdaptiveDeploymentEngine:
         
     async def execute_adaptive_deployment(self):
         """Adaptive 6-phase deployment with confidence monitoring"""
-        print("Ì∫Ä STARTING ADAPTIVE 6-PHASE DEPLOYMENT...")
+        print("STARTING ADAPTIVE 6-PHASE DEPLOYMENT...")
         self.deployment_start = time.time()
         
         # Start confidence monitoring
         asyncio.create_task(self.monitor_confidence())
         
         # PHASE 1: Environment Validation (2.1s)
-        print("Ì¥∑ PHASE 1: Environment Validation - 2.1s")
+        print("PHASE 1: Environment Validation - 2.1s")
         await asyncio.sleep(2.1)
         await self.validate_environment()
         self.phase_status['phase1'] = {'status': 'completed', 'timestamp': datetime.now()}
         self.current_phase = 1
         
         # PHASE 2: Blockchain Infrastructure (10.7s)
-        print("Ì¥∑ PHASE 2: Blockchain Infrastructure - 10.7s")
+        print("PHASE 2: Blockchain Infrastructure - 10.7s")
         await asyncio.sleep(10.7)
         await self.initialize_blockchain()
         self.phase_status['phase2'] = {'status': 'completed', 'timestamp': datetime.now()}
         self.current_phase = 2
         
         # PHASE 3: Market Data Streaming (12.4s)
-        print("Ì¥∑ PHASE 3: Market Data Streaming - 12.4s")
+        print("PHASE 3: Market Data Streaming - 12.4s")
         await asyncio.sleep(12.4)
         await self.activate_data_streams()
         self.phase_status['phase3'] = {'status': 'completed', 'timestamp': datetime.now()}
         self.current_phase = 3
         
         # PHASE 4: AI Strategy Optimization (15.8s)
-        print("ÔøΩÔøΩ PHASE 4: AI Strategy Optimization - 15.8s")
+        print("PHASE 4: AI Strategy Optimization - 15.8s")
         await asyncio.sleep(15.8)
         await self.optimize_ai_strategies()
         self.phase_status['phase4'] = {'status': 'completed', 'timestamp': datetime.now()}
         self.current_phase = 4
         
         # PHASE 5: Risk Assessment (6.3s)
-        print("Ì¥∑ PHASE 5: Risk Assessment - 6.3s")
+        print("PHASE 5: Risk Assessment - 6.3s")
         await asyncio.sleep(6.3)
         await self.activate_risk_management()
         self.phase_status['phase5'] = {'status': 'completed', 'timestamp': datetime.now()}
         self.current_phase = 5
         
         # PHASE 6: Live Execution Ready (3.1s)
-        print("Ì¥∑ PHASE 6: Live Execution Ready - 3.1s")
+        print("PHASE 6: Live Execution Ready - 3.1s")
         await asyncio.sleep(3.1)
         await self.arm_execution_engine()
         self.phase_status['phase6'] = {'status': 'completed', 'timestamp': datetime.now()}
         self.current_phase = 6
         
-        print("‚úÖ ALL 6 PHASES COMPLETED - AWAITING 85% CONFIDENCE...")
+        print("ALL 6 PHASES COMPLETED - AWAITING 85% CONFIDENCE...")
         return True
 
     async def monitor_confidence(self):
@@ -115,10 +116,10 @@ class AdaptiveDeploymentEngine:
     def get_performance_metrics(self):
         """Get performance metrics"""
         metrics = {
-            'response_time': random.uniform(85, 98),  # ms
-            'throughput': random.uniform(80, 95),     # req/sec
-            'reliability': random.uniform(90, 99),    # %
-            'efficiency': random.uniform(85, 97)      # %
+            'response_time': random.uniform(85, 98),
+            'throughput': random.uniform(80, 95),
+            'reliability': random.uniform(90, 99),
+            'efficiency': random.uniform(85, 97)
         }
         return sum(metrics.values()) / len(metrics)
 
@@ -153,39 +154,39 @@ class AdaptiveDeploymentEngine:
             await self.activate_live_trading()
 
     async def validate_environment(self):
-        print("   ‚úÖ Environment validated")
-        print("   ‚úÖ Dependencies verified")
+        print("   Environment validated")
+        print("   Dependencies verified")
 
     async def initialize_blockchain(self):
-        print("   ‚úÖ Multi-chain RPC connected")
-        print("   ‚úÖ Web3 instances initialized")
+        print("   Multi-chain RPC connected")
+        print("   Web3 instances initialized")
 
     async def activate_data_streams(self):
-        print("   ‚úÖ Market data streams active")
-        print("   ‚úÖ Real-time monitoring enabled")
+        print("   Market data streams active")
+        print("   Real-time monitoring enabled")
 
     async def optimize_ai_strategies(self):
-        print("   ‚úÖ 45 AI modules optimized")
-        print("   ‚úÖ Strategy calibration complete")
+        print("   45 AI modules optimized")
+        print("   Strategy calibration complete")
 
     async def activate_risk_management(self):
-        print("   ‚úÖ Risk protocols activated")
-        print("   ‚úÖ MEV protection enabled")
+        print("   Risk protocols activated")
+        print("   MEV protection enabled")
 
     async def arm_execution_engine(self):
-        print("   ‚úÖ Execution engine armed")
-        print("   ‚úÖ Profit tracking initialized")
+        print("   Execution engine armed")
+        print("   Profit tracking initialized")
 
     async def activate_live_trading(self):
         """Activate live trading when confidence threshold reached"""
         if self.system_confidence >= 85 and not self.live_trading:
-            print(f"Ì≤∞ ACTIVATING LIVE TRADING - Confidence: {self.system_confidence:.1f}%")
-            await asyncio.sleep(self.adaptive_warmup)  # Adaptive warmup period
+            print(f"ACTIVATING LIVE TRADING - Confidence: {self.system_confidence:.1f}%")
+            await asyncio.sleep(self.adaptive_warmup)
             
             self.live_trading = True
-            print("   ‚úÖ Live trading activated")
-            print(f"   ÌæØ Adaptive profit targets: ${self.profit_targets['current']['min']/1000:.0f}K-${self.profit_targets['current']['max']/1000:.0f}K/day")
-            print("   ‚ö° Real arbitrage execution started")
+            print("   Live trading activated")
+            print(f"   Adaptive profit targets: ${self.profit_targets['current']['min']/1000:.0f}K-${self.profit_targets['current']['max']/1000:.0f}K/day")
+            print("   Real arbitrage execution started")
 
     async def web_server(self):
         """Web server with adaptive endpoints"""
@@ -222,7 +223,7 @@ class AdaptiveDeploymentEngine:
         site = web.TCPSite(runner, '0.0.0.0', 8080)
         await site.start()
         
-        print("Ìºê ADAPTIVE START ENGINE RUNNING ON http://0.0.0.0:8080")
+        print("ADAPTIVE START ENGINE RUNNING ON http://0.0.0.0:8080")
         return runner
 
     async def main_engine(self):
@@ -243,12 +244,12 @@ class AdaptiveDeploymentEngine:
             raise
 
 if __name__ == "__main__":
-    print("Ì∫Ä BOOTING AI-NEXUS ADAPTIVE DEPLOYMENT ENGINE")
+    print("BOOTING AI-NEXUS ADAPTIVE DEPLOYMENT ENGINE")
     engine = AdaptiveDeploymentEngine()
     
     try:
         asyncio.run(engine.main_engine())
     except KeyboardInterrupt:
-        print("Ìªë Adaptive deployment stopped")
+        print("Adaptive deployment stopped")
     except Exception as e:
-        print(f"‚ùå Adaptive deployment error: {e}")
+        print(f"Adaptive deployment error: {e}")
