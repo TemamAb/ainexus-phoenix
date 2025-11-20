@@ -4,9 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AINEXUS // PRODUCTION SYSTEM</title>
-    <!-- Proper Web3 and Ethers.js for reliable connection -->
-    <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@metamask/detect-provider@2.0.0/dist/detect-provider.min.js"></script>
+    <!-- Direct MetaMask connection - no external dependencies -->
+    <script>
+        // Direct MetaMask detection and connection
+        function detectMetaMask() {
+            // Direct check for MetaMask extension
+            if (typeof window.ethereum !== 'undefined') {
+                console.log('‚úÖ MetaMask detected directly');
+                return window.ethereum;
+            }
+            
+            // Check for legacy web3
+            if (typeof window.web3 !== 'undefined') {
+                console.log('‚úÖ Legacy web3 detected');
+                return window.web3.currentProvider;
+            }
+            
+            console.log('‚ùå No Ethereum provider found');
+            return null;
+        }
+    </script>
     <style>
         :root {
             --bg-primary: #1A1D21;
@@ -273,16 +290,33 @@
             background: #f44336;
             color: white;
         }
+        .install-guide {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: var(--bg-primary);
+            border: 1px solid var(--accent-blue);
+        }
+        .install-guide a {
+            color: var(--accent-blue);
+            text-decoration: none;
+        }
     </style>
 </head>
 <body>
     <div class="wallet-modal" id="walletModal">
         <div class="wallet-options">
             <h3 class="modal-title">Connect Wallet</h3>
-            <div class="wallet-status" id="walletStatus" style="display: none;"></div>
+            <div class="wallet-status" id="walletStatus"></div>
+            
             <button class="wallet-btn" id="metaMaskBtn">
                 <span id="metaMaskText">MetaMask</span>
             </button>
+            
+            <div class="install-guide" id="installGuide" style="display: none;">
+                <p><strong>MetaMask not installed?</strong></p>
+                <p><a href="https://metamask.io/download.html" target="_blank">Download MetaMask here</a></p>
+            </div>
+            
             <button class="wallet-btn wallet-cancel" id="cancelBtn">Cancel</button>
         </div>
     </div>
@@ -377,10 +411,9 @@
     </div>
 
     <script>
-        // PROPER METAMASK DETECTION AND CONNECTION
+        // DIRECT METAMASK CONNECTION - SIMPLE AND RELIABLE
         let userWallet = null;
         let isActive = false;
-        let provider = null;
         
         // DOM Elements
         const systemStatus = document.getElementById('systemStatus');
@@ -395,170 +428,91 @@
         const cancelBtn = document.getElementById('cancelBtn');
         const walletDisplay = document.getElementById('walletDisplay');
         const walletStatus = document.getElementById('walletStatus');
+        const installGuide = document.getElementById('installGuide');
 
-        // Initialize MetaMask detection
-        async function initializeWalletDetection() {
-            console.log('Initializing wallet detection...');
+        // Check for MetaMask on page load
+        function checkMetaMask() {
+            console.log('Ì¥ç Checking for MetaMask...');
             
-            // Method 1: Direct window.ethereum detection
-            if (window.ethereum) {
-                console.log('MetaMask detected via window.ethereum');
-                provider = window.ethereum;
-                await setupProvider(provider);
-                return;
-            }
-            
-            // Method 2: Use detect-provider library
-            try {
-                const detectedProvider = await detectEthereumProvider();
-                if (detectedProvider) {
-                    console.log('MetaMask detected via detect-provider');
-                    provider = detectedProvider;
-                    await setupProvider(provider);
-                    return;
-                }
-            } catch (error) {
-                console.log('Detect-provider failed:', error);
-            }
-            
-            // Method 3: Use Ethers.js fallback detection
-            if (window.ethereum || (window.web3 && window.web3.currentProvider)) {
-                console.log('Ethereum provider detected via fallback');
-                provider = window.ethereum || window.web3.currentProvider;
-                await setupProvider(provider);
-                return;
-            }
-            
-            console.log('No Ethereum wallet detected');
-            updateWalletStatus('No Ethereum wallet found. Please install MetaMask.', 'error');
-        }
-
-        // Setup provider and check connection
-        async function setupProvider(ethereumProvider) {
-            try {
-                console.log('Setting up provider...');
-                
-                // Check if already connected
-                const accounts = await ethereumProvider.request({ 
-                    method: 'eth_accounts' 
-                });
-                
-                if (accounts.length > 0) {
-                    console.log('Already connected:', accounts[0]);
-                    userWallet = accounts[0];
-                    updateUIAfterConnection();
-                    updateWalletStatus('Wallet connected successfully!', 'success');
-                } else {
-                    console.log('Wallet detected but not connected');
-                    updateWalletStatus('MetaMask detected. Click to connect.', 'success');
-                }
-                
-            } catch (error) {
-                console.error('Provider setup failed:', error);
-                updateWalletStatus('Error connecting to wallet', 'error');
+            // Direct check for MetaMask extension
+            if (typeof window.ethereum !== 'undefined') {
+                console.log('‚úÖ MetaMask is installed and available');
+                walletStatus.textContent = 'MetaMask detected! Click to connect.';
+                walletStatus.className = 'wallet-status status-success';
+                installGuide.style.display = 'none';
+                return true;
+            } else {
+                console.log('‚ùå MetaMask not found');
+                walletStatus.textContent = 'MetaMask not detected. Please install it first.';
+                walletStatus.className = 'wallet-status status-error';
+                installGuide.style.display = 'block';
+                return false;
             }
         }
 
-        // Detect Ethereum provider
-        async function detectEthereumProvider() {
-            // First check window.ethereum
-            if (window.ethereum) {
-                return window.ethereum;
-            }
+        // Direct MetaMask connection
+        async function connectMetaMaskDirect() {
+            console.log('Ì∂ä Attempting direct MetaMask connection...');
             
-            // Check for injected providers
-            if (window.web3 && window.web3.currentProvider) {
-                return window.web3.currentProvider;
-            }
-            
-            // Check for various injected providers
-            const providers = [
-                window.ethereum,
-                window.web3?.currentProvider,
-                window.bitkeep?.ethereum,
-                window.coinbaseWalletExtension,
-                window.trustwallet,
-                window.imToken
-            ];
-            
-            for (const p of providers) {
-                if (p && p.request) {
-                    return p;
-                }
-            }
-            
-            return null;
-        }
-
-        // Update wallet status display
-        function updateWalletStatus(message, type) {
-            walletStatus.textContent = message;
-            walletStatus.className = 'wallet-status';
-            walletStatus.style.display = 'block';
-            
-            if (type === 'success') {
-                walletStatus.classList.add('status-success');
-            } else if (type === 'error') {
-                walletStatus.classList.add('status-error');
-            }
-        }
-
-        // Wallet Modal Functions
-        function showWalletModal() {
-            walletModal.style.display = 'flex';
-            initializeWalletDetection();
-        }
-
-        function closeWalletModal() {
-            walletModal.style.display = 'none';
-            walletStatus.style.display = 'none';
-        }
-
-        // MetaMask Connection with proper error handling
-        async function connectMetaMask() {
-            console.log('Attempting MetaMask connection...');
-            
-            if (!provider) {
-                updateWalletStatus('No Ethereum provider found. Please install MetaMask.', 'error');
+            // Check if MetaMask is available
+            if (typeof window.ethereum === 'undefined') {
+                walletStatus.textContent = 'Error: MetaMask not found. Please install the extension.';
+                walletStatus.className = 'wallet-status status-error';
+                installGuide.style.display = 'block';
                 return;
             }
 
             try {
+                // Update UI
                 metaMaskText.textContent = 'Connecting...';
                 metaMaskBtn.disabled = true;
+                walletStatus.textContent = 'Waiting for MetaMask approval...';
+                walletStatus.className = 'wallet-status';
 
-                console.log('Requesting accounts...');
-                const accounts = await provider.request({ 
-                    method: 'eth_requestAccounts' 
+                console.log('Ì≥ù Requesting accounts from MetaMask...');
+                
+                // DIRECT METAMASK API CALL - This is what triggers the extension
+                const accounts = await window.ethereum.request({
+                    method: 'eth_requestAccounts'
                 });
+
+                console.log('‚úÖ MetaMask response:', accounts);
 
                 if (accounts && accounts.length > 0) {
                     userWallet = accounts[0];
-                    console.log('Successfully connected:', userWallet);
+                    console.log('Ìæâ Successfully connected to:', userWallet);
                     
+                    // Update UI
                     updateUIAfterConnection();
-                    updateWalletStatus('Successfully connected!', 'success');
+                    walletStatus.textContent = 'Connected successfully!';
+                    walletStatus.className = 'wallet-status status-success';
                     
-                    // Close modal after successful connection
+                    // Close modal after delay
                     setTimeout(() => {
                         closeWalletModal();
-                    }, 1500);
+                    }, 1000);
                     
                 } else {
-                    throw new Error('No accounts returned');
+                    throw new Error('No accounts returned from MetaMask');
                 }
 
             } catch (error) {
-                console.error('MetaMask connection error:', error);
+                console.error('‚ùå MetaMask connection failed:', error);
+                
+                // Reset button
                 metaMaskText.textContent = 'MetaMask';
                 metaMaskBtn.disabled = false;
-
+                
+                // Handle specific error cases
                 if (error.code === 4001) {
-                    updateWalletStatus('Connection rejected. Please approve the connection request.', 'error');
+                    walletStatus.textContent = 'Connection rejected. Please approve the connection in MetaMask.';
+                    walletStatus.className = 'wallet-status status-error';
                 } else if (error.code === -32002) {
-                    updateWalletStatus('Connection already pending. Please check MetaMask.', 'error');
+                    walletStatus.textContent = 'Connection already pending. Please check MetaMask.';
+                    walletStatus.className = 'wallet-status status-error';
                 } else {
-                    updateWalletStatus(`Connection failed: ${error.message}`, 'error');
+                    walletStatus.textContent = `Connection failed: ${error.message}`;
+                    walletStatus.className = 'wallet-status status-error';
                 }
             }
         }
@@ -573,6 +527,16 @@
             systemStatus.textContent = 'READY FOR ACTIVATION';
             arenaMessage.textContent = 'Configure preferences and activate to begin';
             activateBtn.disabled = false;
+        }
+
+        // Wallet Modal Functions
+        function showWalletModal() {
+            walletModal.style.display = 'flex';
+            checkMetaMask(); // Check MetaMask when modal opens
+        }
+
+        function closeWalletModal() {
+            walletModal.style.display = 'none';
         }
 
         // Activation System
@@ -628,10 +592,10 @@
             arenaMessage.textContent = 'Live operations active - awaiting opportunities';
         }
 
-        // Event Listeners
+        // EVENT LISTENERS - SIMPLE AND DIRECT
         connectWalletBtn.addEventListener('click', showWalletModal);
         walletDisplay.addEventListener('click', showWalletModal);
-        metaMaskBtn.addEventListener('click', connectMetaMask);
+        metaMaskBtn.addEventListener('click', connectMetaMaskDirect);
         cancelBtn.addEventListener('click', closeWalletModal);
         activateBtn.addEventListener('click', activateAINexus);
         
@@ -644,20 +608,21 @@
             }
         });
 
+        // Close modal when clicking outside
         walletModal.addEventListener('click', function(event) {
             if (event.target === walletModal) {
                 closeWalletModal();
             }
         });
 
-        // Initialize on load
+        // Initialize on page load
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('AINexus Production System Initialized');
+            console.log('Ì∫Ä AINexus Production System Loaded');
             countdownScreen.style.display = 'none';
             walletModal.style.display = 'none';
             
-            // Auto-detect wallet on page load
-            initializeWalletDetection();
+            // Initial MetaMask check
+            checkMetaMask();
         });
     </script>
 </body>
