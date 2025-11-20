@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AINEXUS // PRODUCTION SYSTEM</title>
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.8.0/dist/web3.min.js"></script>
     <style>
         :root {
             --bg-primary: #1A1D21;
@@ -226,6 +227,7 @@
             padding: 2rem;
             border-radius: 0;
             text-align: center;
+            min-width: 300px;
         }
         .wallet-btn {
             background: var(--accent-blue);
@@ -236,15 +238,26 @@
             cursor: pointer;
             border-radius: 0;
             font-weight: 500;
+            width: 200px;
+            display: block;
+        }
+        .wallet-cancel {
+            background: transparent;
+            border: 1px solid var(--text-secondary);
+            color: var(--text-secondary);
+        }
+        .modal-title {
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
         }
     </style>
 </head>
 <body>
     <div class="wallet-modal" id="walletModal">
         <div class="wallet-options">
-            <h3>Connect Wallet</h3>
-            <button class="wallet-btn" onclick="connectWallet()">MetaMask</button>
-            <button class="wallet-btn" onclick="closeWalletModal()">Cancel</button>
+            <h3 class="modal-title">Connect Wallet</h3>
+            <button class="wallet-btn" id="metaMaskBtn">MetaMask</button>
+            <button class="wallet-btn wallet-cancel" id="cancelBtn">Cancel</button>
         </div>
     </div>
 
@@ -266,7 +279,7 @@
                     <option value="30000">30 sec</option>
                 </select>
             </div>
-            <div class="wallet-address" id="walletDisplay" onclick="showWalletModal()">Connect Wallet</div>
+            <div class="wallet-address" id="walletDisplay">Connect Wallet</div>
         </div>
     </div>
 
@@ -349,29 +362,42 @@
         const activateBtn = document.getElementById('activateBtn');
         const preferencesPanel = document.getElementById('preferencesPanel');
         const countdownScreen = document.getElementById('countdownScreen');
+        const walletModal = document.getElementById('walletModal');
+        const metaMaskBtn = document.getElementById('metaMaskBtn');
+        const cancelBtn = document.getElementById('cancelBtn');
+        const walletDisplay = document.getElementById('walletDisplay');
 
-        // Wallet Functions
+        // Wallet Modal Functions
         function showWalletModal() {
             if (!userWallet) {
-                document.getElementById('walletModal').style.display = 'flex';
+                walletModal.style.display = 'flex';
             }
         }
 
         function closeWalletModal() {
-            document.getElementById('walletModal').style.display = 'none';
+            walletModal.style.display = 'none';
         }
 
-        async function connectWallet() {
+        // MetaMask Connection
+        async function connectMetaMask() {
             if (typeof window.ethereum !== 'undefined') {
                 try {
+                    console.log('MetaMask detected, requesting accounts...');
+                    
+                    // Request account access
                     const accounts = await window.ethereum.request({ 
                         method: 'eth_requestAccounts' 
                     });
+                    
+                    if (accounts.length === 0) {
+                        throw new Error('No accounts found');
+                    }
+                    
                     userWallet = accounts[0];
+                    console.log('Connected wallet:', userWallet);
                     
                     // Update UI
-                    document.getElementById('walletDisplay').textContent = 
-                        `${userWallet.substring(0,6)}...${userWallet.substring(38)}`;
+                    walletDisplay.textContent = `${userWallet.substring(0,6)}...${userWallet.substring(38)}`;
                     connectWalletBtn.style.display = 'none';
                     activateBtn.style.display = 'block';
                     preferencesPanel.style.display = 'block';
@@ -379,19 +405,36 @@
                     arenaMessage.textContent = 'Configure preferences and activate to begin';
                     closeWalletModal();
                     
+                    // Enable activate button
+                    activateBtn.disabled = false;
+                    
                 } catch (error) {
-                    console.error('Wallet connection failed');
+                    console.error('MetaMask connection failed:', error);
+                    
+                    if (error.code === 4001) {
+                        // User rejected the request
+                        alert('Connection rejected. Please connect your wallet to continue.');
+                    } else {
+                        alert('Failed to connect MetaMask. Please make sure MetaMask is installed and unlocked.');
+                    }
                 }
             } else {
-                alert('Ethereum wallet not detected');
+                alert('MetaMask not detected. Please install MetaMask to use AINexus.');
+                console.log('MetaMask not installed');
             }
         }
 
         // Activation System
         function activateAINexus() {
+            if (!userWallet) {
+                alert('Please connect your wallet first');
+                return;
+            }
+            
             // Show countdown
             countdownScreen.style.display = 'flex';
             systemStatus.textContent = 'INITIALIZING';
+            activateBtn.disabled = true;
             
             // Start real initialization sequence
             initializeProductionSystem();
@@ -446,9 +489,13 @@
             // - Flash loan protocol connections
         }
 
-        // Event Listeners
-        document.getElementById('connectWalletBtn').addEventListener('click', showWalletModal);
-        document.getElementById('activateBtn').addEventListener('click', activateAINexus);
+        // Event Listeners - PROPERLY BOUND
+        connectWalletBtn.addEventListener('click', showWalletModal);
+        walletDisplay.addEventListener('click', showWalletModal);
+        metaMaskBtn.addEventListener('click', connectMetaMask);
+        cancelBtn.addEventListener('click', closeWalletModal);
+        activateBtn.addEventListener('click', activateAINexus);
+        
         document.getElementById('priceToggle').addEventListener('click', function() {
             const priceDisplay = document.getElementById('priceDisplay');
             if (priceDisplay.textContent.includes('ETH/USD')) {
@@ -458,8 +505,19 @@
             }
         });
 
+        // Close modal when clicking outside
+        walletModal.addEventListener('click', function(event) {
+            if (event.target === walletModal) {
+                closeWalletModal();
+            }
+        });
+
         // Initialize
         countdownScreen.style.display = 'none';
+        walletModal.style.display = 'none';
+        
+        console.log('AINexus Production System Loaded');
+        console.log('Wallet connection ready');
     </script>
 </body>
 </html>
