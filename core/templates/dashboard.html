@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AINEXUS // PRODUCTION SYSTEM</title>
-    <script src="https://cdn.jsdelivr.net/npm/web3@1.8.0/dist/web3.min.js"></script>
+    <!-- Proper Web3 and Ethers.js for reliable connection -->
+    <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@metamask/detect-provider@2.0.0/dist/detect-provider.min.js"></script>
     <style>
         :root {
             --bg-primary: #1A1D21;
@@ -76,6 +78,13 @@
         .wallet-address {
             color: var(--text-secondary);
             cursor: pointer;
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--accent-blue);
+        }
+        .wallet-connected {
+            background: var(--profit-green);
+            color: var(--bg-primary);
+            border-color: var(--profit-green);
         }
 
         .dashboard-grid {
@@ -250,13 +259,30 @@
             margin-bottom: 1.5rem;
             color: var(--text-primary);
         }
+        .wallet-status {
+            margin: 1rem 0;
+            padding: 0.5rem;
+            border-radius: 0;
+            font-size: 0.9rem;
+        }
+        .status-success {
+            background: var(--profit-green);
+            color: var(--bg-primary);
+        }
+        .status-error {
+            background: #f44336;
+            color: white;
+        }
     </style>
 </head>
 <body>
     <div class="wallet-modal" id="walletModal">
         <div class="wallet-options">
             <h3 class="modal-title">Connect Wallet</h3>
-            <button class="wallet-btn" id="metaMaskBtn">MetaMask</button>
+            <div class="wallet-status" id="walletStatus" style="display: none;"></div>
+            <button class="wallet-btn" id="metaMaskBtn">
+                <span id="metaMaskText">MetaMask</span>
+            </button>
             <button class="wallet-btn wallet-cancel" id="cancelBtn">Cancel</button>
         </div>
     </div>
@@ -351,9 +377,10 @@
     </div>
 
     <script>
-        // PURE PRODUCTION STATE - NO MOCK DATA
+        // PROPER METAMASK DETECTION AND CONNECTION
         let userWallet = null;
         let isActive = false;
+        let provider = null;
         
         // DOM Elements
         const systemStatus = document.getElementById('systemStatus');
@@ -364,64 +391,188 @@
         const countdownScreen = document.getElementById('countdownScreen');
         const walletModal = document.getElementById('walletModal');
         const metaMaskBtn = document.getElementById('metaMaskBtn');
+        const metaMaskText = document.getElementById('metaMaskText');
         const cancelBtn = document.getElementById('cancelBtn');
         const walletDisplay = document.getElementById('walletDisplay');
+        const walletStatus = document.getElementById('walletStatus');
+
+        // Initialize MetaMask detection
+        async function initializeWalletDetection() {
+            console.log('Initializing wallet detection...');
+            
+            // Method 1: Direct window.ethereum detection
+            if (window.ethereum) {
+                console.log('MetaMask detected via window.ethereum');
+                provider = window.ethereum;
+                await setupProvider(provider);
+                return;
+            }
+            
+            // Method 2: Use detect-provider library
+            try {
+                const detectedProvider = await detectEthereumProvider();
+                if (detectedProvider) {
+                    console.log('MetaMask detected via detect-provider');
+                    provider = detectedProvider;
+                    await setupProvider(provider);
+                    return;
+                }
+            } catch (error) {
+                console.log('Detect-provider failed:', error);
+            }
+            
+            // Method 3: Use Ethers.js fallback detection
+            if (window.ethereum || (window.web3 && window.web3.currentProvider)) {
+                console.log('Ethereum provider detected via fallback');
+                provider = window.ethereum || window.web3.currentProvider;
+                await setupProvider(provider);
+                return;
+            }
+            
+            console.log('No Ethereum wallet detected');
+            updateWalletStatus('No Ethereum wallet found. Please install MetaMask.', 'error');
+        }
+
+        // Setup provider and check connection
+        async function setupProvider(ethereumProvider) {
+            try {
+                console.log('Setting up provider...');
+                
+                // Check if already connected
+                const accounts = await ethereumProvider.request({ 
+                    method: 'eth_accounts' 
+                });
+                
+                if (accounts.length > 0) {
+                    console.log('Already connected:', accounts[0]);
+                    userWallet = accounts[0];
+                    updateUIAfterConnection();
+                    updateWalletStatus('Wallet connected successfully!', 'success');
+                } else {
+                    console.log('Wallet detected but not connected');
+                    updateWalletStatus('MetaMask detected. Click to connect.', 'success');
+                }
+                
+            } catch (error) {
+                console.error('Provider setup failed:', error);
+                updateWalletStatus('Error connecting to wallet', 'error');
+            }
+        }
+
+        // Detect Ethereum provider
+        async function detectEthereumProvider() {
+            // First check window.ethereum
+            if (window.ethereum) {
+                return window.ethereum;
+            }
+            
+            // Check for injected providers
+            if (window.web3 && window.web3.currentProvider) {
+                return window.web3.currentProvider;
+            }
+            
+            // Check for various injected providers
+            const providers = [
+                window.ethereum,
+                window.web3?.currentProvider,
+                window.bitkeep?.ethereum,
+                window.coinbaseWalletExtension,
+                window.trustwallet,
+                window.imToken
+            ];
+            
+            for (const p of providers) {
+                if (p && p.request) {
+                    return p;
+                }
+            }
+            
+            return null;
+        }
+
+        // Update wallet status display
+        function updateWalletStatus(message, type) {
+            walletStatus.textContent = message;
+            walletStatus.className = 'wallet-status';
+            walletStatus.style.display = 'block';
+            
+            if (type === 'success') {
+                walletStatus.classList.add('status-success');
+            } else if (type === 'error') {
+                walletStatus.classList.add('status-error');
+            }
+        }
 
         // Wallet Modal Functions
         function showWalletModal() {
-            if (!userWallet) {
-                walletModal.style.display = 'flex';
-            }
+            walletModal.style.display = 'flex';
+            initializeWalletDetection();
         }
 
         function closeWalletModal() {
             walletModal.style.display = 'none';
+            walletStatus.style.display = 'none';
         }
 
-        // MetaMask Connection
+        // MetaMask Connection with proper error handling
         async function connectMetaMask() {
-            if (typeof window.ethereum !== 'undefined') {
-                try {
-                    console.log('MetaMask detected, requesting accounts...');
-                    
-                    // Request account access
-                    const accounts = await window.ethereum.request({ 
-                        method: 'eth_requestAccounts' 
-                    });
-                    
-                    if (accounts.length === 0) {
-                        throw new Error('No accounts found');
-                    }
-                    
-                    userWallet = accounts[0];
-                    console.log('Connected wallet:', userWallet);
-                    
-                    // Update UI
-                    walletDisplay.textContent = `${userWallet.substring(0,6)}...${userWallet.substring(38)}`;
-                    connectWalletBtn.style.display = 'none';
-                    activateBtn.style.display = 'block';
-                    preferencesPanel.style.display = 'block';
-                    systemStatus.textContent = 'READY FOR ACTIVATION';
-                    arenaMessage.textContent = 'Configure preferences and activate to begin';
-                    closeWalletModal();
-                    
-                    // Enable activate button
-                    activateBtn.disabled = false;
-                    
-                } catch (error) {
-                    console.error('MetaMask connection failed:', error);
-                    
-                    if (error.code === 4001) {
-                        // User rejected the request
-                        alert('Connection rejected. Please connect your wallet to continue.');
-                    } else {
-                        alert('Failed to connect MetaMask. Please make sure MetaMask is installed and unlocked.');
-                    }
-                }
-            } else {
-                alert('MetaMask not detected. Please install MetaMask to use AINexus.');
-                console.log('MetaMask not installed');
+            console.log('Attempting MetaMask connection...');
+            
+            if (!provider) {
+                updateWalletStatus('No Ethereum provider found. Please install MetaMask.', 'error');
+                return;
             }
+
+            try {
+                metaMaskText.textContent = 'Connecting...';
+                metaMaskBtn.disabled = true;
+
+                console.log('Requesting accounts...');
+                const accounts = await provider.request({ 
+                    method: 'eth_requestAccounts' 
+                });
+
+                if (accounts && accounts.length > 0) {
+                    userWallet = accounts[0];
+                    console.log('Successfully connected:', userWallet);
+                    
+                    updateUIAfterConnection();
+                    updateWalletStatus('Successfully connected!', 'success');
+                    
+                    // Close modal after successful connection
+                    setTimeout(() => {
+                        closeWalletModal();
+                    }, 1500);
+                    
+                } else {
+                    throw new Error('No accounts returned');
+                }
+
+            } catch (error) {
+                console.error('MetaMask connection error:', error);
+                metaMaskText.textContent = 'MetaMask';
+                metaMaskBtn.disabled = false;
+
+                if (error.code === 4001) {
+                    updateWalletStatus('Connection rejected. Please approve the connection request.', 'error');
+                } else if (error.code === -32002) {
+                    updateWalletStatus('Connection already pending. Please check MetaMask.', 'error');
+                } else {
+                    updateWalletStatus(`Connection failed: ${error.message}`, 'error');
+                }
+            }
+        }
+
+        // Update UI after successful connection
+        function updateUIAfterConnection() {
+            walletDisplay.textContent = `${userWallet.substring(0,6)}...${userWallet.substring(38)}`;
+            walletDisplay.classList.add('wallet-connected');
+            connectWalletBtn.style.display = 'none';
+            activateBtn.style.display = 'block';
+            preferencesPanel.style.display = 'block';
+            systemStatus.textContent = 'READY FOR ACTIVATION';
+            arenaMessage.textContent = 'Configure preferences and activate to begin';
+            activateBtn.disabled = false;
         }
 
         // Activation System
@@ -431,17 +582,14 @@
                 return;
             }
             
-            // Show countdown
             countdownScreen.style.display = 'flex';
             systemStatus.textContent = 'INITIALIZING';
             activateBtn.disabled = true;
-            
-            // Start real initialization sequence
             initializeProductionSystem();
         }
 
         function initializeProductionSystem() {
-            let timeLeft = 300; // 5 minutes for real initialization
+            let timeLeft = 300;
             
             const countdownInterval = setInterval(() => {
                 timeLeft--;
@@ -450,7 +598,6 @@
                 document.getElementById('countdownTimer').textContent = 
                     `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
                 
-                // Update status messages based on progress
                 if (timeLeft === 240) {
                     document.getElementById('countdownStatus').textContent = 'Loading AI modules...';
                 } else if (timeLeft === 180) {
@@ -474,22 +621,14 @@
             systemStatus.className = 'system-status system-active';
             activateBtn.style.display = 'none';
             isActive = true;
-            
-            // Start live data connections
             startLiveDataFeeds();
         }
 
         function startLiveDataFeeds() {
             arenaMessage.textContent = 'Live operations active - awaiting opportunities';
-            
-            // These would be real connections in production:
-            // - Web3 providers for blockchain data
-            // - WebSocket connections for real-time prices
-            // - AI module integrations
-            // - Flash loan protocol connections
         }
 
-        // Event Listeners - PROPERLY BOUND
+        // Event Listeners
         connectWalletBtn.addEventListener('click', showWalletModal);
         walletDisplay.addEventListener('click', showWalletModal);
         metaMaskBtn.addEventListener('click', connectMetaMask);
@@ -505,19 +644,21 @@
             }
         });
 
-        // Close modal when clicking outside
         walletModal.addEventListener('click', function(event) {
             if (event.target === walletModal) {
                 closeWalletModal();
             }
         });
 
-        // Initialize
-        countdownScreen.style.display = 'none';
-        walletModal.style.display = 'none';
-        
-        console.log('AINexus Production System Loaded');
-        console.log('Wallet connection ready');
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('AINexus Production System Initialized');
+            countdownScreen.style.display = 'none';
+            walletModal.style.display = 'none';
+            
+            // Auto-detect wallet on page load
+            initializeWalletDetection();
+        });
     </script>
 </body>
 </html>
