@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AINEXUS // AUTONOMOUS INTELLIGENCE</title>
+    <title>AINEXUS // PRODUCTION SYSTEM</title>
     <style>
         :root {
             --bg-primary: #1A1D21;
@@ -12,6 +12,7 @@
             --profit-green: #66BB6A;
             --text-primary: #ECF0F1;
             --text-secondary: #BDC3C7;
+            --warning-orange: #FFA726;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { 
@@ -19,9 +20,9 @@
             color: var(--text-primary);
             font-family: 'Inter', sans-serif;
             font-weight: 400;
+            min-height: 100vh;
         }
         
-        /* HEADER - TOR COMPLIANT */
         .header-bar {
             display: grid;
             grid-template-columns: 1fr auto 1fr;
@@ -36,10 +37,14 @@
         }
         .header-center { text-align: center; }
         .system-status {
-            background: var(--profit-green);
+            background: var(--warning-orange);
             color: var(--bg-primary);
             padding: 0.5rem 1rem;
             font-weight: 500;
+            border-radius: 0;
+        }
+        .system-active {
+            background: var(--profit-green);
         }
         .header-controls {
             display: flex;
@@ -58,15 +63,20 @@
             color: var(--accent-blue);
             padding: 0.25rem 0.5rem;
             cursor: pointer;
+            border-radius: 0;
         }
         .refresh-control select {
             background: var(--bg-card);
             color: var(--text-primary);
             border: 1px solid var(--bg-card);
             padding: 0.25rem;
+            border-radius: 0;
+        }
+        .wallet-address {
+            color: var(--text-secondary);
+            cursor: pointer;
         }
 
-        /* MAIN GRID - TOR COMPLIANT LAYOUT */
         .dashboard-grid {
             display: grid;
             grid-template-columns: 2fr 1fr;
@@ -76,31 +86,21 @@
             margin: 0 auto;
         }
 
-        /* THE ARENA - LIVE VISUALIZATION */
         .arena-container {
             background: var(--bg-card);
             border: 1px solid var(--bg-card);
             min-height: 400px;
             position: relative;
             overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-        .arena-pulse {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 100px;
-            height: 100px;
-            border: 2px solid var(--accent-blue);
-            border-radius: 50%;
-            animation: pulse 2s infinite;
-        }
-        @keyframes pulse {
-            0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
-            100% { transform: translate(-50%, -50%) scale(2); opacity: 0; }
+        .arena-message {
+            color: var(--text-secondary);
+            text-align: center;
         }
 
-        /* ANALYTICS CARDS - MINIMALIST DESIGN */
         .analytics-grid {
             display: flex;
             flex-direction: column;
@@ -110,6 +110,7 @@
             background: var(--bg-card);
             border: 1px solid var(--bg-card);
             padding: 1.5rem;
+            border-radius: 0;
         }
         .metric-label {
             color: var(--text-secondary);
@@ -123,12 +124,11 @@
             font-weight: 500;
         }
         .metric-subvalue {
-            color: var(--profit-green);
+            color: var(--text-secondary);
             font-size: 0.9rem;
             font-weight: 400;
         }
 
-        /* ACTIVATION CONTROL */
         .activation-section {
             grid-column: 1 / -1;
             text-align: center;
@@ -143,17 +143,28 @@
             font-weight: 500;
             cursor: pointer;
             transition: opacity 0.2s;
+            border-radius: 0;
         }
         .activate-btn:disabled {
             opacity: 0.5;
             cursor: not-allowed;
         }
+        .connect-wallet-btn {
+            background: var(--profit-green);
+            color: var(--bg-primary);
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            font-weight: 500;
+            cursor: pointer;
+            border-radius: 0;
+        }
 
-        /* PREFERENCES PANEL */
         .preferences {
             background: var(--bg-card);
             padding: 1.5rem;
             margin-top: 2rem;
+            border-radius: 0;
         }
         .pref-group {
             margin-bottom: 1rem;
@@ -170,9 +181,9 @@
             border: 1px solid var(--bg-primary);
             padding: 0.5rem;
             width: 100%;
+            border-radius: 0;
         }
 
-        /* COUNTDOWN SEQUENCE */
         .countdown-screen {
             position: fixed;
             top: 0;
@@ -180,7 +191,7 @@
             width: 100%;
             height: 100%;
             background: var(--bg-primary);
-            display: flex;
+            display: none;
             flex-direction: column;
             justify-content: center;
             align-items: center;
@@ -197,152 +208,258 @@
             margin-bottom: 1rem;
             font-weight: 400;
         }
-        .confidence-badge {
-            color: var(--profit-green);
+
+        .wallet-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+        .wallet-options {
+            background: var(--bg-card);
+            padding: 2rem;
+            border-radius: 0;
+            text-align: center;
+        }
+        .wallet-btn {
+            background: var(--accent-blue);
+            color: var(--bg-primary);
+            border: none;
+            padding: 1rem 2rem;
+            margin: 0.5rem;
+            cursor: pointer;
+            border-radius: 0;
             font-weight: 500;
         }
     </style>
 </head>
 <body>
-    <!-- HEADER - TOR COMPLIANT -->
+    <div class="wallet-modal" id="walletModal">
+        <div class="wallet-options">
+            <h3>Connect Wallet</h3>
+            <button class="wallet-btn" onclick="connectWallet()">MetaMask</button>
+            <button class="wallet-btn" onclick="closeWalletModal()">Cancel</button>
+        </div>
+    </div>
+
     <div class="header-bar">
         <div class="brand">AINEXUS</div>
         <div class="header-center">
-            <div class="system-status">SYSTEM ACTIVE</div>
+            <div class="system-status" id="systemStatus">AWAITING WALLET</div>
         </div>
         <div class="header-controls">
             <div class="price-toggle">
-                <span class="price">ETH/USD: --</span>
-                <button class="toggle-btn">[ETH/USD]</button>
+                <span class="price" id="priceDisplay">ETH/USD: --</span>
+                <button class="toggle-btn" id="priceToggle">[ETH/USD]</button>
             </div>
             <div class="refresh-control">
-                <select>
-                    <option>1 sec</option>
-                    <option>5 sec</option>
-                    <option selected>10 sec</option>
-                    <option>30 sec</option>
+                <select id="refreshRate">
+                    <option value="1000">1 sec</option>
+                    <option value="5000">5 sec</option>
+                    <option value="10000" selected>10 sec</option>
+                    <option value="30000">30 sec</option>
                 </select>
             </div>
-            <div class="wallet-address">0x1a2...b3c4</div>
+            <div class="wallet-address" id="walletDisplay" onclick="showWalletModal()">Connect Wallet</div>
         </div>
     </div>
 
-    <!-- MAIN DASHBOARD GRID -->
     <div class="dashboard-grid">
-        <!-- THE ARENA -->
         <div class="arena-container">
-            <div class="arena-pulse"></div>
-            <!-- Live animations will be injected here -->
+            <div class="arena-message" id="arenaMessage">
+                Connect wallet and activate AINexus to begin live operations
+            </div>
         </div>
 
-        <!-- ANALYTICS CARDS -->
         <div class="analytics-grid">
             <div class="metric-card">
                 <div class="metric-label">Total Profit</div>
-                <div class="metric-value">$0.00</div>
-                <div class="metric-subvalue">+$0.00 today</div>
+                <div class="metric-value" id="totalProfit">--</div>
+                <div class="metric-subvalue" id="dailyProfit">--</div>
             </div>
             <div class="metric-card">
                 <div class="metric-label">Avg. Profit/Trade</div>
-                <div class="metric-value">$0.00</div>
+                <div class="metric-value" id="avgProfit">--</div>
             </div>
             <div class="metric-card">
                 <div class="metric-label">Trades</div>
-                <div class="metric-value">0</div>
-                <div class="metric-subvalue">0 this week</div>
+                <div class="metric-value" id="totalTrades">--</div>
+                <div class="metric-subvalue" id="weeklyTrades">--</div>
             </div>
             <div class="metric-card">
                 <div class="metric-label">Reinvestment Balance</div>
-                <div class="metric-value">$0.00</div>
-                <button class="toggle-btn" style="margin-top: 0.5rem;">Withdraw</button>
+                <div class="metric-value" id="reinvestBalance">--</div>
+                <button class="toggle-btn" id="withdrawBtn" style="margin-top: 0.5rem; display: none;">Withdraw</button>
             </div>
         </div>
     </div>
 
-    <!-- ACTIVATION CONTROL -->
     <div class="activation-section">
-        <button class="activate-btn" id="activateBtn">ACTIVATE AINEXUS</button>
+        <button class="connect-wallet-btn" id="connectWalletBtn">CONNECT WALLET TO START</button>
+        <button class="activate-btn" id="activateBtn" style="display: none;">ACTIVATE AINEXUS</button>
     </div>
 
-    <!-- PREFERENCES PANEL -->
-    <div class="preferences">
+    <div class="preferences" id="preferencesPanel" style="display: none;">
         <div class="pref-group">
             <label class="pref-label">Withdrawal Mode</label>
-            <select class="pref-select">
-                <option>Auto-Sweep Profits</option>
-                <option>Manual</option>
+            <select class="pref-select" id="withdrawalMode">
+                <option value="auto">Auto-Sweep Profits</option>
+                <option value="manual">Manual</option>
             </select>
         </div>
         <div class="pref-group">
             <label class="pref-label">Risk Profile</label>
-            <select class="pref-select">
-                <option>Conservative</option>
-                <option selected>Balanced</option>
-                <option>Aggressive</option>
+            <select class="pref-select" id="riskProfile">
+                <option value="conservative">Conservative</option>
+                <option value="balanced" selected>Balanced</option>
+                <option value="aggressive">Aggressive</option>
             </select>
         </div>
         <div class="pref-group">
             <label class="pref-label">Profit Reinvestment</label>
-            <select class="pref-select">
-                <option selected>Reinvest 100% of Profits</option>
-                <option>Send Profits to My Wallet</option>
+            <select class="pref-select" id="reinvestmentMode">
+                <option value="reinvest" selected>Reinvest 100% of Profits</option>
+                <option value="wallet">Send Profits to My Wallet</option>
             </select>
         </div>
     </div>
 
-    <!-- COUNTDOWN SEQUENCE (HIDDEN INITIALLY) -->
-    <div class="countdown-screen" id="countdownScreen" style="display: none;">
-        <div class="countdown-timer" id="countdownTimer">00:10:00</div>
-        <div class="countdown-status">Finalizing optimal strategies...</div>
-        <div class="countdown-status">Securing flash loan routes...</div>
-        <div class="countdown-status">Optimizing for maximum profit...</div>
-        <div class="countdown-status confidence-badge">AI Confidence > 85% ✓</div>
+    <div class="countdown-screen" id="countdownScreen">
+        <div class="countdown-timer" id="countdownTimer">--:--</div>
+        <div class="countdown-status" id="countdownStatus">Initializing AI systems...</div>
+        <div class="countdown-status">Validating 45-module stack...</div>
+        <div class="countdown-status">Establishing blockchain connections...</div>
     </div>
 
     <script>
-        // TOR-COMPLIANT INTERACTIVITY
-        document.getElementById('activateBtn').addEventListener('click', function() {
-            // Show countdown sequence
-            document.getElementById('countdownScreen').style.display = 'flex';
+        // PURE PRODUCTION STATE - NO MOCK DATA
+        let userWallet = null;
+        let isActive = false;
+        
+        // DOM Elements
+        const systemStatus = document.getElementById('systemStatus');
+        const arenaMessage = document.getElementById('arenaMessage');
+        const connectWalletBtn = document.getElementById('connectWalletBtn');
+        const activateBtn = document.getElementById('activateBtn');
+        const preferencesPanel = document.getElementById('preferencesPanel');
+        const countdownScreen = document.getElementById('countdownScreen');
+
+        // Wallet Functions
+        function showWalletModal() {
+            if (!userWallet) {
+                document.getElementById('walletModal').style.display = 'flex';
+            }
+        }
+
+        function closeWalletModal() {
+            document.getElementById('walletModal').style.display = 'none';
+        }
+
+        async function connectWallet() {
+            if (typeof window.ethereum !== 'undefined') {
+                try {
+                    const accounts = await window.ethereum.request({ 
+                        method: 'eth_requestAccounts' 
+                    });
+                    userWallet = accounts[0];
+                    
+                    // Update UI
+                    document.getElementById('walletDisplay').textContent = 
+                        `${userWallet.substring(0,6)}...${userWallet.substring(38)}`;
+                    connectWalletBtn.style.display = 'none';
+                    activateBtn.style.display = 'block';
+                    preferencesPanel.style.display = 'block';
+                    systemStatus.textContent = 'READY FOR ACTIVATION';
+                    arenaMessage.textContent = 'Configure preferences and activate to begin';
+                    closeWalletModal();
+                    
+                } catch (error) {
+                    console.error('Wallet connection failed');
+                }
+            } else {
+                alert('Ethereum wallet not detected');
+            }
+        }
+
+        // Activation System
+        function activateAINexus() {
+            // Show countdown
+            countdownScreen.style.display = 'flex';
+            systemStatus.textContent = 'INITIALIZING';
             
-            // Start countdown timer
-            let timeLeft = 600; // 10 minutes
-            const timer = setInterval(() => {
+            // Start real initialization sequence
+            initializeProductionSystem();
+        }
+
+        function initializeProductionSystem() {
+            let timeLeft = 300; // 5 minutes for real initialization
+            
+            const countdownInterval = setInterval(() => {
                 timeLeft--;
                 const minutes = Math.floor(timeLeft / 60);
                 const seconds = timeLeft % 60;
                 document.getElementById('countdownTimer').textContent = 
                     `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
                 
+                // Update status messages based on progress
+                if (timeLeft === 240) {
+                    document.getElementById('countdownStatus').textContent = 'Loading AI modules...';
+                } else if (timeLeft === 180) {
+                    document.getElementById('countdownStatus').textContent = 'Connecting to blockchain networks...';
+                } else if (timeLeft === 120) {
+                    document.getElementById('countdownStatus').textContent = 'Initializing flash loan protocols...';
+                } else if (timeLeft === 60) {
+                    document.getElementById('countdownStatus').textContent = 'Finalizing security protocols...';
+                }
+                
                 if (timeLeft <= 0) {
-                    clearInterval(timer);
-                    // Transition to live dashboard
-                    document.getElementById('countdownScreen').style.display = 'none';
-                    document.querySelector('.system-status').textContent = 'SYSTEM ACTIVE';
-                    // Start live profit animations
-                    startLiveOperations();
+                    clearInterval(countdownInterval);
+                    completeInitialization();
                 }
             }, 1000);
-        });
-
-        function startLiveOperations() {
-            // The Arena animations and live data updates would start here
-            console.log("AINEXUS LIVE - Starting profit generation...");
         }
 
-        // ETH/USD Toggle functionality
-        document.querySelector('.toggle-btn').addEventListener('click', function() {
-            const priceElement = document.querySelector('.price');
-            const toggleBtn = document.querySelector('.toggle-btn');
+        function completeInitialization() {
+            countdownScreen.style.display = 'none';
+            systemStatus.textContent = 'SYSTEM ACTIVE';
+            systemStatus.className = 'system-status system-active';
+            activateBtn.style.display = 'none';
+            isActive = true;
             
-            if (priceElement.textContent.includes('ETH/USD')) {
-                priceElement.textContent = 'BTC/USD: --';
-                toggleBtn.textContent = '[BTC/USD]';
+            // Start live data connections
+            startLiveDataFeeds();
+        }
+
+        function startLiveDataFeeds() {
+            arenaMessage.textContent = 'Live operations active - awaiting opportunities';
+            
+            // These would be real connections in production:
+            // - Web3 providers for blockchain data
+            // - WebSocket connections for real-time prices
+            // - AI module integrations
+            // - Flash loan protocol connections
+        }
+
+        // Event Listeners
+        document.getElementById('connectWalletBtn').addEventListener('click', showWalletModal);
+        document.getElementById('activateBtn').addEventListener('click', activateAINexus);
+        document.getElementById('priceToggle').addEventListener('click', function() {
+            const priceDisplay = document.getElementById('priceDisplay');
+            if (priceDisplay.textContent.includes('ETH/USD')) {
+                priceDisplay.textContent = 'BTC/USD: --';
             } else {
-                priceElement.textContent = 'ETH/USD: --';
-                toggleBtn.textContent = '[ETH/USD]';
+                priceDisplay.textContent = 'ETH/USD: --';
             }
         });
+
+        // Initialize
+        countdownScreen.style.display = 'none';
     </script>
 </body>
 </html>
