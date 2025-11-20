@@ -1,8 +1,7 @@
 services:
   - type: web
-    name: ainexus
+    name: ainexus-phoenix-live
     env: python
-    plan: free
     buildCommand: pip install -r requirements.txt
     startCommand: cd core && python app.py
     envVars:
