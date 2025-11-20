@@ -1,6 +1,8 @@
+# -*- coding: utf-8 -*-
 """
 AINEXUS PRODUCTION SYSTEM - 100% TOR COMPLIANT
 Chief Architect: Zero Mock Data Protocol
+UTF-8 Encoding: Permanently Fixed
 """
 import os
 import time
@@ -20,7 +22,7 @@ class AINexusEngine:
         self.production_ready = False
         self.live_profit = 0.0
         self.total_trades = 0
-        
+
     def calculate_confidence(self):
         """Real AI confidence scoring - no mock data"""
         # This will integrate with actual 45-module AI stack
@@ -71,22 +73,22 @@ def activate_user():
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 8080))
     print("=" * 60)
-    print("Ì∫Ä AINEXUS - 100% TOR COMPLIANT PRODUCTION SYSTEM")
+    print("AINEXUS - 100% TOR COMPLIANT PRODUCTION SYSTEM")
     print("=" * 60)
-    print("Ì≥ç PORT:", port)
-    print("ÌæØ CONFIDENCE THRESHOLD: 85% REQUIRED")
-    print("Ì≥ä CURRENT CONFIDENCE:", f"{engine.confidence_score}%")
-    print("Ì¥Ñ MODULES READY: 0/45 (DEPLOYMENT PENDING)")
-    print("Ì∫´ MOCK DATA: COMPLETELY ELIMINATED")
-    print("Ìæ® DASHBOARD: TOR-COMPLIANT MINIMALIST DESIGN")
-    print("Ì≤≥ WALLET: GASLESS MODE READY")
-    print("Ì≥à FEATURES: REINVESTMENT, RISK PROFILES, LIVE ARENA")
+    print("PORT:", port)
+    print("CONFIDENCE THRESHOLD: 85% REQUIRED")
+    print("CURRENT CONFIDENCE:", f"{engine.confidence_score}%")
+    print("MODULES READY: 0/45 (DEPLOYMENT PENDING)")
+    print("MOCK DATA: COMPLETELY ELIMINATED")
+    print("DASHBOARD: TOR-COMPLIANT MINIMALIST DESIGN")
+    print("WALLET: GASLESS MODE READY")
+    print("FEATURES: REINVESTMENT, RISK PROFILES, LIVE ARENA")
     print("=" * 60)
-    
+
     socketio.run(
-        app, 
-        host='0.0.0.0', 
-        port=port, 
+        app,
+        host='0.0.0.0',
+        port=port,
         debug=False,
         allow_unsafe_werkzeug=True
     )
