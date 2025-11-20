@@ -22,31 +22,31 @@ socketio = SocketIO(app, cors_allowed_origins="*", async_mode='threading')
 SUPPORTED_WALLETS = {
     'metamask': {
         'name': 'MetaMask',
-        'icon': '',
+        'icon': 'í¶Š',
         'description': 'Most popular Web3 wallet',
         'chains': ['Ethereum', 'Polygon', 'BSC', 'Arbitrum']
     },
     'trustwallet': {
         'name': 'Trust Wallet',
-        'icon': '',
+        'icon': 'í´’',
         'description': 'Binance-backed mobile wallet',
         'chains': ['Ethereum', 'BSC', 'Polygon', 'Avalanche']
     },
     'coinbase_wallet': {
         'name': 'Coinbase Wallet',
-        'icon': '',
+        'icon': 'í¿¦',
         'description': 'Coinbase institutional wallet',
         'chains': ['Ethereum', 'Polygon', 'Optimism', 'Base']
     },
     'phantom': {
         'name': 'Phantom',
-        'icon': '',
+        'icon': 'í±»',
         'description': 'Solana & EVM multi-chain',
         'chains': ['Solana', 'Ethereum', 'Polygon']
     },
     'rabby': {
         'name': 'Rabby Wallet',
-        'icon': '',
+        'icon': 'í¾¯',
         'description': 'DeFi optimized wallet',
         'chains': ['Ethereum', 'BSC', 'Polygon', 'Arbitrum']
     }
@@ -63,7 +63,7 @@ deployment_state = {
     'start_time': datetime.now().isoformat(),
     'version': '3.2.0',
     'python_version': '3.11',
-    'port': 8080,
+    'port': 10000,
     'countdown_active': False,
     'countdown_seconds': 0,
     'optimization_strategy': 'MAXIMUM_CAPACITY',
@@ -420,6 +420,6 @@ def handle_disconnect():
     logger.info('Client disconnected')
 
 if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 8080))
-    logger.info(f" AI-NEXUS Profit Harvesting System Starting on port {port}")
+    port = int(os.environ.get('PORT', 10000))
+    logger.info(f"íº€ AI-NEXUS Profit Harvesting System Starting on port {port}")
     socketio.run(app, host='0.0.0.0', port=port, debug=False)
