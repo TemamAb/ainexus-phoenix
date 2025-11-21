@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+  ainexus-phase1:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ainexus-phase1
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - RPC_URL=${RPC_URL}
+      - LOG_LEVEL=info
+      - DOCKER_ENABLED=true
+    volumes:
+      - ainexus-logs:/app/logs
+      - ainexus-data:/app/data
+    healthcheck:
+      test: ["CMD", "node", "scripts/docker-healthcheck.js"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+          cpus: '1.0'
+        reservations:
+          memory: 512M
+          cpus: '0.5'
+
+  # Redis for caching and session storage
+  redis:
+    image: redis:7-alpine
+    container_name: ainexus-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    command: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD:-ainexus123}
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+volumes:
+  ainexus-logs:
+  ainexus-data:
+  redis-data:

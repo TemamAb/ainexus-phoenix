@@ -1,9 +1,30 @@
 services:
   - type: web
-    name: ainexus-phoenix-live
+    name: ainexus-platform
     env: python
     buildCommand: pip install -r requirements.txt
-    startCommand: cd core && python app.py
+    startCommand: gunicorn core.app:app
     envVars:
-      - key: PYTHON_VERSION
-        value: 3.11.0
+      - key: NODE_ENV
+        value: production
+      - key: ETH_RPC_URL
+        fromSecret: ETH_RPC_URL
+      - key: ARB_RPC_URL  
+        fromSecret: ARB_RPC_URL
+      - key: POLYGON_RPC_URL
+        fromSecret: POLYGON_RPC_URL
+      - key: OPTIMISM_RPC_URL
+        fromSecret: OPTIMISM_RPC_URL
+      - key: BASE_RPC_URL
+        fromSecret: BASE_RPC_URL
+      - key: AVALANCHE_RPC_URL
+        fromSecret: AVALANCHE_RPC_URL
+      - key: DATABASE_URL
+        fromSecret: DATABASE_URL
+      - key: JWT_SECRET
+        fromSecret: JWT_SECRET
+      - key: RELAYER_API_KEY
+        fromSecret: RELAYER_API_KEY
+    healthCheckPath: /api/v1/system/health
+    autoDeploy: true
+    plan: professional

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js"></script>
+</head>
+<body>
+    <button onclick="connect()">Connect Wallet</button>
+    <div id="status"></div>
+
+<script>
+async function connect() {
+    if (!window.ethereum) return alert('Install MetaMask');
+    
+    const accounts = await window.ethereum.request({ 
+        method: 'eth_requestAccounts' 
+    });
+    
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    const address = accounts[0];
+    
+    document.getElementById('status').innerHTML = `
+        Connected: ${address}<br>
+        Balance: ${ethers.utils.formatEther(await provider.getBalance(address))} ETH
+    `;
+}
+</script>
+</body>
+</html>

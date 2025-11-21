@@ -1,0 +1,12 @@
+{
+  "name": "ainexus-arbitrage-orchestrator",
+  "version": "1.0.0",
+  "dependencies": {
+    "web3": "^4.0.0",
+    "events": "^3.3.0"
+  },
+  "scripts": {
+    "start": "node scripts/deploy-module1.js",
+    "test": "jest core/engine/ArbitrageOrchestrator.test.js"
+  }
+}

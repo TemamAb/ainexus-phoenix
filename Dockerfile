@@ -1,24 +1,43 @@
-FROM python:3.11-slim
-
-# Set UTF-8 encoding globally
-ENV LANG=C.UTF-8
-ENV LC_ALL=C.UTF-8
-ENV PYTHONUTF8=1
-ENV PYTHONIOENCODING=utf-8
-
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    gcc python3-dev curl && rm -rf /var/lib/apt/lists/*
+# AINEXUS PHASE 1 DOCKER BUILD
+FROM node:18-alpine
 
 WORKDIR /app
 
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+# Install system dependencies
+RUN apk add --no-cache \
+    python3 \
+    make \
+    g++ \
+    git \
+    curl
 
+# Create non-root user
+RUN addgroup -g 1001 -S ainexus && \
+    adduser -S ainexus -u 1001
+
+# Copy package files
+COPY package*.json ./
+
+# Install dependencies
+RUN npm ci --only=production && \
+    npm cache clean --force
+
+# Copy application code
 COPY . .
 
-EXPOSE 8080
+# Create necessary directories
+RUN mkdir -p /app/data /app/logs && \
+    chown -R ainexus:ainexus /app
 
-HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
-    CMD curl -f http://localhost:8080/health || exit 1
+# Switch to non-root user
+USER ainexus
 
-CMD ["python", "core/app.py"]
+# Expose application port
+EXPOSE 3000
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
+    CMD node scripts/docker-healthcheck.js
+
+# Start Ainexus Phase 1
+CMD ["node", "scripts/start-phase1.js"]
