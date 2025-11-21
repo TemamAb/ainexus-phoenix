@@ -1,12 +1,17 @@
 name: ainexus
 type: python
+python:
+  version: "3.11"
 
 build:
   command: |
+    echo "Ì∞ç Installing Python dependencies..."
     pip install -r requirements.txt
 
 run:
-  command: python core/app.py
+  command: |
+    echo "Ì∫Ä Starting AINEXUS Python/Flask..."
+    python core/app.py
 
 routes:
   - src: /*
@@ -15,5 +20,3 @@ routes:
 environment:
   - name: PORT
     value: "8000"
-  - name: PYTHON_VERSION  
-    value: "3.11"
