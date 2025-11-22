@@ -26,8 +26,5 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy application files
 COPY . .
 
-# Basic UTF-8 validation (skip if it fails)
-RUN python3 -c "import sys; print('✅ UTF-8 environment ready')"
-
 EXPOSE 5000
 CMD ["gunicorn", "--bind", "0.0.0.0:5000", "--timeout", "120", "app:app"]
