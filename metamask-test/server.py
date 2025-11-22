@@ -21,10 +21,10 @@ def main():
     os.chdir(os.path.dirname(os.path.abspath(__file__)))
     
     with socketserver.TCPServer(("", PORT), CORSHTTPRequestHandler) as httpd:
-        print(f"��� MetaMask Test Server running at: http://localhost:{PORT}")
-        print("��� Open your browser and navigate to the above URL")
-        print("��� Make sure MetaMask is installed in your browser")
-        print("⏹️  Press Ctrl+C to stop the server")
+        print(f"íº MetaMask Test Server running at: http://localhost:{PORT}")
+        print("í³± Open your browser and navigate to the above URL")
+        print("í´§ Make sure MetaMask is installed in your browser")
+        print("â¹ï¸  Press Ctrl+C to stop the server")
         
         # Try to open browser automatically
         try:
@@ -36,7 +36,7 @@ def main():
         try:
             httpd.serve_forever()
         except KeyboardInterrupt:
-            print("\n✅ Server stopped successfully")
+            print("\nâ Server stopped successfully")
 
 if __name__ == "__main__":
     main()

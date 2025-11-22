@@ -20,7 +20,7 @@ class EnterpriseGateway extends EventEmitter {
     }
 
     async initialize() {
-        console.log('��� Initializing Enterprise Gateway...');
+        console.log('í¼ Initializing Enterprise Gateway...');
         
         await this.initializeAPIServer();
         await this.initializeRateLimiting();
@@ -74,7 +74,7 @@ class EnterpriseGateway extends EventEmitter {
         // API key authentication middleware
         this.app.use((req, res, next) => this.authenticateAPIKey(req, res, next));
 
-        console.log('✅ API Server initialized with enterprise security');
+        console.log('â API Server initialized with enterprise security');
     }
 
     async initializeRateLimiting() {
@@ -109,7 +109,7 @@ class EnterpriseGateway extends EventEmitter {
             this.rateLimiters.set(config.id, rateLimit(config));
         });
 
-        console.log('✅ Rate limiting configured for all API tiers');
+        console.log('â Rate limiting configured for all API tiers');
     }
 
     async initializeSecurity() {
@@ -127,7 +127,7 @@ class EnterpriseGateway extends EventEmitter {
             next();
         });
 
-        console.log('✅ Enterprise security features initialized');
+        console.log('â Enterprise security features initialized');
     }
 
     async initializeAPIEndpoints() {
@@ -200,7 +200,7 @@ class EnterpriseGateway extends EventEmitter {
             this.registerAPIEndpoint(endpoint);
         });
 
-        console.log(`✅ ${endpoints.length} API endpoints registered`);
+        console.log(`â ${endpoints.length} API endpoints registered`);
     }
 
     async initializeWebhookSystem() {
@@ -248,7 +248,7 @@ class EnterpriseGateway extends EventEmitter {
             });
         });
 
-        console.log('✅ Webhook system initialized with 4 event types');
+        console.log('â Webhook system initialized with 4 event types');
     }
 
     async initializeIntegrationConnectors() {
@@ -308,7 +308,7 @@ class EnterpriseGateway extends EventEmitter {
             });
         });
 
-        console.log('✅ 5 external integration connectors initialized');
+        console.log('â 5 external integration connectors initialized');
     }
 
     // API Endpoint Handlers
@@ -730,7 +730,7 @@ class EnterpriseGateway extends EventEmitter {
             this.apiKeys.set(keyInfo.key, keyInfo);
         });
 
-        console.log('✅ API key management initialized with 3 sample keys');
+        console.log('â API key management initialized with 3 sample keys');
     }
 
     // Utility Methods
@@ -1006,7 +1006,7 @@ class EnterpriseGateway extends EventEmitter {
 
         webhookType.subscribers.forEach((subscriber, subscriptionId) => {
             // Simulate webhook delivery
-            console.log(`��� Sending webhook to ${subscriber.url} for event ${eventType}`);
+            console.log(`í³¤ Sending webhook to ${subscriber.url} for event ${eventType}`);
             
             webhookType.deliveryStats.totalSent++;
             webhookType.deliveryStats.lastDelivery = Date.now();
@@ -1081,7 +1081,7 @@ class EnterpriseGateway extends EventEmitter {
         this.startTime = Date.now();
         
         this.server = this.app.listen(port, () => {
-            console.log(`��� Enterprise Gateway running on port ${port}`);
+            console.log(`íº Enterprise Gateway running on port ${port}`);
             this.emit('gateway_started', { port, timestamp: Date.now() });
         });
 
@@ -1091,7 +1091,7 @@ class EnterpriseGateway extends EventEmitter {
     stop() {
         if (this.server) {
             this.server.close();
-            console.log('��� Enterprise Gateway stopped');
+            console.log('í» Enterprise Gateway stopped');
         }
         
         // Clean up data streams

@@ -1,11 +1,15 @@
 services:
   - type: web
-    name: ainexus-platform
+    name: ainexus-96-module-engine
     env: docker
-    plan: free
-    region: oregon
     docker:
       dockerfile: Dockerfile
     envVars:
-      - key: NODE_ENV
+      - key: PYTHONUNBUFFERED
+        value: true
+      - key: ENVIRONMENT
         value: production
+      - key: UTF-8_MODE
+        value: enforced
+    healthCheckPath: /health
+    autoDeploy: true

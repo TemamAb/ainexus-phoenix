@@ -76,7 +76,7 @@ class MEVDetector:
                 self.detected_threats.append(threat)
                 self.threat_history[threat_type].append(threat)
                 
-                self.logger.warning(f"íº¨ MEV Threat Detected: {threat_type} (confidence: {confidence:.2f})")
+                self.logger.warning(f"Ã­ÂºÂ¨ MEV Threat Detected: {threat_type} (confidence: {confidence:.2f})")
                 return threat
         
         return None

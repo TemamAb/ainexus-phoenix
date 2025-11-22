@@ -32,7 +32,7 @@ class ProfitTracker extends EventEmitter {
     // Initialize profit tracker
     async initialize() {
         try {
-            console.log('íº€ Initializing Profit Tracker...');
+            console.log('Ã­ÂºÂ€ Initializing Profit Tracker...');
             
             // Create data directory if it doesn't exist
             await this.ensureDataDirectory();
@@ -68,7 +68,7 @@ class ProfitTracker extends EventEmitter {
         try {
             const data = await fs.readFile(this.dataFile, 'utf8');
             this.performanceData = JSON.parse(data);
-            console.log(`í³Š Loaded ${this.performanceData.trades.length} historical trades`);
+            console.log(`Ã­Â³ÂŠ Loaded ${this.performanceData.trades.length} historical trades`);
         } catch (error) {
             console.log('No historical data found, starting fresh');
             this.performanceData.trades = [];
@@ -116,7 +116,7 @@ class ProfitTracker extends EventEmitter {
         this.emit('trade_recorded', tradeRecord);
         this.emit('performance_updated', this.getPerformanceSummary());
 
-        console.log(`í²° Trade recorded: $${tradeRecord.netProfit.toFixed(2)} (${tradeRecord.pair})`);
+        console.log(`Ã­Â²Â° Trade recorded: $${tradeRecord.netProfit.toFixed(2)} (${tradeRecord.pair})`);
 
         return tradeRecord.id;
     }
@@ -369,7 +369,7 @@ class ProfitTracker extends EventEmitter {
         // Final save
         await this.saveData();
         
-        console.log('í»‘ Profit Tracker stopped');
+        console.log('Ã­Â»Â‘ Profit Tracker stopped');
     }
 }
 

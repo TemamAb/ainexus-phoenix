@@ -20,27 +20,27 @@ def verify_render_deployment():
         "/api/v1/deployment/status"
     ]
     
-    print("��� Verifying AINEXUS Render Deployment...")
+    print("í´ Verifying AINEXUS Render Deployment...")
     
     all_success = True
     for endpoint in endpoints:
         try:
             response = requests.get(f"{base_url}{endpoint}", timeout=10)
             if response.status_code == 200:
-                print(f"✅ {endpoint} - ONLINE")
+                print(f"â {endpoint} - ONLINE")
             else:
-                print(f"❌ {endpoint} - OFFLINE (Status: {response.status_code})")
+                print(f"â {endpoint} - OFFLINE (Status: {response.status_code})")
                 all_success = False
         except Exception as e:
-            print(f"❌ {endpoint} - ERROR: {e}")
+            print(f"â {endpoint} - ERROR: {e}")
             all_success = False
     
     if all_success:
-        print("\n��� AINEXUS 96-Module Platform successfully deployed on Render!")
-        print("��� Platform URL: https://ainexus-platform.onrender.com")
-        print("��� Two-click activation ready for institutional clients")
+        print("\ní¾ AINEXUS 96-Module Platform successfully deployed on Render!")
+        print("í¼ Platform URL: https://ainexus-platform.onrender.com")
+        print("íº Two-click activation ready for institutional clients")
     else:
-        print("\n❌ Deployment verification failed")
+        print("\nâ Deployment verification failed")
         sys.exit(1)
 
 if __name__ == "__main__":

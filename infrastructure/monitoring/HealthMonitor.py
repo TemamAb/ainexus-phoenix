@@ -1,5 +1,5 @@
 """
-í´– AI-NEXUS HEALTH MONITOR MODULE
+Ã­Â´Â– AI-NEXUS HEALTH MONITOR MODULE
 Real-time system health monitoring and alerting
 """
 
@@ -42,13 +42,13 @@ class HealthMonitor:
         alerts = []
         
         if self.health_metrics['cpu_percent'] > self.alert_thresholds['cpu_usage']:
-            alerts.append(f"íº¨ High CPU usage: {self.health_metrics['cpu_percent']}%")
+            alerts.append(f"Ã­ÂºÂ¨ High CPU usage: {self.health_metrics['cpu_percent']}%")
             
         if self.health_metrics['memory_percent'] > self.alert_thresholds['memory_usage']:
-            alerts.append(f"íº¨ High Memory usage: {self.health_metrics['memory_percent']}%")
+            alerts.append(f"Ã­ÂºÂ¨ High Memory usage: {self.health_metrics['memory_percent']}%")
             
         if self.health_metrics['disk_percent'] > self.alert_thresholds['disk_usage']:
-            alerts.append(f"íº¨ High Disk usage: {self.health_metrics['disk_percent']}%")
+            alerts.append(f"Ã­ÂºÂ¨ High Disk usage: {self.health_metrics['disk_percent']}%")
             
         # Trigger alerts
         for alert in alerts:

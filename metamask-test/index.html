@@ -53,28 +53,28 @@
 </head>
 <body>
     <div class="container">
-        <h1>��� MetaMask Connection Test</h1>
+        <h1>í´ MetaMask Connection Test</h1>
         <p>Testing direct MetaMask browser integration</p>
         
         <div class="status info" id="status1">
-            ��� Step 1: Checking for MetaMask...
+            í´ Step 1: Checking for MetaMask...
         </div>
         
         <button id="connectBtn" disabled>Connect MetaMask</button>
         
         <div class="status info" id="status2">
-            ⏳ Step 2: Connection result will appear here
+            â³ Step 2: Connection result will appear here
         </div>
         
         <div class="wallet-info" id="walletInfo" style="display: none;">
-            <h3>✅ Wallet Connected Successfully!</h3>
+            <h3>â Wallet Connected Successfully!</h3>
             <div><strong>Address:</strong> <span id="address"></span></div>
             <div><strong>Network:</strong> <span id="network"></span></div>
         </div>
     </div>
 
     <script>
-        console.log("��� Starting MetaMask detection...");
+        console.log("í´§ Starting MetaMask detection...");
         
         const connectBtn = document.getElementById('connectBtn');
         const status1 = document.getElementById('status1');
@@ -85,11 +85,11 @@
 
         // Method 1: Direct window.ethereum check
         function checkMetaMask() {
-            console.log("��� Checking for MetaMask...");
+            console.log("í¶ Checking for MetaMask...");
             
             if (window.ethereum) {
-                console.log("✅ MetaMask detected via window.ethereum");
-                status1.innerHTML = '✅ <strong>MetaMask Detected!</strong> Extension is installed and ready.';
+                console.log("â MetaMask detected via window.ethereum");
+                status1.innerHTML = 'â <strong>MetaMask Detected!</strong> Extension is installed and ready.';
                 status1.className = 'status success';
                 connectBtn.disabled = false;
                 connectBtn.textContent = 'Click to Connect MetaMask';
@@ -101,8 +101,8 @@
             
             // Method 2: Check for web3
             if (window.web3 && window.web3.currentProvider) {
-                console.log("✅ Web3 provider detected");
-                status1.innerHTML = '✅ <strong>Web3 Provider Detected!</strong> Ready to connect.';
+                console.log("â Web3 provider detected");
+                status1.innerHTML = 'â <strong>Web3 Provider Detected!</strong> Ready to connect.';
                 status1.className = 'status success';
                 connectBtn.disabled = false;
                 connectBtn.textContent = 'Click to Connect';
@@ -121,8 +121,8 @@
             
             for (let provider of providers) {
                 if (provider && provider.request) {
-                    console.log("✅ Provider detected via fallback");
-                    status1.innerHTML = '✅ <strong>Wallet Detected!</strong> Ready to connect.';
+                    console.log("â Provider detected via fallback");
+                    status1.innerHTML = 'â <strong>Wallet Detected!</strong> Ready to connect.';
                     status1.className = 'status success';
                     connectBtn.disabled = false;
                     connectBtn.textContent = 'Click to Connect';
@@ -131,8 +131,8 @@
             }
             
             // No provider found
-            console.log("❌ No Ethereum provider found");
-            status1.innerHTML = '❌ <strong>No Ethereum Wallet Found</strong><br><br>' +
+            console.log("â No Ethereum provider found");
+            status1.innerHTML = 'â <strong>No Ethereum Wallet Found</strong><br><br>' +
                                'Please install MetaMask:<br>' +
                                '1. Go to <a href="https://metamask.io/download" target="_blank" style="color: #4fc3f7;">metamask.io/download</a><br>' +
                                '2. Install the browser extension<br>' +
@@ -151,7 +151,7 @@
                 });
                 
                 if (accounts.length > 0) {
-                    console.log("��� Already connected:", accounts[0]);
+                    console.log("í´ Already connected:", accounts[0]);
                     updateUI(accounts[0]);
                 }
             } catch (error) {
@@ -162,16 +162,16 @@
         // Connect to MetaMask
         async function connectWallet() {
             if (!window.ethereum) {
-                status2.innerHTML = '❌ <strong>Error:</strong> No Ethereum provider available';
+                status2.innerHTML = 'â <strong>Error:</strong> No Ethereum provider available';
                 status2.className = 'status error';
                 return;
             }
 
             try {
-                console.log("��� Requesting accounts...");
+                console.log("í´ Requesting accounts...");
                 connectBtn.disabled = true;
                 connectBtn.textContent = 'Connecting...';
-                status2.innerHTML = '��� <strong>Waiting for MetaMask approval...</strong><br>Check your MetaMask extension for a popup.';
+                status2.innerHTML = 'í´ <strong>Waiting for MetaMask approval...</strong><br>Check your MetaMask extension for a popup.';
                 status2.className = 'status warning';
 
                 // This is the call that triggers MetaMask popup
@@ -179,7 +179,7 @@
                     method: 'eth_requestAccounts'
                 });
 
-                console.log("✅ Connection successful:", accounts);
+                console.log("â Connection successful:", accounts);
                 
                 if (accounts && accounts.length > 0) {
                     updateUI(accounts[0]);
@@ -188,18 +188,18 @@
                 }
 
             } catch (error) {
-                console.error("❌ Connection failed:", error);
+                console.error("â Connection failed:", error);
                 connectBtn.disabled = false;
                 connectBtn.textContent = 'Connect MetaMask';
                 
                 if (error.code === 4001) {
-                    status2.innerHTML = '❌ <strong>Connection Rejected</strong><br>You need to approve the connection in MetaMask to continue.';
+                    status2.innerHTML = 'â <strong>Connection Rejected</strong><br>You need to approve the connection in MetaMask to continue.';
                     status2.className = 'status error';
                 } else if (error.code === -32002) {
-                    status2.innerHTML = '❌ <strong>Connection Pending</strong><br>Please check MetaMask - a request is already pending.';
+                    status2.innerHTML = 'â <strong>Connection Pending</strong><br>Please check MetaMask - a request is already pending.';
                     status2.className = 'status error';
                 } else {
-                    status2.innerHTML = `❌ <strong>Connection Failed:</strong> ${error.message}`;
+                    status2.innerHTML = `â <strong>Connection Failed:</strong> ${error.message}`;
                     status2.className = 'status error';
                 }
             }
@@ -207,10 +207,10 @@
 
         // Update UI after successful connection
         async function updateUI(address) {
-            status2.innerHTML = '✅ <strong>Successfully Connected!</strong>';
+            status2.innerHTML = 'â <strong>Successfully Connected!</strong>';
             status2.className = 'status success';
             
-            connectBtn.textContent = '✅ Connected';
+            connectBtn.textContent = 'â Connected';
             connectBtn.disabled = true;
             
             // Display wallet info
@@ -238,7 +238,7 @@
             
             walletInfo.style.display = 'block';
             
-            console.log("��� MetaMask connection test completed successfully!");
+            console.log("í¾ MetaMask connection test completed successfully!");
         }
 
         // Event listeners
@@ -246,7 +246,7 @@
 
         // Initialize on load
         document.addEventListener('DOMContentLoaded', function() {
-            console.log("��� MetaMask Test Page Loaded");
+            console.log("íº MetaMask Test Page Loaded");
             checkMetaMask();
         });
 
@@ -256,7 +256,7 @@
                 console.log("Accounts changed:", accounts);
                 if (accounts.length === 0) {
                     // User disconnected
-                    status2.innerHTML = '��� <strong>Wallet Disconnected</strong>';
+                    status2.innerHTML = 'í´ <strong>Wallet Disconnected</strong>';
                     status2.className = 'status warning';
                     connectBtn.disabled = false;
                     connectBtn.textContent = 'Connect MetaMask';

@@ -43,10 +43,10 @@ class AINexusStartEngine:
         self.log_phase("PROGRESS", f"{completed}/{total} phases complete")
     
     def start_engine(self):
-        print("íº€ AI-NEXUS QUANTUM ENGINE STARTING...")
-        print("í³Š 6-Phase Transformation Initiated")
-        print("â±ï¸  Countdown timers active")
-        print("í¾¯ Target: Live trading in ~50 seconds")
+        print("Ã­ÂºÂ€ AI-NEXUS QUANTUM ENGINE STARTING...")
+        print("Ã­Â³ÂŠ 6-Phase Transformation Initiated")
+        print("Ã¢ÂÂ±Ã¯Â¸Â  Countdown timers active")
+        print("Ã­Â¾Â¯ Target: Live trading in ~50 seconds")
         print("")
         
         self.start_time = datetime.now()
@@ -64,30 +64,30 @@ class AINexusStartEngine:
         self.activate_live_mode()
     
     def activate_live_mode(self):
-        print("\ní¾¯ ALL PHASES COMPLETED SUCCESSFULLY!")
-        print("í´„ Starting 10-second live trading warmup...")
+        print("\nÃ­Â¾Â¯ ALL PHASES COMPLETED SUCCESSFULLY!")
+        print("Ã­Â´Â„ Starting 10-second live trading warmup...")
         
         time.sleep(10)
         
-        print("âš¡ LIVE TRADING MODE ACTIVATED!")
-        print("í²¸ Real profit generation started")
-        print("í³Š Opening monitoring dashboard...")
+        print("Ã¢ÂšÂ¡ LIVE TRADING MODE ACTIVATED!")
+        print("Ã­Â²Â¸ Real profit generation started")
+        print("Ã­Â³ÂŠ Opening monitoring dashboard...")
         
         # Transform to monitoring dashboard
         webbrowser.open('monitoring_dashboard.html')
         
         self.is_live = True
-        print("âœ… AI-NEXUS is now live trading 24/7")
-        print("í²° Expected daily profit: $150,000 - $300,000")
+        print("Ã¢ÂœÂ… AI-NEXUS is now live trading 24/7")
+        print("Ã­Â²Â° Expected daily profit: $150,000 - $300,000")
         
         # Keep engine running
         try:
             while self.is_live:
                 time.sleep(60)
                 uptime = datetime.now() - self.start_time
-                print(f"â±ï¸  System uptime: {uptime} | Status: LIVE TRADING")
+                print(f"Ã¢ÂÂ±Ã¯Â¸Â  System uptime: {uptime} | Status: LIVE TRADING")
         except KeyboardInterrupt:
-            print("\ní»‘ Engine shutdown initiated")
+            print("\nÃ­Â»Â‘ Engine shutdown initiated")
 
 if __name__ == "__main__":
     engine = AINexusStartEngine()

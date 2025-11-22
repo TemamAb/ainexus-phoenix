@@ -17,7 +17,7 @@ class EnterpriseReporter extends EventEmitter {
     }
 
     async initialize() {
-        console.log('í³Š Initializing Enterprise Reporter...');
+        console.log('Ã­Â³ÂŠ Initializing Enterprise Reporter...');
         
         await this.initializeRegulatoryFrameworks();
         await this.initializeComplianceRules();
@@ -439,7 +439,7 @@ class EnterpriseReporter extends EventEmitter {
     }
 
     async generateReport(schedule) {
-        console.log(`í³‹ Generating report: ${schedule.name}`);
+        console.log(`Ã­Â³Â‹ Generating report: ${schedule.name}`);
         
         const reportData = await this.collectReportData(schedule);
         const reportContent = await this.formatReport(reportData, schedule.template);
@@ -551,7 +551,7 @@ class EnterpriseReporter extends EventEmitter {
 
     async deliverReport(report) {
         // Simulate report delivery
-        console.log(`í³¤ Delivering report to: ${report.recipients.join(', ')}`);
+        console.log(`Ã­Â³Â¤ Delivering report to: ${report.recipients.join(', ')}`);
         
         // In production, this would integrate with email, API, etc.
         report.deliveredAt = Date.now();
@@ -688,7 +688,7 @@ class EnterpriseReporter extends EventEmitter {
     }
 
     stop() {
-        console.log('í»‘ Enterprise Reporter stopped');
+        console.log('Ã­Â»Â‘ Enterprise Reporter stopped');
     }
 }
 

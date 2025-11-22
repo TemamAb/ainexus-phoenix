@@ -67,18 +67,18 @@ class BridgeMonitor extends EventEmitter {
             });
         });
 
-        console.log(`✅ Initialized ${this.bridgeStatus.size} cross-chain bridge monitors`);
+        console.log(`â Initialized ${this.bridgeStatus.size} cross-chain bridge monitors`);
     }
 
     // Start continuous bridge monitoring
     startMonitoring() {
         if (this.isMonitoring) {
-            console.log('⚠️ Bridge monitoring already active');
+            console.log('â ï¸ Bridge monitoring already active');
             return;
         }
 
         this.isMonitoring = true;
-        console.log('��� Starting continuous bridge monitoring...');
+        console.log('í¼ Starting continuous bridge monitoring...');
 
         // Monitor each bridge
         this.bridgeStatus.forEach((bridge, bridgeName) => {
@@ -112,7 +112,7 @@ class BridgeMonitor extends EventEmitter {
         // Stop failure detection
         this.stopFailureDetection();
 
-        console.log('��� Bridge monitoring stopped');
+        console.log('í» Bridge monitoring stopped');
     }
 
     // Check health of specific bridge
@@ -176,12 +176,12 @@ class BridgeMonitor extends EventEmitter {
         const indicators = healthIndicators[bridge.name] || { health: 0.8, latency: 2000, successRate: 0.9 };
 
         // Add some random variation
-        const variation = (Math.random() - 0.5) * 0.1; // ±5% variation
+        const variation = (Math.random() - 0.5) * 0.1; // Â±5% variation
         const health = Math.max(0, Math.min(1, indicators.health + variation));
 
         return {
             health: health,
-            latency: indicators.latency * (1 + Math.random() * 0.2), // ±20% latency variation
+            latency: indicators.latency * (1 + Math.random() * 0.2), // Â±20% latency variation
             successRate: indicators.successRate,
             pendingTransactions: Math.floor(Math.random() * 100),
             lastBlockUpdate: Date.now() - Math.random() * 60000 // 0-60 seconds ago
@@ -238,7 +238,7 @@ class BridgeMonitor extends EventEmitter {
 
     // Start failure detection and alerting
     startFailureDetection() {
-        console.log('��� Starting bridge failure detection...');
+        console.log('íº¨ Starting bridge failure detection...');
 
         this.failureDetectionInterval = setInterval(() => {
             this.detectFailurePatterns();

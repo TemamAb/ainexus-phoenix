@@ -17,7 +17,7 @@ class InstitutionalArbitrageur extends EventEmitter {
     }
 
     async initialize() {
-        console.log('í¾¯ Initializing Institutional Arbitrageur...');
+        console.log('Ã­Â¾Â¯ Initializing Institutional Arbitrageur...');
         
         await this.initializeExecutionEngines();
         await this.initializeCapitalManagement();
@@ -382,7 +382,7 @@ class InstitutionalArbitrageur extends EventEmitter {
     async executeArbitrage(opportunity) {
         const executionId = this.generateExecutionId();
         
-        console.log(`íº€ Executing Arbitrage: ${opportunity.type} | Expected Profit: ${opportunity.expectedProfit}`);
+        console.log(`Ã­ÂºÂ€ Executing Arbitrage: ${opportunity.type} | Expected Profit: ${opportunity.expectedProfit}`);
 
         try {
             // Pre-execution checks
@@ -603,7 +603,7 @@ class InstitutionalArbitrageur extends EventEmitter {
 
     async executeTriangularArbitrage(opportunity) {
         // Simulate triangular arbitrage execution
-        console.log('í´º Executing Triangular Arbitrage...');
+        console.log('Ã­Â´Âº Executing Triangular Arbitrage...');
         
         await this.simulateBlockchainInteraction(2000); // 2 second simulation
         
@@ -621,7 +621,7 @@ class InstitutionalArbitrageur extends EventEmitter {
 
     async executeFlashLoanArbitrage(opportunity) {
         // Simulate flash loan arbitrage execution
-        console.log('âš¡ Executing Flash Loan Arbitrage...');
+        console.log('Ã¢ÂšÂ¡ Executing Flash Loan Arbitrage...');
         
         await this.simulateBlockchainInteraction(1000); // 1 second simulation (atomic)
         
@@ -639,7 +639,7 @@ class InstitutionalArbitrageur extends EventEmitter {
 
     async executeStatisticalArbitrage(opportunity) {
         // Simulate statistical arbitrage execution
-        console.log('í³Š Executing Statistical Arbitrage...');
+        console.log('Ã­Â³ÂŠ Executing Statistical Arbitrage...');
         
         await this.simulateBlockchainInteraction(1500); // 1.5 second simulation
         
@@ -657,7 +657,7 @@ class InstitutionalArbitrageur extends EventEmitter {
 
     async executeCrossDexArbitrage(opportunity) {
         // Simulate cross-DEX arbitrage execution
-        console.log('í´„ Executing Cross-DEX Arbitrage...');
+        console.log('Ã­Â´Â„ Executing Cross-DEX Arbitrage...');
         
         await this.simulateBlockchainInteraction(500); // 0.5 second simulation
         
@@ -952,13 +952,13 @@ class InstitutionalArbitrageur extends EventEmitter {
     async checkPositionHealth(position) {
         return {
             riskLevel: Math.random() > 0.9 ? 'HIGH' : 'LOW',
-            pnl: (Math.random() - 0.5) * position.size * 0.1, // Â±10% of position
+            pnl: (Math.random() - 0.5) * position.size * 0.1, // Ã‚Â±10% of position
             duration: Date.now() - position.openedAt
         };
     }
 
     async managePositionRisk(position, engineId) {
-        console.log(`í»¡ï¸ Managing risk for position in engine ${engineId}`);
+        console.log(`Ã­Â»Â¡Ã¯Â¸Â Managing risk for position in engine ${engineId}`);
         // Implement risk management logic
     }
 
@@ -971,7 +971,7 @@ class InstitutionalArbitrageur extends EventEmitter {
     }
 
     async rebalanceCapitalPool(poolId, optimization) {
-        console.log(`í²° Rebalancing capital pool ${poolId}`);
+        console.log(`Ã­Â²Â° Rebalancing capital pool ${poolId}`);
         // Implement capital rebalancing logic
     }
 
@@ -1010,7 +1010,7 @@ class InstitutionalArbitrageur extends EventEmitter {
     }
 
     stop() {
-        console.log('í»‘ Institutional Arbitrageur stopped');
+        console.log('Ã­Â»Â‘ Institutional Arbitrageur stopped');
     }
 }
 

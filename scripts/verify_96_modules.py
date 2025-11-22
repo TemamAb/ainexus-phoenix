@@ -22,17 +22,17 @@ class ModuleVerifier96:
         
     def verify_module_architecture(self):
         """Verify 96-module distributed architecture"""
-        print("��� Verifying 96-Module Architecture...")
+        print("í´ Verifying 96-Module Architecture...")
         
         # Check category directories
         for category, count in self.module_categories.items():
             category_path = f"core/{category}"
             if Path(category_path).exists():
                 module_files = list(Path(category_path).rglob('*.js')) + list(Path(category_path).rglob('*.py'))
-                print(f"   ��� {category}: {len(module_files)}/{count} modules")
+                print(f"   í³ {category}: {len(module_files)}/{count} modules")
                 self.verified_modules += len(module_files)
             else:
-                print(f"   ❌ Missing category: {category}")
+                print(f"   â Missing category: {category}")
                 
         return self.verified_modules >= self.total_modules
     
@@ -50,7 +50,7 @@ class ModuleVerifier96:
             if Path(module).exists():
                 ai_count += 1
                 
-        print(f"   ��� AI Modules: {ai_count}/24 verified")
+        print(f"   í´ AI Modules: {ai_count}/24 verified")
         return ai_count >= 20  # Allow some flexibility
         
     def verify_execution_engine(self):
@@ -66,7 +66,7 @@ class ModuleVerifier96:
             if Path(module).exists():
                 execution_count += 1
                 
-        print(f"   ⚡ Execution Modules: {execution_count}/24 verified")
+        print(f"   â¡ Execution Modules: {execution_count}/24 verified")
         return execution_count >= 20
         
     def verify_deployment_config(self):
@@ -75,15 +75,15 @@ class ModuleVerifier96:
         
         for config in config_files:
             if not Path(config).exists():
-                print(f"   ❌ Missing config: {config}")
+                print(f"   â Missing config: {config}")
                 return False
                 
-        print("   ⚙️  Deployment config: ✅ Verified")
+        print("   âï¸  Deployment config: â Verified")
         return True
     
     def run_96_module_verification(self):
         """Execute comprehensive 96-module verification"""
-        print("��� AINEXUS 96-MODULE DEPLOYMENT VERIFICATION")
+        print("íº AINEXUS 96-MODULE DEPLOYMENT VERIFICATION")
         print("=" * 60)
         
         checks = [
@@ -95,23 +95,23 @@ class ModuleVerifier96:
         
         all_passed = True
         for check_name, passed in checks:
-            status = "✅ PASS" if passed else "❌ FAIL"
+            status = "â PASS" if passed else "â FAIL"
             print(f"{status} {check_name}")
             if not passed:
                 all_passed = False
                 
-        print(f"\n��� MODULE SUMMARY: {self.verified_modules}/96 modules verified")
+        print(f"\ní³ MODULE SUMMARY: {self.verified_modules}/96 modules verified")
         print("=" * 60)
         
         if all_passed and self.verified_modules >= 90:  # Allow 6 module flexibility
-            print("��� 96-MODULE PLATFORM VERIFIED - READY FOR DEPLOYMENT!")
-            print("\n��� DEPLOYMENT COMMANDS:")
+            print("í¾ 96-MODULE PLATFORM VERIFIED - READY FOR DEPLOYMENT!")
+            print("\ní³ DEPLOYMENT COMMANDS:")
             print("git add .")
-            print("git commit -m '��� AINEXUS v3.0.0 - 96 Module Quantum AI Platform'")
+            print("git commit -m 'íº AINEXUS v3.0.0 - 96 Module Quantum AI Platform'")
             print("git push origin main")
             return True
         else:
-            print(f"❌ DEPLOYMENT BLOCKED - Only {self.verified_modules}/96 modules verified")
+            print(f"â DEPLOYMENT BLOCKED - Only {self.verified_modules}/96 modules verified")
             return False
 
 if __name__ == "__main__":

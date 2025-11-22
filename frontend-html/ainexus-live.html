@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>íº€ AI-NEXUS Live Production Engine</title>
+    <title>Ã­ÂºÂ€ AI-NEXUS Live Production Engine</title>
     <style>
         :root {
             --primary: #8b5cf6; --secondary: #1a1a2e; --success: #10b981;
@@ -27,11 +27,11 @@
 </head>
 <body>
     <div class="launch-container">
-        <h1>íº€ AI-NEXUS LIVE PRODUCTION ENGINE</h1>
+        <h1>Ã­ÂºÂ€ AI-NEXUS LIVE PRODUCTION ENGINE</h1>
         <p>45-Module Flash Loan Arbitrage System</p>
         
         <button onclick="startEngine()" id="engineBtn" style="background: var(--primary); color: white; border: none; padding: 20px 40px; border-radius: 10px; font-size: 1.2em; margin: 30px 0;">
-            í¾¯ START AI-NEXUS ENGINE
+            Ã­Â¾Â¯ START AI-NEXUS ENGINE
         </button>
 
         <div class="phase-tracker">
@@ -55,14 +55,14 @@
         </div>
 
         <div id="liveDashboard" style="display: none; margin-top: 40px;">
-            <h2>í³Š LIVE TRADING DASHBOARD</h2>
+            <h2>Ã­Â³ÂŠ LIVE TRADING DASHBOARD</h2>
             <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 20px;">
                 <div style="background: var(--secondary); padding: 20px; border-radius: 10px;">
-                    <h3>í²° Profit/Time Analytics</h3>
+                    <h3>Ã­Â²Â° Profit/Time Analytics</h3>
                     <div id="profitChart">Real-time profit chart will appear here</div>
                 </div>
                 <div style="background: var(--secondary); padding: 20px; border-radius: 10px;">
-                    <h3>í¿¦ Auto Withdrawal System</h3>
+                    <h3>Ã­Â¿Â¦ Auto Withdrawal System</h3>
                     <p>Next withdrawal: <span id="nextWithdrawal">--</span></p>
                     <p>Available: <span id="availableProfit">$0</span></p>
                 </div>
@@ -77,7 +77,7 @@
 
         function startEngine() {
             document.getElementById('engineBtn').disabled = true;
-            document.getElementById('engineBtn').textContent = 'íº€ ENGINE STARTING...';
+            document.getElementById('engineBtn').textContent = 'Ã­ÂºÂ€ ENGINE STARTING...';
             
             // Execute all 6 phases
             executePhase(1);
@@ -122,7 +122,7 @@
         }
 
         function activateLiveMode() {
-            document.getElementById('engineBtn').textContent = 'âœ… AI-NEXUS LIVE';
+            document.getElementById('engineBtn').textContent = 'Ã¢ÂœÂ… AI-NEXUS LIVE';
             document.getElementById('engineBtn').style.background = 'var(--success)';
             document.getElementById('liveDashboard').style.display = 'block';
             
@@ -148,7 +148,7 @@
                 document.getElementById('optimizationCycle').textContent = 
                     `Next Optimization: ${nextTime.toLocaleTimeString()}`;
                     
-                console.log('í´– AI Optimization Cycle Completed - Performance Improved');
+                console.log('Ã­Â´Â– AI Optimization Cycle Completed - Performance Improved');
             }, 15000); // 15 seconds for demo (15 minutes in production)
         }
 

@@ -35,7 +35,7 @@ class AinexusBackendIntegration:
         
     async def initialize_module(self, module_name, module_path):
         """Initialize a specific backend module"""
-        print(f"��� Initializing {module_name} from {module_path}")
+        print(f"í´§ Initializing {module_name} from {module_path}")
         
         # Simulate module initialization (replace with actual imports)
         await asyncio.sleep(1)
@@ -47,7 +47,7 @@ class AinexusBackendIntegration:
             # from core_foundation.execution_engine import ExecutionOrchestrator
             return True
         except ImportError as e:
-            print(f"⚠️  Module {module_name} not accessible: {e}")
+            print(f"â ï¸  Module {module_name} not accessible: {e}")
             return False
     
     async def start_engine_phases(self):
@@ -62,14 +62,14 @@ class AinexusBackendIntegration:
         ]
         
         for phase_name, phase_function in phases:
-            print(f"��� Starting phase: {phase_name}")
+            print(f"íº Starting phase: {phase_name}")
             success = await phase_function()
             
             if not success:
-                print(f"❌ Phase {phase_name} failed - stopping engine")
+                print(f"â Phase {phase_name} failed - stopping engine")
                 return False
                 
-            print(f"✅ Phase {phase_name} completed successfully")
+            print(f"â Phase {phase_name} completed successfully")
             
         return True
     
@@ -89,11 +89,11 @@ class AinexusBackendIntegration:
         """Phase 2: Connect to blockchain networks"""
         # Integrate with actual blockchain connectors
         # from cross_chain import CrossChainRelayer, TransactionRouter
-        print("��� Connecting to Ethereum Mainnet...")
+        print("í´ Connecting to Ethereum Mainnet...")
         await asyncio.sleep(2)
-        print("��� Connecting to Polygon...")
+        print("í´ Connecting to Polygon...")
         await asyncio.sleep(1)
-        print("��� Connecting to Arbitrum...")
+        print("í´ Connecting to Arbitrum...")
         
         self.ai_confidence = 45
         return True
@@ -102,7 +102,7 @@ class AinexusBackendIntegration:
         """Phase 3: Real market analysis"""
         # Integrate with actual market analysis
         # from analytics import CompetitiveAnalysis, MarketSentiment
-        print("��� Analyzing real-time market data...")
+        print("í³ Analyzing real-time market data...")
         await asyncio.sleep(2)
         
         self.ai_confidence = 65
@@ -113,7 +113,7 @@ class AinexusBackendIntegration:
         # Integrate with actual strategy engines
         # from competitive_edge.multi_agent_system import DecisionAgent
         # from strategies.cross_asset import CrossAssetArb
-        print("��� Optimizing arbitrage strategies...")
+        print("í¾¯ Optimizing arbitrage strategies...")
         await asyncio.sleep(2)
         
         self.ai_confidence = 80
@@ -123,7 +123,7 @@ class AinexusBackendIntegration:
         """Phase 5: Real risk assessment"""
         # Integrate with actual risk engines
         # from security.risk import ComplianceEngine, RiskEngine
-        print("⚖️ Running risk assessment algorithms...")
+        print("âï¸ Running risk assessment algorithms...")
         await asyncio.sleep(1)
         
         self.ai_confidence = 90
@@ -134,7 +134,7 @@ class AinexusBackendIntegration:
         # Integrate with actual execution engines
         # from execution.stealth import PrivacyMixer
         # from trading.execution import DarkPoolRouter
-        print("��� Activating flash loan execution...")
+        print("í²° Activating flash loan execution...")
         await asyncio.sleep(2)
         
         self.engine_status = "LIVE_TRADING"

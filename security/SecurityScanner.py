@@ -26,7 +26,7 @@ class SecurityScanner:
     
     async def scan_smart_contracts(self):
         """Scan deployed smart contracts for vulnerabilities"""
-        self.logger.info("í´ Scanning smart contracts...")
+        self.logger.info("Ã­Â´Â Scanning smart contracts...")
         
         contracts_to_scan = [
             "UniswapV2Router02",
@@ -41,11 +41,11 @@ class SecurityScanner:
             if vulnerabilities:
                 self.critical_issues.extend(vulnerabilities)
         
-        self.logger.info("âœ… Smart contract scan completed")
+        self.logger.info("Ã¢ÂœÂ… Smart contract scan completed")
     
     async def scan_api_security(self):
         """Scan API endpoints and configurations"""
-        self.logger.info("í´ Scanning API security...")
+        self.logger.info("Ã­Â´Â Scanning API security...")
         
         checks = [
             self._check_ssl_configuration,
@@ -81,7 +81,7 @@ class SecurityScanner:
     
     async def scan_infrastructure(self):
         """Scan infrastructure security"""
-        self.logger.info("í´ Scanning infrastructure security...")
+        self.logger.info("Ã­Â´Â Scanning infrastructure security...")
         
         # Check Kubernetes security
         k8s_issues = await self._scan_kubernetes_security()
@@ -132,7 +132,7 @@ async def main():
     with open("security_audit_report.json", "w") as f:
         json.dump(report, f, indent=2)
     
-    print(f"í´’ Security Scan Complete:")
+    print(f"Ã­Â´Â’ Security Scan Complete:")
     print(f"   Critical Issues: {report['summary']['total_critical']}")
     print(f"   Warnings: {report['summary']['total_warnings']}")
     print(f"   Security Score: {report['summary']['security_score']}/100")

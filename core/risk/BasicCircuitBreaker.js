@@ -27,7 +27,7 @@ class BasicCircuitBreaker extends EventEmitter {
     // Initialize circuit breaker
     async initialize() {
         try {
-            console.log('íº€ Initializing Basic Circuit Breaker...');
+            console.log('Ã­ÂºÂ€ Initializing Basic Circuit Breaker...');
             
             // Start monitoring
             this.startMonitoring();
@@ -121,7 +121,7 @@ class BasicCircuitBreaker extends EventEmitter {
         this.breakers[breakerName].triggered = true;
         this.tradingEnabled = false;
         
-        console.log(`í´´ CIRCUIT BREAKER TRIGGERED: ${breakerName}`);
+        console.log(`Ã­Â´Â´ CIRCUIT BREAKER TRIGGERED: ${breakerName}`);
         console.log(`   Reason: ${reason}`);
         
         this.emit('breaker_triggered', {
@@ -145,7 +145,7 @@ class BasicCircuitBreaker extends EventEmitter {
             this.tradingEnabled = true;
         }
         
-        console.log(`í¿¢ CIRCUIT BREAKER RESET: ${breakerName}`);
+        console.log(`Ã­Â¿Â¢ CIRCUIT BREAKER RESET: ${breakerName}`);
         
         this.emit('breaker_reset', {
             breaker: breakerName,
@@ -174,7 +174,7 @@ class BasicCircuitBreaker extends EventEmitter {
 
     // Handle drawdown emergency
     async handleDrawdownEmergency() {
-        console.log('í´„ Executing drawdown emergency protocol...');
+        console.log('Ã­Â´Â„ Executing drawdown emergency protocol...');
         
         // Stop all active trading
         this.emit('emergency_stop', {
@@ -189,7 +189,7 @@ class BasicCircuitBreaker extends EventEmitter {
 
     // Handle consecutive losses emergency
     async handleConsecutiveLossesEmergency() {
-        console.log('í´„ Executing consecutive losses protocol...');
+        console.log('Ã­Â´Â„ Executing consecutive losses protocol...');
         
         this.emit('emergency_stop', {
             type: 'consecutive_losses',
@@ -200,7 +200,7 @@ class BasicCircuitBreaker extends EventEmitter {
 
     // Handle gas price emergency
     async handleGasPriceEmergency() {
-        console.log('í´„ Executing gas price emergency protocol...');
+        console.log('Ã­Â´Â„ Executing gas price emergency protocol...');
         
         this.emit('emergency_stop', {
             type: 'gas_price',
@@ -211,7 +211,7 @@ class BasicCircuitBreaker extends EventEmitter {
 
     // Handle system health emergency
     async handleSystemHealthEmergency() {
-        console.log('í´„ Executing system health emergency protocol...');
+        console.log('Ã­Â´Â„ Executing system health emergency protocol...');
         
         this.emit('emergency_stop', {
             type: 'system_health',
@@ -225,7 +225,7 @@ class BasicCircuitBreaker extends EventEmitter {
         this.emergencyStop = true;
         this.tradingEnabled = false;
         
-        console.log('í»‘ MANUAL EMERGENCY STOP ACTIVATED');
+        console.log('Ã­Â»Â‘ MANUAL EMERGENCY STOP ACTIVATED');
         console.log(`   Reason: ${reason}`);
         
         this.emit('manual_emergency_stop', {
@@ -250,7 +250,7 @@ class BasicCircuitBreaker extends EventEmitter {
         
         this.tradingEnabled = true;
         
-        console.log('í¿¢ MANUAL RESUME ACTIVATED');
+        console.log('Ã­Â¿Â¢ MANUAL RESUME ACTIVATED');
         
         this.emit('manual_resume', {
             timestamp: Date.now(),
@@ -344,7 +344,7 @@ class BasicCircuitBreaker extends EventEmitter {
         if (this.monitoringInterval) {
             clearInterval(this.monitoringInterval);
         }
-        console.log('í»‘ Circuit Breaker stopped');
+        console.log('Ã­Â»Â‘ Circuit Breaker stopped');
     }
 }
 

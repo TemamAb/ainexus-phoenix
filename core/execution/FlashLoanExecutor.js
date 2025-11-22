@@ -17,7 +17,7 @@ class FlashLoanExecutor extends EventEmitter {
     // Initialize Aave Pool contract
     async initialize() {
         try {
-            console.log('�� Initializing Flash Loan Executor...');
+            console.log('ï¿½ï¿½ Initializing Flash Loan Executor...');
             
             // Aave V3 Pool ABI (simplified for flash loans)
             this.aavePoolABI = [
@@ -127,7 +127,7 @@ class FlashLoanExecutor extends EventEmitter {
         const kellyFraction = 0.1; // Conservative 10% of bankroll
         const optimalAmount = Math.min(opportunitySize * kellyFraction, maxLoan * 0.5); // Max 50% of available
         
-        console.log(`��� Optimal loan: ${optimalAmount.toFixed(2)} (Max: ${maxLoan.toFixed(2)})`);
+        console.log(`í²° Optimal loan: ${optimalAmount.toFixed(2)} (Max: ${maxLoan.toFixed(2)})`);
         return optimalAmount;
     }
 
@@ -252,7 +252,7 @@ class FlashLoanExecutor extends EventEmitter {
     // Stop executor
     stop() {
         this.executing = false;
-        console.log('��� Flash Loan Executor stopped');
+        console.log('í» Flash Loan Executor stopped');
     }
 }
 

@@ -17,7 +17,7 @@ class InstitutionalRiskManager extends EventEmitter {
     }
 
     async initialize() {
-        console.log('���️ Initializing Institutional Risk Manager...');
+        console.log('í»¡ï¸ Initializing Institutional Risk Manager...');
         
         await this.initializeRiskModels();
         await this.initializeCircuitBreakers();
@@ -480,7 +480,7 @@ class InstitutionalRiskManager extends EventEmitter {
         // Emit event
         this.emit('circuit_breaker_triggered', incident);
 
-        console.log(`��� Circuit Breaker Triggered: ${breaker.name} - Action: ${breaker.action}`);
+        console.log(`í´´ Circuit Breaker Triggered: ${breaker.name} - Action: ${breaker.action}`);
 
         // Schedule auto-reset if configured
         if (breaker.autoReset) {
@@ -520,7 +520,7 @@ class InstitutionalRiskManager extends EventEmitter {
                 timestamp: Date.now()
             });
 
-            console.log(`��� Circuit Breaker Reset: ${breaker.name}`);
+            console.log(`í¿¢ Circuit Breaker Reset: ${breaker.name}`);
         }
     }
 
@@ -598,7 +598,7 @@ class InstitutionalRiskManager extends EventEmitter {
 
     async enforceHardLimit(limit) {
         // Immediate action for hard limits
-        console.log(`��� Enforcing Hard Limit: ${limit.name}`);
+        console.log(`í» Enforcing Hard Limit: ${limit.name}`);
         
         switch (limit.type) {
             case 'ASSET_CONCENTRATION':
@@ -615,7 +615,7 @@ class InstitutionalRiskManager extends EventEmitter {
 
     async enforceSoftLimit(limit) {
         // Warning and gradual action for soft limits
-        console.log(`⚠️ Soft Limit Warning: ${limit.name}`);
+        console.log(`â ï¸ Soft Limit Warning: ${limit.name}`);
         
         // Notify risk team and schedule review
         this.emit('soft_limit_warning', {
@@ -657,7 +657,7 @@ class InstitutionalRiskManager extends EventEmitter {
     async executeStressTest(scenarioId) {
         const scenario = this.stressTests.get(scenarioId);
         
-        console.log(`��� Running Stress Test: ${scenario.name}`);
+        console.log(`í¼ Running Stress Test: ${scenario.name}`);
         
         try {
             const results = await this.simulateStressScenario(scenario);
@@ -765,35 +765,35 @@ class InstitutionalRiskManager extends EventEmitter {
 
     // Action simulation methods
     async suspendAllTrading() {
-        console.log('⏸️ All trading suspended');
+        console.log('â¸ï¸ All trading suspended');
     }
 
     async reducePortfolioExposure(percentage) {
-        console.log(`��� Reducing portfolio exposure by ${percentage * 100}%`);
+        console.log(`í³ Reducing portfolio exposure by ${percentage * 100}%`);
     }
 
     async haltCustomerWithdrawals() {
-        console.log('��� Customer withdrawals halted');
+        console.log('íº« Customer withdrawals halted');
     }
 
     async pauseNewPositions() {
-        console.log('⏸️ New positions paused');
+        console.log('â¸ï¸ New positions paused');
     }
 
     async reduceLeverage(percentage) {
-        console.log(`��� Reducing leverage by ${percentage * 100}%`);
+        console.log(`í³ Reducing leverage by ${percentage * 100}%`);
     }
 
     async reduceAssetExposure(asset, percentage) {
-        console.log(`��� Reducing ${asset} exposure by ${percentage * 100}%`);
+        console.log(`í³ Reducing ${asset} exposure by ${percentage * 100}%`);
     }
 
     async suspendLossMakingStrategies() {
-        console.log('⏸️ Loss-making strategies suspended');
+        console.log('â¸ï¸ Loss-making strategies suspended');
     }
 
     async forceLeverageReduction(percentage) {
-        console.log(`��� Forcing leverage reduction by ${percentage * 100}%`);
+        console.log(`í³ Forcing leverage reduction by ${percentage * 100}%`);
     }
 
     // Utility Methods
@@ -891,7 +891,7 @@ class InstitutionalRiskManager extends EventEmitter {
     }
 
     stop() {
-        console.log('��� Institutional Risk Manager stopped');
+        console.log('í» Institutional Risk Manager stopped');
     }
 }
 

@@ -18,7 +18,7 @@ class ArbitrageOrchestrator extends EventEmitter {
     // Initialize module and start scanning
     async initialize() {
         try {
-            console.log('��� Initializing Arbitrage Orchestrator...');
+            console.log('íº Initializing Arbitrage Orchestrator...');
             await this.verifyConnections();
             this.startOpportunityScan();
             this.emit('module_ready', { module: 'ArbitrageOrchestrator', status: 'active' });
@@ -35,14 +35,14 @@ class ArbitrageOrchestrator extends EventEmitter {
         if (!blockNumber) throw new Error('RPC connection failed');
         
         const networkId = await this.web3.eth.net.getId();
-        console.log(`✅ Connected to network: ${networkId}, Block: ${blockNumber}`);
+        console.log(`â Connected to network: ${networkId}, Block: ${blockNumber}`);
         return { networkId, blockNumber };
     }
 
     // Main opportunity scanning loop
     startOpportunityScan() {
         this.scanning = true;
-        console.log('��� Starting opportunity scanning...');
+        console.log('í´ Starting opportunity scanning...');
         
         this.scanInterval = setInterval(async () => {
             if (this.executionQueue.length > 0) return; // Skip if executing
@@ -183,11 +183,11 @@ class ArbitrageOrchestrator extends EventEmitter {
                 const result = await this.executeArbitrage(opportunity);
                 
                 this.emit('execution_completed', { opportunity, result });
-                console.log(`✅ Arbitrage executed: $${result.netProfit.toFixed(2)} profit`);
+                console.log(`â Arbitrage executed: $${result.netProfit.toFixed(2)} profit`);
                 
             } catch (error) {
                 this.emit('execution_failed', { opportunity, error: error.message });
-                console.error('❌ Arbitrage execution failed:', error);
+                console.error('â Arbitrage execution failed:', error);
             }
             
             // Remove from queue
@@ -216,7 +216,7 @@ class ArbitrageOrchestrator extends EventEmitter {
             clearInterval(this.scanInterval);
         }
         this.executionQueue = [];
-        console.log('��� Arbitrage Orchestrator stopped');
+        console.log('í» Arbitrage Orchestrator stopped');
     }
 
     // Get module status

@@ -168,7 +168,7 @@ class LatencyMonitor:
             'severity': self.determine_alert_severity(alert_type, measurement)
         }
         
-        self.logger.warning(f"íº¨ LATENCY ALERT: {message}")
+        self.logger.warning(f"Ã­ÂºÂ¨ LATENCY ALERT: {message}")
         
         # Here you would typically send to alerting system
         # await self.alerting_system.send_alert(alert)

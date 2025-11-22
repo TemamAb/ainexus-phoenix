@@ -17,7 +17,7 @@ class QuantumOptimizer extends EventEmitter {
     }
 
     async initialize() {
-        console.log('‚öõÔ∏è Initializing Quantum Optimizer...');
+        console.log('√¢¬ö¬õ√Ø¬∏¬è Initializing Quantum Optimizer...');
         
         await this.initializeQuantumModels();
         await this.initializeOptimizationAlgorithms();
@@ -269,7 +269,7 @@ class QuantumOptimizer extends EventEmitter {
     }
 
     async runQuantumOptimizationCycle() {
-        console.log('ÌºÄ Running Quantum Optimization Cycle...');
+        console.log('√≠¬º¬Ä Running Quantum Optimization Cycle...');
         
         try {
             // Run portfolio optimization
@@ -304,7 +304,7 @@ class QuantumOptimizer extends EventEmitter {
         const model = this.quantumModels.get('QUANTUM_PORTFOLIO_OPTIMIZER');
         const algorithm = this.optimizationAlgorithms.get('QUANTUM_ANNEALING_OPTIMIZATION');
 
-        console.log('ÌæØ Running Quantum Portfolio Optimization...');
+        console.log('√≠¬æ¬Ø Running Quantum Portfolio Optimization...');
 
         // Simulate quantum annealing process
         const quantumState = await this.performQuantumAnnealing(model, algorithm);
@@ -332,7 +332,7 @@ class QuantumOptimizer extends EventEmitter {
         const model = this.quantumModels.get('QUANTUM_ARBITRAGE_DETECTOR');
         const algorithm = this.optimizationAlgorithms.get('GROVER_SEARCH_OPTIMIZATION');
 
-        console.log('Ì¥ç Running Quantum Arbitrage Detection...');
+        console.log('√≠¬¥¬ç Running Quantum Arbitrage Detection...');
 
         // Simulate Grover search for arbitrage opportunities
         const searchSpace = await this.prepareArbitrageSearchSpace();
@@ -356,7 +356,7 @@ class QuantumOptimizer extends EventEmitter {
         const model = this.quantumModels.get('QUANTUM_RISK_ASSESSOR');
         const algorithm = this.optimizationAlgorithms.get('VARIATIONAL_QUANTUM_OPTIMIZATION');
 
-        console.log('Ìª°Ô∏è Running Quantum Risk Assessment...');
+        console.log('√≠¬ª¬°√Ø¬∏¬è Running Quantum Risk Assessment...');
 
         // Simulate variational quantum eigensolver for risk assessment
         const riskHamiltonian = await this.constructRiskHamiltonian();
@@ -380,7 +380,7 @@ class QuantumOptimizer extends EventEmitter {
         const model = this.quantumModels.get('QUANTUM_MARKET_PREDICTOR');
         const algorithm = this.optimizationAlgorithms.get('QUANTUM_APPROXIMATE_OPTIMIZATION');
 
-        console.log('Ì≥à Running Quantum Market Prediction...');
+        console.log('√≠¬≥¬à Running Quantum Market Prediction...');
 
         // Simulate quantum approximate optimization for market prediction
         const marketData = await this.prepareMarketData();
@@ -470,7 +470,7 @@ class QuantumOptimizer extends EventEmitter {
     }
 
     async retrainQuantumModels() {
-        console.log('Ì¥Ñ Retraining Quantum Models...');
+        console.log('√≠¬¥¬Ñ Retraining Quantum Models...');
 
         for (const [modelId, model] of this.quantumModels) {
             if (!model.active) continue;
@@ -770,7 +770,7 @@ class QuantumOptimizer extends EventEmitter {
         // Add small quantum fluctuations
         for (let i = 0; i < correlations.length; i++) {
             for (let j = i + 1; j < correlations.length; j++) {
-                const fluctuation = (Math.random() - 0.5) * 0.1; // ¬±5% fluctuation
+                const fluctuation = (Math.random() - 0.5) * 0.1; // √Ç¬±5% fluctuation
                 correlations[i][j] = Math.max(-1, Math.min(1, correlations[i][j] + fluctuation));
                 correlations[j][i] = correlations[i][j]; // Maintain symmetry
             }
@@ -802,7 +802,7 @@ class QuantumOptimizer extends EventEmitter {
     }
 
     stop() {
-        console.log('Ìªë Quantum Optimizer stopped');
+        console.log('√≠¬ª¬ë Quantum Optimizer stopped');
     }
 }
 

@@ -11,7 +11,7 @@ def generate_project_summary():
     base_path = Path("ai-nexus-v5.0/ai-nexus-v5.0")
     
     if not base_path.exists():
-        print("âŒ Project directory not found!")
+        print("Ã¢ÂÂŒ Project directory not found!")
         return
     
     summary = {
@@ -63,17 +63,17 @@ def generate_project_summary():
     summary["recent_files"] = sorted(summary["recent_files"], key=lambda x: x["modified"], reverse=True)[:10]
     
     # Print summary
-    print("íº€ AI-NEXUS v5.0 PROJECT SUMMARY")
+    print("Ã­ÂºÂ€ AI-NEXUS v5.0 PROJECT SUMMARY")
     print("=" * 50)
-    print(f"í³ Total Files: {summary['total_files']}")
-    print(f"í³Š File Types: {json.dumps(summary['file_types'], indent=2)}")
-    print(f"í¿—ï¸  Modules: {json.dumps(summary['modules'], indent=2)}")
+    print(f"Ã­Â³Â Total Files: {summary['total_files']}")
+    print(f"Ã­Â³ÂŠ File Types: {json.dumps(summary['file_types'], indent=2)}")
+    print(f"Ã­Â¿Â—Ã¯Â¸Â  Modules: {json.dumps(summary['modules'], indent=2)}")
     
-    print("\ní³ˆ Largest Files:")
+    print("\nÃ­Â³Âˆ Largest Files:")
     for file in summary["largest_files"]:
         print(f"   {file['path']} - {file['size']} bytes")
     
-    print("\níµ’ Recently Modified:")
+    print("\nÃ­ÂµÂ’ Recently Modified:")
     for file in summary["recent_files"]:
         print(f"   {file['path']}")
     
@@ -81,7 +81,7 @@ def generate_project_summary():
     with open("project_summary.json", "w") as f:
         json.dump(summary, f, indent=2)
     
-    print(f"\ní²¾ Summary saved to: project_summary.json")
+    print(f"\nÃ­Â²Â¾ Summary saved to: project_summary.json")
 
 if __name__ == "__main__":
     generate_project_summary()

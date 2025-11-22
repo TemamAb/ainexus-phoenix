@@ -91,7 +91,7 @@ class OracleFallbackSystem:
                 error_count=0
             )
         
-        print("���️ Oracle Fallback System Initialized")
+        print("í»¡ï¸ Oracle Fallback System Initialized")
         print(f"Monitoring {len(self.oracle_health)} oracles")
     
     def start_health_monitoring(self):
@@ -139,10 +139,10 @@ class OracleFallbackSystem:
             health.status = new_status
             
             if new_status != OracleStatus.HEALTHY:
-                print(f"⚠️ Oracle {oracle_id} status: {new_status.value}")
+                print(f"â ï¸ Oracle {oracle_id} status: {new_status.value}")
                 
         except Exception as e:
-            print(f"❌ Health check failed for {oracle_id}: {e}")
+            print(f"â Health check failed for {oracle_id}: {e}")
             self.handle_oracle_error(oracle_id)
     
     def determine_oracle_status(self, health: OracleHealth) -> OracleStatus:
@@ -169,7 +169,7 @@ class OracleFallbackSystem:
         
         if health.error_count >= 3:
             health.status = OracleStatus.FAILED
-            print(f"��� Oracle {oracle_id} marked as FAILED")
+            print(f"í´´ Oracle {oracle_id} marked as FAILED")
     
     async def get_price_with_fallback(self, asset: str) -> FallbackResult:
         """
@@ -194,7 +194,7 @@ class OracleFallbackSystem:
             return fallback_result
             
         except Exception as e:
-            print(f"❌ Price fetch failed with all fallbacks: {e}")
+            print(f"â Price fetch failed with all fallbacks: {e}")
             # Ultimate fallback to emergency feed
             return await self.use_emergency_feed(asset, "complete_failure")
     
@@ -370,7 +370,7 @@ class OracleFallbackSystem:
         base_price = base_prices.get(asset, 100.0)
         
         # Add some random variation
-        variation = random.uniform(-0.01, 0.01)  # ±1% variation
+        variation = random.uniform(-0.01, 0.01)  # Â±1% variation
         return base_price * (1 + variation)
     
     async def get_internal_price(self, asset: str) -> float:
@@ -479,7 +479,7 @@ class OracleFallbackSystem:
             health = self.oracle_health[oracle_id]
             health.status = OracleStatus.FAILED
             health.error_count = 10
-            print(f"��� Simulated failure for oracle: {oracle_id}")
+            print(f"í´´ Simulated failure for oracle: {oracle_id}")
     
     async def simulate_oracle_recovery(self, oracle_id: str):
         """Simulate oracle recovery for testing"""
@@ -488,7 +488,7 @@ class OracleFallbackSystem:
             health.status = OracleStatus.HEALTHY
             health.error_count = 0
             health.success_rate = 1.0
-            print(f"✅ Simulated recovery for oracle: {oracle_id}")
+            print(f"â Simulated recovery for oracle: {oracle_id}")
 
 # Example usage
 async def main():
@@ -504,7 +504,7 @@ async def main():
     for asset in assets:
         result = await fallback_system.get_price_with_fallback(asset)
         
-        print(f"\n��� {asset} Price Result:")
+        print(f"\ní²° {asset} Price Result:")
         print(f"  Price: ${result.final_price:,.2f}")
         print(f"  Strategy: {result.strategy_used.value}")
         print(f"  Confidence: {result.confidence:.1%}")
@@ -513,13 +513,13 @@ async def main():
     
     # Get system health report
     health_report = fallback_system.get_system_health_report()
-    print(f"\n���️ System Health Report:")
+    print(f"\ní»¡ï¸ System Health Report:")
     print(f"  Healthy Oracles: {health_report['healthy_oracles']}/{health_report['total_oracles']}")
     print(f"  Health Ratio: {health_report['health_ratio']:.1%}")
     print(f"  Avg Response Time: {health_report['average_response_time']:.3f}s")
     
     # Simulate an oracle failure and see fallback in action
-    print(f"\n��� Simulating Chainlink oracle failure...")
+    print(f"\ní´¥ Simulating Chainlink oracle failure...")
     await fallback_system.simulate_oracle_failure('chainlink')
     
     # Get price after simulated failure

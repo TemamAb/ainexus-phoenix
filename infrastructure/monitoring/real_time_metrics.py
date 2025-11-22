@@ -179,7 +179,7 @@ class RealTimeMetricsEngine:
     async def notify_alert(self, alert: MetricAlert):
         """Notify about alert (would integrate with external systems)"""
         # Implementation would send to Slack, PagerDuty, etc.
-        print(f"íº¨ ALERT [{alert.severity.upper()}]: {alert.message}")
+        print(f"Ã­ÂºÂ¨ ALERT [{alert.severity.upper()}]: {alert.message}")
     
     async def update_performance_cache(self, metric_point: MetricPoint):
         """Update performance cache with latest metric"""

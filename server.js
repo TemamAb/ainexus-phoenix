@@ -40,7 +40,7 @@ app.get('/api/health', (req, res) => {
 
 // Start server
 app.listen(port, () => {
-  console.log(`íº€ AINEXUS Platform running on port ${port}`);
-  console.log(`í³Š Dashboard: http://localhost:${port}`);
-  console.log(`í´§ Health: http://localhost:${port}/api/health`);
+  console.log(`Ã­ÂºÂ€ AINEXUS Platform running on port ${port}`);
+  console.log(`Ã­Â³ÂŠ Dashboard: http://localhost:${port}`);
+  console.log(`Ã­Â´Â§ Health: http://localhost:${port}/api/health`);
 });

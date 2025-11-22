@@ -286,11 +286,11 @@ class RelayerHealthMonitor:
         
         # Log alert based on severity
         if alert.severity == 'HIGH':
-            self.logger.error(f"��� HIGH ALERT: {alert.message}")
+            self.logger.error(f"íº¨ HIGH ALERT: {alert.message}")
         elif alert.severity == 'MEDIUM':
-            self.logger.warning(f"⚠️ MEDIUM ALERT: {alert.message}")
+            self.logger.warning(f"â ï¸ MEDIUM ALERT: {alert.message}")
         else:
-            self.logger.info(f"ℹ️ INFO ALERT: {alert.message}")
+            self.logger.info(f"â¹ï¸ INFO ALERT: {alert.message}")
         
         # Here you would typically send to external alerting system
         # await self.send_alert_notification(alert)

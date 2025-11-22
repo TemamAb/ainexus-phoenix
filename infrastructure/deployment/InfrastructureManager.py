@@ -20,7 +20,7 @@ class InfrastructureManager:
         
     def deploy_kubernetes_cluster(self, cluster_config: Dict):
         """Deploy and configure Kubernetes cluster"""
-        print("��� Deploying Kubernetes cluster...")
+        print("íº Deploying Kubernetes cluster...")
         
         try:
             # Create EKS cluster
@@ -33,15 +33,15 @@ class InfrastructureManager:
                 }
             )
             
-            print("✅ Kubernetes cluster deployment initiated")
+            print("â Kubernetes cluster deployment initiated")
             return response
         except Exception as e:
-            print(f"❌ Cluster deployment failed: {e}")
+            print(f"â Cluster deployment failed: {e}")
             raise
     
     def setup_auto_scaling(self, scaling_config: Dict):
         """Configure auto-scaling policies"""
-        print("⚙️ Setting up auto-scaling...")
+        print("âï¸ Setting up auto-scaling...")
         
         autoscaling = boto3.client('autoscaling')
         
@@ -69,14 +69,14 @@ class InfrastructureManager:
                 }
             )
             
-            print("✅ Auto-scaling configured successfully")
+            print("â Auto-scaling configured successfully")
         except Exception as e:
-            print(f"❌ Auto-scaling setup failed: {e}")
+            print(f"â Auto-scaling setup failed: {e}")
             raise
     
     def deploy_monitoring_stack(self):
         """Deploy monitoring and alerting infrastructure"""
-        print("��� Deploying monitoring stack...")
+        print("í³ Deploying monitoring stack...")
         
         monitoring_manifests = [
             'monitoring/prometheus-deployment.yaml',
@@ -92,9 +92,9 @@ class InfrastructureManager:
                         body=deployment,
                         namespace="monitoring"
                     )
-                print(f"✅ Deployed: {manifest}")
+                print(f"â Deployed: {manifest}")
             except Exception as e:
-                print(f"❌ Failed to deploy {manifest}: {e}")
+                print(f"â Failed to deploy {manifest}: {e}")
 
 if __name__ == "__main__":
     manager = InfrastructureManager()
@@ -110,4 +110,4 @@ if __name__ == "__main__":
     # Deploy infrastructure
     manager.deploy_kubernetes_cluster(cluster_config)
     manager.deploy_monitoring_stack()
-    print("��� Production infrastructure deployed successfully!")
+    print("í¾ Production infrastructure deployed successfully!")

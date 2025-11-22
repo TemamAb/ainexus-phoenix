@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-print("âœ… AI-NEXUS DEPLOYMENT TEST SUCCESSFUL")
-print("í´· Requirements installed correctly")
-print("íº€ Docker deployment ready")
-print("í²° Arbitrage engine: STANDING BY")
+print("Ã¢ÂœÂ… AI-NEXUS DEPLOYMENT TEST SUCCESSFUL")
+print("Ã­Â´Â· Requirements installed correctly")
+print("Ã­ÂºÂ€ Docker deployment ready")
+print("Ã­Â²Â° Arbitrage engine: STANDING BY")

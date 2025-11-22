@@ -22,25 +22,25 @@ class NexusValidator:
             "core_foundation/ai_intelligence/AnomalyDetector.py"
         ]
         
-        print("��� VALIDATING NEXUS CORE ARCHITECTURE...")
+        print("í´ VALIDATING NEXUS CORE ARCHITECTURE...")
         for module in critical_modules:
             if os.path.exists(module):
-                print(f"✅ {module}")
+                print(f"â {module}")
                 self.modules_passed += 1
             else:
-                print(f"❌ MISSING: {module}")
+                print(f"â MISSING: {module}")
             self.modules_checked += 1
             
     def validate_file_sizes(self):
         """Ensure critical files have substantial content"""
-        print("\n��� VALIDATING FILE INTEGRITY...")
+        print("\ní³ VALIDATING FILE INTEGRITY...")
         result = os.popen("find . -name '*.py' -exec wc -l {} + | sort -nr | head -5").read()
         print("Top 5 Python files by line count:")
         print(result)
         
     def run_full_validation(self):
         """Execute complete validation suite"""
-        print("��� INITIATING NEXUS CORE VALIDATION PROTOCOL")
+        print("íº INITIATING NEXUS CORE VALIDATION PROTOCOL")
         print("=" * 50)
         
         self.validate_module_structure()
@@ -50,10 +50,10 @@ class NexusValidator:
         print(f"VALIDATION SUMMARY: {self.modules_passed}/{self.modules_checked} modules passed")
         
         if self.modules_passed == self.modules_checked:
-            print("��� STATUS: ALL SYSTEMS NOMINAL - READY FOR DEPLOYMENT")
+            print("í¾¯ STATUS: ALL SYSTEMS NOMINAL - READY FOR DEPLOYMENT")
             return True
         else:
-            print("⚠️ STATUS: VALIDATION FAILED - REVIEW MISSING MODULES")
+            print("â ï¸ STATUS: VALIDATION FAILED - REVIEW MISSING MODULES")
             return False
 
 if __name__ == "__main__":

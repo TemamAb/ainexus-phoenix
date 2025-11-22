@@ -279,7 +279,7 @@ class HealthCheckEngine:
     async def notify_incident_team(self, incident: Dict):
         """Notify incident response team"""
         # Implementation would send notifications via Slack, PagerDuty, etc.
-        message = f"íº¨ INCIDENT: {incident['component']} - {incident['issue']} (Severity: {incident['severity']})"
+        message = f"Ã­ÂºÂ¨ INCIDENT: {incident['component']} - {incident['issue']} (Severity: {incident['severity']})"
         print(message)  # Placeholder
     
     async def escalate_if_needed(self, incident: Dict):

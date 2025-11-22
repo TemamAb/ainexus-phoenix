@@ -86,7 +86,7 @@ class SandwichDetector:
                         
                         attacks.append(attack)
                         self.logger.warning(
-                            f"íº¨ Sandwich Attack Detected: "
+                            f"Ã­ÂºÂ¨ Sandwich Attack Detected: "
                             f"Profit: {profit:.4f} ETH, Confidence: {confidence:.2f}"
                         )
         

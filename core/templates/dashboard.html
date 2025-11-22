@@ -10,17 +10,17 @@
         function detectMetaMask() {
             // Direct check for MetaMask extension
             if (typeof window.ethereum !== 'undefined') {
-                console.log('✅ MetaMask detected directly');
+                console.log('â MetaMask detected directly');
                 return window.ethereum;
             }
             
             // Check for legacy web3
             if (typeof window.web3 !== 'undefined') {
-                console.log('✅ Legacy web3 detected');
+                console.log('â Legacy web3 detected');
                 return window.web3.currentProvider;
             }
             
-            console.log('❌ No Ethereum provider found');
+            console.log('â No Ethereum provider found');
             return null;
         }
     </script>
@@ -432,17 +432,17 @@
 
         // Check for MetaMask on page load
         function checkMetaMask() {
-            console.log('��� Checking for MetaMask...');
+            console.log('í´ Checking for MetaMask...');
             
             // Direct check for MetaMask extension
             if (typeof window.ethereum !== 'undefined') {
-                console.log('✅ MetaMask is installed and available');
+                console.log('â MetaMask is installed and available');
                 walletStatus.textContent = 'MetaMask detected! Click to connect.';
                 walletStatus.className = 'wallet-status status-success';
                 installGuide.style.display = 'none';
                 return true;
             } else {
-                console.log('❌ MetaMask not found');
+                console.log('â MetaMask not found');
                 walletStatus.textContent = 'MetaMask not detected. Please install it first.';
                 walletStatus.className = 'wallet-status status-error';
                 installGuide.style.display = 'block';
@@ -452,7 +452,7 @@
 
         // Direct MetaMask connection
         async function connectMetaMaskDirect() {
-            console.log('��� Attempting direct MetaMask connection...');
+            console.log('í¶ Attempting direct MetaMask connection...');
             
             // Check if MetaMask is available
             if (typeof window.ethereum === 'undefined') {
@@ -469,18 +469,18 @@
                 walletStatus.textContent = 'Waiting for MetaMask approval...';
                 walletStatus.className = 'wallet-status';
 
-                console.log('��� Requesting accounts from MetaMask...');
+                console.log('í³ Requesting accounts from MetaMask...');
                 
                 // DIRECT METAMASK API CALL - This is what triggers the extension
                 const accounts = await window.ethereum.request({
                     method: 'eth_requestAccounts'
                 });
 
-                console.log('✅ MetaMask response:', accounts);
+                console.log('â MetaMask response:', accounts);
 
                 if (accounts && accounts.length > 0) {
                     userWallet = accounts[0];
-                    console.log('��� Successfully connected to:', userWallet);
+                    console.log('í¾ Successfully connected to:', userWallet);
                     
                     // Update UI
                     updateUIAfterConnection();
@@ -497,7 +497,7 @@
                 }
 
             } catch (error) {
-                console.error('❌ MetaMask connection failed:', error);
+                console.error('â MetaMask connection failed:', error);
                 
                 // Reset button
                 metaMaskText.textContent = 'MetaMask';
@@ -617,7 +617,7 @@
 
         // Initialize on page load
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('��� AINexus Production System Loaded');
+            console.log('íº AINexus Production System Loaded');
             countdownScreen.style.display = 'none';
             walletModal.style.display = 'none';
             

@@ -73,18 +73,18 @@ class OracleManager extends EventEmitter {
             });
         });
 
-        console.log(`✅ Initialized ${this.oracleFeeds.size} oracle feed monitors`);
+        console.log(`â Initialized ${this.oracleFeeds.size} oracle feed monitors`);
     }
 
     // Start continuous oracle monitoring
     startMonitoring() {
         if (this.isMonitoring) {
-            console.log('⚠️ Oracle monitoring already active');
+            console.log('â ï¸ Oracle monitoring already active');
             return;
         }
 
         this.isMonitoring = true;
-        console.log('��� Starting continuous oracle monitoring...');
+        console.log('í´® Starting continuous oracle monitoring...');
 
         // Monitor each oracle feed
         this.oracleFeeds.forEach((oracle, oracleName) => {
@@ -119,7 +119,7 @@ class OracleManager extends EventEmitter {
         // Stop price validation
         this.stopPriceValidation();
 
-        console.log('��� Oracle monitoring stopped');
+        console.log('í» Oracle monitoring stopped');
     }
 
     // Update prices for specific oracle
@@ -223,7 +223,7 @@ class OracleManager extends EventEmitter {
 
     // Start price validation across oracles
     startPriceValidation() {
-        console.log('✅ Starting cross-oracle price validation...');
+        console.log('â Starting cross-oracle price validation...');
 
         this.validationInterval = setInterval(() => {
             this.validateOraclePrices();

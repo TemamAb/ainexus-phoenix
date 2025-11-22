@@ -15,7 +15,7 @@ class DeploymentReporter extends EventEmitter {
     }
 
     async initialize() {
-        console.log('í³‹ Initializing Enterprise Deployment Reporter...');
+        console.log('Ã­Â³Â‹ Initializing Enterprise Deployment Reporter...');
         
         await this.initializeReportTemplates();
         await this.initializeChainVerifiers();
@@ -75,7 +75,7 @@ class DeploymentReporter extends EventEmitter {
     async generateDeploymentCertificate(userWallet, deploymentData) {
         const certificateId = this.generateCertificateId();
         
-        console.log(`í³„ Generating Deployment Certificate for ${userWallet}...`);
+        console.log(`Ã­Â³Â„ Generating Deployment Certificate for ${userWallet}...`);
 
         try {
             // Verify all chain deployments
@@ -90,12 +90,12 @@ class DeploymentReporter extends EventEmitter {
             // Emit certificate event
             this.emit('deployment_certificate_generated', certificate);
             
-            console.log(`âœ… Deployment Certificate Generated: ${certificateId}`);
+            console.log(`Ã¢ÂœÂ… Deployment Certificate Generated: ${certificateId}`);
             
             return certificate;
 
         } catch (error) {
-            console.error(`âŒ Certificate generation failed: ${error.message}`);
+            console.error(`Ã¢ÂÂŒ Certificate generation failed: ${error.message}`);
             throw error;
         }
     }
@@ -319,7 +319,7 @@ class DeploymentReporter extends EventEmitter {
     // Integration with Two-Click Orchestrator
     async integrateWithTwoClickOrchestrator(twoClickOrchestrator) {
         twoClickOrchestrator.on('activation_completed', async (session) => {
-            console.log(`í³‹ Generating deployment certificate for session ${session.id}...`);
+            console.log(`Ã­Â³Â‹ Generating deployment certificate for session ${session.id}...`);
             
             try {
                 const certificate = await this.generateDeploymentCertificate(
@@ -389,7 +389,7 @@ class DeploymentReporter extends EventEmitter {
     }
 
     stop() {
-        console.log('í»‘ Enterprise Deployment Reporter stopped');
+        console.log('Ã­Â»Â‘ Enterprise Deployment Reporter stopped');
     }
 }
 

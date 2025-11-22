@@ -323,7 +323,7 @@ async def main():
     assets = ['BTC', 'ETH', 'SOL', 'AVAX']
     sentiment_results = await analyzer.analyze_market_sentiment(assets, "1h")
     
-    print("\ní³Š Market Sentiment Analysis Results:")
+    print("\nÃ­Â³ÂŠ Market Sentiment Analysis Results:")
     for asset, sentiment in sentiment_results.items():
         print(f"\n{asset}:")
         print(f"  Direction: {sentiment.direction.value}")
@@ -342,7 +342,7 @@ async def main():
     # Get sentiment history
     btc_history = analyzer.get_sentiment_history('BTC', '24h')
     if not btc_history.empty:
-        print(f"\ní³ˆ BTC Sentiment History (24h):")
+        print(f"\nÃ­Â³Âˆ BTC Sentiment History (24h):")
         print(f"  Data Points: {len(btc_history)}")
         print(f"  Average Score: {btc_history['score'].mean():.3f}")
         print(f"  Score Range: {btc_history['score'].min():.3f} to {btc_history['score'].max():.3f}")

@@ -16,7 +16,7 @@ class InstitutionalVault extends EventEmitter {
     }
 
     async initialize() {
-        console.log('í»¡ï¸ Initializing Institutional Vault...');
+        console.log('Ã­Â»Â¡Ã¯Â¸Â Initializing Institutional Vault...');
         
         await this.initializeSecurityPolicies();
         await this.initializeMultiSigWallets();
@@ -593,7 +593,7 @@ class InstitutionalVault extends EventEmitter {
     }
 
     stop() {
-        console.log('í»‘ Institutional Vault stopped');
+        console.log('Ã­Â»Â‘ Institutional Vault stopped');
     }
 }
 

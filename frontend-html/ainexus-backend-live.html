@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>íº€ AI-NEXUS - Backend Integrated</title>
+    <title>Ã­ÂºÂ€ AI-NEXUS - Backend Integrated</title>
     <style>
         body { background: #0f0f23; color: white; font-family: Arial; padding: 40px; text-align: center; }
         .backend-status { background: #1a1a2e; padding: 20px; border-radius: 10px; margin: 20px auto; max-width: 600px; }
@@ -10,7 +10,7 @@
     </style>
 </head>
 <body>
-    <h1>íº€ AI-NEXUS - Backend Integrated</h1>
+    <h1>Ã­ÂºÂ€ AI-NEXUS - Backend Integrated</h1>
     <p>45 Production Modules Ready for Initialization</p>
     
     <div class="backend-status" id="backendStatus">
@@ -19,11 +19,11 @@
     </div>
 
     <button onclick="checkBackend()" style="background: #8b5cf6; color: white; padding: 15px 30px; border: none; border-radius: 8px; margin: 10px;">
-        í´ Check Backend Connectivity
+        Ã­Â´Â Check Backend Connectivity
     </button>
 
     <button onclick="startRealEngine()" style="background: #10b981; color: white; padding: 15px 30px; border: none; border-radius: 8px; margin: 10px;">
-        íº€ START REAL BACKEND ENGINE
+        Ã­ÂºÂ€ START REAL BACKEND ENGINE
     </button>
 
     <div class="module-list">
@@ -56,10 +56,10 @@
             const result = await response.json();
             
             if (result.status === 'ENGINE_STARTED') {
-                alert(`âœ… REAL ENGINE STARTED!\nAI Confidence: ${result.ai_confidence}%\nActive Trades: ${result.active_trades}`);
+                alert(`Ã¢ÂœÂ… REAL ENGINE STARTED!\nAI Confidence: ${result.ai_confidence}%\nActive Trades: ${result.active_trades}`);
                 checkBackend(); // Refresh status
             } else {
-                alert('âŒ Engine startup failed: ' + (result.error || 'Unknown error'));
+                alert('Ã¢ÂÂŒ Engine startup failed: ' + (result.error || 'Unknown error'));
             }
         }
 

@@ -1,4 +1,4 @@
-// í¾¯ AINEXUS Dynamic Smart Wallet Creator - 2-CLICK SYSTEM
+// Ã­Â¾Â¯ AINEXUS Dynamic Smart Wallet Creator - 2-CLICK SYSTEM
 class DynamicWalletCreator {
     constructor() {
         this.walletFactory = "0x...";

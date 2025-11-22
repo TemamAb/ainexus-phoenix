@@ -1,4 +1,4 @@
-﻿﻿<!DOCTYPE html>
+ï»¿ï»¿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -146,7 +146,7 @@
     <div class="dashboard">
         <div class="header">
             <div class="title">AI-NEXUS LIVE DEPLOYMENT SCANNER</div>
-            <div class="subtitle">Complete Requirements Validation • Minimum Viable Deployment</div>
+            <div class="subtitle">Complete Requirements Validation â¢ Minimum Viable Deployment</div>
         </div>
 
         <div class="system-status" id="systemStatus">
@@ -158,7 +158,7 @@
         </div>
 
         <div class="progress-summary" id="progressSummary">
-            Critical: 0/6 • Core: 0/8 • Infra: 0/6 • Advanced: 0/6 • Gasless: PENDING
+            Critical: 0/6 â¢ Core: 0/8 â¢ Infra: 0/6 â¢ Advanced: 0/6 â¢ Gasless: PENDING
         </div>
 
         <div class="control-panel">
@@ -171,7 +171,7 @@
         <div class="requirements-grid">
             <!-- CRITICAL BLOCKERS -->
             <div class="requirement-card">
-                <div class="card-title">��� CRITICAL BLOCKERS (100% Required)</div>
+                <div class="card-title">íº¨ CRITICAL BLOCKERS (100% Required)</div>
                 <div class="requirement-item"><span class="req-name">Gasless Mode</span><span class="req-status status-pending" id="status-critical-1">PENDING</span></div>
                 <div class="requirement-item"><span class="req-name">Blockchain RPC</span><span class="req-status status-pending" id="status-critical-2">PENDING</span></div>
                 <div class="requirement-item"><span class="req-name">Smart Wallet</span><span class="req-status status-pending" id="status-critical-3">PENDING</span></div>
@@ -182,7 +182,7 @@
 
             <!-- CORE TRADING -->
             <div class="requirement-card">
-                <div class="card-title">��� CORE TRADING (80% Required)</div>
+                <div class="card-title">í¾¯ CORE TRADING (80% Required)</div>
                 <div class="requirement-item"><span class="req-name">ArbitrageEngine</span><span class="req-status status-pending" id="status-core-1">PENDING</span></div>
                 <div class="requirement-item"><span class="req-name">OpportunityDetector</span><span class="req-status status-pending" id="status-core-2">PENDING</span></div>
                 <div class="requirement-item"><span class="req-name">ExecutionOptimizer</span><span class="req-status status-pending" id="status-core-3">PENDING</span></div>
@@ -195,7 +195,7 @@
 
             <!-- INFRASTRUCTURE -->
             <div class="requirement-card">
-                <div class="card-title">��� INFRASTRUCTURE (80% Required)</div>
+                <div class="card-title">í´§ INFRASTRUCTURE (80% Required)</div>
                 <div class="requirement-item"><span class="req-name">Data Streams</span><span class="req-status status-pending" id="status-infra-1">PENDING</span></div>
                 <div class="requirement-item"><span class="req-name">Database</span><span class="req-status status-pending" id="status-infra-2">PENDING</span></div>
                 <div class="requirement-item"><span class="req-name">Market Feeds</span><span class="req-status status-pending" id="status-infra-3">PENDING</span></div>
@@ -206,7 +206,7 @@
 
             <!-- ADVANCED -->
             <div class="requirement-card">
-                <div class="card-title">⚡ ADVANCED (60% Required)</div>
+                <div class="card-title">â¡ ADVANCED (60% Required)</div>
                 <div class="requirement-item"><span class="req-name">CrossLayerArb</span><span class="req-status status-pending" id="status-advanced-1">PENDING</span></div>
                 <div class="requirement-item"><span class="req-name">MEVProtection</span><span class="req-status status-pending" id="status-advanced-2">PENDING</span></div>
                 <div class="requirement-item"><span class="req-name">PredictiveSlippage</span><span class="req-status status-pending" id="status-advanced-3">PENDING</span></div>
@@ -310,7 +310,7 @@
                 const gaslessStatus = this.validationState.gaslessMode ? 'VALID' : 'INVALID';
                 
                 document.getElementById('progressSummary').textContent = 
-                    `Critical: ${criticalPct}% • Core: ${corePct}% • Infra: ${infraPct}% • Advanced: ${advancedPct}% • Gasless: ${gaslessStatus}`;
+                    `Critical: ${criticalPct}% â¢ Core: ${corePct}% â¢ Infra: ${infraPct}% â¢ Advanced: ${advancedPct}% â¢ Gasless: ${gaslessStatus}`;
             }
 
             async goLive() {

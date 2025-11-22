@@ -17,7 +17,7 @@ class AdvancedOpportunityDetector extends EventEmitter {
 
     async initialize() {
         try {
-            console.log('��� Initializing Advanced AI Opportunity Detector...');
+            console.log('íº Initializing Advanced AI Opportunity Detector...');
             
             // Load or create ML model
             await this.loadModel();
@@ -56,7 +56,7 @@ class AdvancedOpportunityDetector extends EventEmitter {
                 metrics: ['accuracy']
             });
 
-            console.log('✅ AI model initialized');
+            console.log('â AI model initialized');
         } catch (error) {
             console.warn('AI model initialization failed, using rule-based detection');
         }
@@ -80,7 +80,7 @@ class AdvancedOpportunityDetector extends EventEmitter {
             });
         }
 
-        console.log(`✅ Connected to ${this.dexConnections.size} DEXs`);
+        console.log(`â Connected to ${this.dexConnections.size} DEXs`);
     }
 
     startAdvancedScanning() {
@@ -150,7 +150,7 @@ class AdvancedOpportunityDetector extends EventEmitter {
     async findMultiHopArbitrage() {
         const opportunities = [];
         
-        // Example: ETH → USDC → DAI → ETH
+        // Example: ETH â USDC â DAI â ETH
         const routes = [
             ['ETH/USDC', 'USDC/DAI', 'DAI/ETH'],
             ['ETH/WBTC', 'WBTC/USDC', 'USDC/ETH'],
@@ -265,7 +265,7 @@ class AdvancedOpportunityDetector extends EventEmitter {
         const prices = [];
         
         for (const [dexName, dex] of this.dexConnections) {
-            const variation = (Math.random() - 0.5) * 0.02; // ±2% variation
+            const variation = (Math.random() - 0.5) * 0.02; // Â±2% variation
             const price = basePrice * (1 + variation);
             
             prices.push({
@@ -400,7 +400,7 @@ class AdvancedOpportunityDetector extends EventEmitter {
         this.isTraining = true;
         try {
             // In production, this would use historical trade data
-            console.log('��� Retraining AI model...');
+            console.log('í´ Retraining AI model...');
             
             // Simulated training with random data
             const xs = tf.randomNormal([100, 10]);
@@ -412,7 +412,7 @@ class AdvancedOpportunityDetector extends EventEmitter {
                 verbose: 0
             });
             
-            console.log('✅ AI model retrained');
+            console.log('â AI model retrained');
         } catch (error) {
             console.warn('AI model retraining failed:', error.message);
         } finally {
@@ -434,7 +434,7 @@ class AdvancedOpportunityDetector extends EventEmitter {
         if (this.model) {
             this.model.dispose();
         }
-        console.log('��� Advanced AI Opportunity Detector stopped');
+        console.log('í» Advanced AI Opportunity Detector stopped');
     }
 }
 

@@ -212,7 +212,7 @@ class LatencyMonitor:
         )
         
         self.alerts.append(alert)
-        self.logger.warning(f"íº¨ LATENCY ALERT ({severity}): {message}")
+        self.logger.warning(f"Ã­ÂºÂ¨ LATENCY ALERT ({severity}): {message}")
         
         # Here you would typically send to external alerting system
         # await self.send_alert_notification(alert)

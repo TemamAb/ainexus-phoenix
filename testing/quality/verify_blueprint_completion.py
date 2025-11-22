@@ -117,7 +117,7 @@ class BlueprintVerifier:
     
     def verify_complete_blueprint(self) -> Dict:
         """Verify all categories and files in the blueprint"""
-        print("��� Starting AI-NEXUS v5.0 Blueprint Verification...")
+        print("í´ Starting AI-NEXUS v5.0 Blueprint Verification...")
         print("=" * 80)
         
         overall_stats = {
@@ -130,7 +130,7 @@ class BlueprintVerifier:
         }
         
         for category_id, category_info in self.categories.items():
-            print(f"\n��� Category {category_id}: {category_info['name']}")
+            print(f"\ní³ Category {category_id}: {category_info['name']}")
             print("-" * 50)
             
             category_verification = self.verify_category(category_id, category_info)
@@ -248,10 +248,10 @@ class BlueprintVerifier:
     def print_category_summary(self, category: CategoryVerification):
         """Print summary for a category"""
         status_emoji = {
-            VerificationStatus.COMPLETE: "✅",
-            VerificationStatus.PARTIAL: "���", 
-            VerificationStatus.MISSING: "❌",
-            VerificationStatus.EMPTY: "⚪"
+            VerificationStatus.COMPLETE: "â",
+            VerificationStatus.PARTIAL: "í¿¡", 
+            VerificationStatus.MISSING: "â",
+            VerificationStatus.EMPTY: "âª"
         }
         
         print(f"   Status: {status_emoji[category.status]} {category.status.value} ({category.completion_percentage:.1f}%)")
@@ -268,22 +268,22 @@ class BlueprintVerifier:
     def print_overall_summary(self, stats: Dict):
         """Print overall verification summary"""
         print("\n" + "=" * 80)
-        print("��� AI-NEXUS v5.0 BLUEPRINT VERIFICATION SUMMARY")
+        print("í¾¯ AI-NEXUS v5.0 BLUEPRINT VERIFICATION SUMMARY")
         print("=" * 80)
         
-        print(f"��� Overall Completion: {stats['completion_percentage']:.1f}%")
-        print(f"��� Categories: {stats['verified_categories']}/{stats['total_categories']} complete")
-        print(f"�� Files: {stats['total_files_found']}/{stats['total_files_expected']} found")
-        print(f"��� Total Lines of Code: {stats['total_lines_of_code']:,}")
+        print(f"í³ Overall Completion: {stats['completion_percentage']:.1f}%")
+        print(f"í³ Categories: {stats['verified_categories']}/{stats['total_categories']} complete")
+        print(f"ï¿½ï¿½ Files: {stats['total_files_found']}/{stats['total_files_expected']} found")
+        print(f"í²» Total Lines of Code: {stats['total_lines_of_code']:,}")
         
         # Print category completion breakdown
-        print(f"\n��� Category Breakdown:")
+        print(f"\ní³ Category Breakdown:")
         for category_id, verification in self.verification_results.items():
-            status_emoji = "✅" if verification.status == VerificationStatus.COMPLETE else "���" if verification.status == VerificationStatus.PARTIAL else "❌"
+            status_emoji = "â" if verification.status == VerificationStatus.COMPLETE else "í¿¡" if verification.status == VerificationStatus.PARTIAL else "â"
             print(f"   {status_emoji} Category {category_id}: {verification.category_name} - {verification.completion_percentage:.1f}%")
         
         # Recommendations
-        print(f"\n��� Recommendations:")
+        print(f"\ní²¡ Recommendations:")
         incomplete_categories = [v for v in self.verification_results.values() 
                                if v.status != VerificationStatus.COMPLETE]
         
@@ -292,7 +292,7 @@ class BlueprintVerifier:
             for category in sorted(incomplete_categories, key=lambda x: x.completion_percentage, reverse=True):
                 print(f"     - {category.category_name} ({category.completion_percentage:.1f}% complete)")
         else:
-            print("   ��� All categories are complete! Ready for deployment.")
+            print("   í¾ All categories are complete! Ready for deployment.")
     
     def generate_verification_report(self, output_file: str = "blueprint_verification_report.json"):
         """Generate a detailed verification report"""
@@ -341,7 +341,7 @@ class BlueprintVerifier:
         with open(output_file, 'w') as f:
             json.dump(report, f, indent=2)
         
-        print(f"\n��� Detailed report saved to: {output_file}")
+        print(f"\ní³ Detailed report saved to: {output_file}")
         return report
 
 def main():
@@ -357,17 +357,17 @@ def main():
         
         # Exit with appropriate code
         if overall_stats["completion_percentage"] >= 80:
-            print("\n��� Blueprint verification successful! System is ready for deployment.")
+            print("\ní¾ Blueprint verification successful! System is ready for deployment.")
             exit(0)
         elif overall_stats["completion_percentage"] >= 50:
-            print("\n⚠️  Blueprint partially complete. Continue development.")
+            print("\nâ ï¸  Blueprint partially complete. Continue development.")
             exit(1)
         else:
-            print("\n❌ Blueprint significantly incomplete. Major development needed.")
+            print("\nâ Blueprint significantly incomplete. Major development needed.")
             exit(2)
             
     except Exception as e:
-        print(f"❌ Verification failed: {e}")
+        print(f"â Verification failed: {e}")
         exit(3)
 
 if __name__ == "__main__":

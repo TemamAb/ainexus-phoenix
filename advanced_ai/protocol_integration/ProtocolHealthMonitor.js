@@ -80,18 +80,18 @@ class ProtocolHealthMonitor extends EventEmitter {
             });
         });
 
-        console.log(`✅ Initialized ${this.protocolStatus.size} DeFi protocol health monitors`);
+        console.log(`â Initialized ${this.protocolStatus.size} DeFi protocol health monitors`);
     }
 
     // Start continuous protocol monitoring
     startMonitoring() {
         if (this.isMonitoring) {
-            console.log('⚠️ Protocol monitoring already active');
+            console.log('â ï¸ Protocol monitoring already active');
             return;
         }
 
         this.isMonitoring = true;
-        console.log('��� Starting continuous protocol health monitoring...');
+        console.log('í¿¥ Starting continuous protocol health monitoring...');
 
         // Monitor each protocol
         this.protocolStatus.forEach((protocol, protocolName) => {
@@ -126,7 +126,7 @@ class ProtocolHealthMonitor extends EventEmitter {
         // Stop incident detection
         this.stopIncidentDetection();
 
-        console.log('��� Protocol health monitoring stopped');
+        console.log('í» Protocol health monitoring stopped');
     }
 
     // Check health of specific protocol
@@ -339,7 +339,7 @@ class ProtocolHealthMonitor extends EventEmitter {
 
     // Start incident detection and alerting
     startIncidentDetection() {
-        console.log('��� Starting protocol incident detection...');
+        console.log('íº¨ Starting protocol incident detection...');
 
         this.incidentDetectionInterval = setInterval(() => {
             this.detectIncidentPatterns();

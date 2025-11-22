@@ -81,19 +81,19 @@ def main():
     # Verify sample certificate
     result = verifier.verify_certificate('Sample_Deployment_Certificate.json')
     
-    print("��� AINEXUS Certificate Verification")
+    print("í´ AINEXUS Certificate Verification")
     print("=" * 50)
     
     if result['valid']:
-        print("✅ CERTIFICATE VALID")
-        print(f"��� Certificate ID: {result['certificate_id']}")
-        print(f"��� Issued To: {result['issued_to']}")
-        print(f"�� Platform Version: {result['platform_version']}")
-        print(f"⏰ Verified At: {result['verification_time']}")
+        print("â CERTIFICATE VALID")
+        print(f"í³ Certificate ID: {result['certificate_id']}")
+        print(f"í±¤ Issued To: {result['issued_to']}")
+        print(f"ï¿½ï¿½ Platform Version: {result['platform_version']}")
+        print(f"â° Verified At: {result['verification_time']}")
     else:
-        print("❌ CERTIFICATE INVALID")
-        print(f"��� Certificate ID: {result.get('certificate_id', 'Unknown')}")
-        print(f"��� Reason: {result['reason']}")
+        print("â CERTIFICATE INVALID")
+        print(f"í³ Certificate ID: {result.get('certificate_id', 'Unknown')}")
+        print(f"íº« Reason: {result['reason']}")
 
 if __name__ == "__main__":
     main()
