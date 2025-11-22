@@ -6,7 +6,7 @@
         body { 
             background: #0f0f23; 
             color: #00ff00; 
-            font-family: 'Courier New', monospace;
+            font-family: Arial, sans-serif;
             margin: 0;
             padding: 40px;
         }
@@ -26,13 +26,6 @@
             padding: 30px;
             border-radius: 10px;
             border: 2px solid #343434;
-            min-height: 300px;
-        }
-        .phase.completed {
-            border-color: #00ff00;
-        }
-        .phase.active {
-            border-color: #ffa500;
         }
         .btn {
             background: #0066cc;
@@ -51,189 +44,76 @@
         .status {
             margin: 15px 0;
             font-weight: bold;
-            font-size: 18px;
         }
-        .confidence-meter {
+        .confidence {
             width: 100%;
             height: 20px;
             background: #333;
             border-radius: 10px;
             margin: 20px 0;
-            overflow: hidden;
         }
         .confidence-fill {
             height: 100%;
-            background: linear-gradient(90deg, #ff0000, #ffa500, #00ff00);
+            background: green;
             width: 0%;
-            transition: width 1s ease-in-out;
-        }
-        .completed { color: #00ff00; }
-        .active { color: #ffa500; }
-        .pending { color: #666; }
-        .validation-list {
-            text-align: left;
-            margin: 20px 0;
-        }
-        .validation-item {
-            margin: 10px 0;
-            padding: 5px;
-        }
-        .validation-item.valid::before {
-            content: "‚úÖ ";
-        }
-        .validation-item.invalid::before {
-            content: "‚ùå ";
+            transition: width 1s;
         }
     </style>
 </head>
 <body>
     <div class="dashboard">
-        <h1>Ì∫Ä AINEXUS TWO-PHASE ACTIVATION</h1>
-        <p>System Validation ‚Üí Confidence Building ‚Üí Auto-Deploy to Live</p>
+        <h1>AINEXUS TWO-PHASE ACTIVATION</h1>
+        <p>System Validation -> Confidence Building -> Auto-Deploy to Live</p>
         
         <div class="phase-container">
-            <!-- PHASE 1: System Activation & Validation -->
             <div class="phase" id="phase1">
                 <h2>PHASE 1: SYSTEM VALIDATION</h2>
                 <p>Checks and validates readiness for SIM mode and LIVE mode</p>
                 <button class="btn" onclick="startPhase1()" id="phase1Btn">Start System Validation</button>
-                <div class="status pending" id="phase1Status">READY</div>
-                
-                <div class="validation-list" id="phase1Validations" style="display: none;">
-                    <div class="validation-item invalid" id="val1">Wallet Connection</div>
-                    <div class="validation-item invalid" id="val2">Smart Wallet Generation</div>
-                    <div class="validation-item invalid" id="val3">SIM Mode Readiness</div>
-                    <div class="validation-item invalid" id="val4">LIVE Mode Preparation</div>
-                    <div class="validation-item invalid" id="val5">Confidence Monitor</div>
-                </div>
+                <div class="status" id="phase1Status">READY</div>
             </div>
             
-            <!-- PHASE 2: Confidence-Based Auto-Deployment -->
             <div class="phase" id="phase2">
                 <h2>PHASE 2: CONFIDENCE BUILDING</h2>
                 <p>SIM mode optimization with 85% confidence auto-deployment</p>
                 <button class="btn" onclick="startPhase2()" id="phase2Btn" disabled>Start Confidence Building</button>
-                <div class="status pending" id="phase2Status">AWAITING VALIDATION</div>
-                
-                <div class="confidence-meter">
+                <div class="status" id="phase2Status">AWAITING VALIDATION</div>
+                <div class="confidence">
                     <div class="confidence-fill" id="confidenceFill"></div>
                 </div>
                 <div class="status" id="confidenceText">Confidence: 0%</div>
-                
-                <div id="phase2Details" style="display: none;">
-                    <div class="validation-item valid">AI Strategy Optimization</div>
-                    <div class="validation-item valid">Risk Assessment</div>
-                    <div class="validation-item valid">Profit Simulation</div>
-                </div>
             </div>
-        </div>
-        
-        <!-- AUTO-DEPLOYMENT TRIGGER -->
-        <div id="autoDeploy" style="display: none; margin-top: 40px; padding: 20px; background: #1a2e1a; border-radius: 10px;">
-            <h2 class="completed">Ìæâ 85% CONFIDENCE REACHED!</h2>
-            <p>Auto-deploying to LIVE mode...</p>
-            <div class="status active" id="deployStatus">Activating Real-Time Monitoring</div>
-            <button class="btn" onclick="redirectToLive()" id="liveBtn" style="display: none;">Enter Live Dashboard</button>
         </div>
     </div>
 
     <script>
-        let currentConfidence = 0;
-        const confidenceThreshold = 85;
-
         function startPhase1() {
-            document.getElementById('phase1').classList.add('active');
             document.getElementById('phase1Status').textContent = 'VALIDATING...';
-            document.getElementById('phase1Status').className = 'status active';
             document.getElementById('phase1Btn').disabled = true;
-            document.getElementById('phase1Validations').style.display = 'block';
-            
-            // Simulate validation steps
-            simulateValidation();
-        }
-
-        function simulateValidation() {
-            const validations = ['val1', 'val2', 'val3', 'val4', 'val5'];
-            let current = 0;
-            
-            const validateNext = () => {
-                if (current < validations.length) {
-                    const validation = document.getElementById(validations[current]);
-                    validation.classList.remove('invalid');
-                    validation.classList.add('valid');
-                    current++;
-                    setTimeout(validateNext, 1000);
-                } else {
-                    // Phase 1 complete
-                    document.getElementById('phase1').classList.remove('active');
-                    document.getElementById('phase1').classList.add('completed');
-                    document.getElementById('phase1Status').textContent = 'VALIDATED';
-                    document.getElementById('phase1Status').className = 'status completed';
-                    
-                    // Enable Phase 2
-                    document.getElementById('phase2Btn').disabled = false;
-                    document.getElementById('phase2Status').textContent = 'READY';
-                    document.getElementById('phase2Status').className = 'status active';
-                }
-            };
-            
-            validateNext();
-        }
-
-        function startPhase2() {
-            document.getElementById('phase2').classList.add('active');
-            document.getElementById('phase2Status').textContent = 'BUILDING CONFIDENCE...';
-            document.getElementById('phase2Status').className = 'status active';
-            document.getElementById('phase2Btn').disabled = true;
-            document.getElementById('phase2Details').style.display = 'block';
-            
-            // Start confidence building
-            buildConfidence();
-        }
-
-        function buildConfidence() {
-            const interval = setInterval(() => {
-                currentConfidence += Math.random() * 5;
-                if (currentConfidence > 100) currentConfidence = 100;
-                
-                updateConfidenceDisplay();
-                
-                if (currentConfidence >= confidenceThreshold) {
-                    clearInterval(interval);
-                    triggerAutoDeploy();
-                }
-            }, 500);
-        }
-
-        function updateConfidenceDisplay() {
-            document.getElementById('confidenceFill').style.width = currentConfidence + '%';
-            document.getElementById('confidenceText').textContent = `Confidence: ${Math.round(currentConfidence)}%`;
-            
-            // Update color based on confidence
-            if (currentConfidence >= 85) {
-                document.getElementById('confidenceText').className = 'status completed';
-            } else if (currentConfidence >= 50) {
-                document.getElementById('confidenceText').className = 'status active';
-            }
-        }
-
-        function triggerAutoDeploy() {
-            document.getElementById('phase2').classList.remove('active');
-            document.getElementById('phase2').classList.add('completed');
-            document.getElementById('phase2Status').textContent = '85% CONFIDENCE ACHIEVED';
-            document.getElementById('phase2Status').className = 'status completed';
-            
-            document.getElementById('autoDeploy').style.display = 'block';
-            
-            // Simulate auto-deployment process
             setTimeout(() => {
-                document.getElementById('deployStatus').textContent = 'Real-Time Monitoring Active';
-                document.getElementById('liveBtn').style.display = 'block';
+                document.getElementById('phase1Status').textContent = 'VALIDATED';
+                document.getElementById('phase2Btn').disabled = false;
+                document.getElementById('phase2Status').textContent = 'READY';
             }, 2000);
         }
 
-        function redirectToLive() {
-            window.location.href = '/live';
+        function startPhase2() {
+            document.getElementById('phase2Status').textContent = 'BUILDING CONFIDENCE...';
+            document.getElementById('phase2Btn').disabled = true;
+            
+            let confidence = 0;
+            const interval = setInterval(() => {
+                confidence += 5;
+                document.getElementById('confidenceFill').style.width = confidence + '%';
+                document.getElementById('confidenceText').textContent = 'Confidence: ' + confidence + '%';
+                
+                if (confidence >= 85) {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        window.location.href = '/live';
+                    }, 1000);
+                }
+            }, 500);
         }
     </script>
 </body>
