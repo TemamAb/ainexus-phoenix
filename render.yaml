@@ -1,11 +1,11 @@
 services:
   - type: web
     name: ainexus-platform
-    env: python
+    env: docker
     plan: free
     region: oregon
-    buildCommand: pip install -r requirements.txt
-    startCommand: python core/app.py
+    docker:
+      dockerfile: Dockerfile
     envVars:
-      - key: PYTHON_VERSION
-        value: 3.11.4
+      - key: NODE_ENV
+        value: production

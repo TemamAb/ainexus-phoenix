@@ -1,9 +1,11 @@
 {
   "name": "ainexus-platform",
-  "version": "3.0.0",
-  "description": "AINEXUS 96-Module Quantum AI Platform",
-  "main": "core/app.py",
-  "scripts": {
-    "postinstall": "echo 'JavaScript dependencies available for modules'"
+  "version": "3.0.0", 
+  "type": "commonjs",
+  "dependencies": {
+    "web3": "1.10.0",
+    "axios": "1.6.2",
+    "express": "4.18.2",
+    "cors": "2.8.5"
   }
 }
