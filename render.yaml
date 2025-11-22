@@ -5,17 +5,9 @@ services:
     plan: free
     region: oregon
     buildCommand: pip install -r requirements.txt
-    startCommand: cd core && python app.py
+    startCommand: python core/app.py
     envVars:
       - key: PYTHON_VERSION
         value: 3.11.4
-      - key: NODE_ENV
-        value: production
-      - key: AINEXUS_DEPLOYMENT
-        value: render-96-modules
-
-databases:
-  - name: ainexus-db
-    plan: free
-    databaseName: ainexus
-    user: ainexus_admin
+      - key: PORT
+        value: 10000
