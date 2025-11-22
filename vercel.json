@@ -2,7 +2,11 @@
   "version": 2,
   "builds": [
     {
+<<<<<<< HEAD
       "src": "core/app.py",
+=======
+      "src": "requirements.txt",
+>>>>>>> e14d347ed7e3a3289a0fd77e0038360221240f17
       "use": "@vercel/python"
     }
   ],

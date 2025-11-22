@@ -1,0 +1,19 @@
+{
+  "name": "ainexus",
+  "type": "node",
+  "build": {
+    "command": "echo 'Building AINEXUS'"
+  },
+  "deploy": {
+    "command": "pip install -r requirements.txt"
+  },
+  "run": {
+    "command": "python core/app.py"
+  },
+  "routes": [
+    {
+      "src": "/*",
+      "dest": "/"
+    }
+  ]
+}

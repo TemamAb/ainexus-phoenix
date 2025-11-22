@@ -1,0 +1,14 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ainexus"
+version = "3.0.0"
+description = "AI-NEXUS 96 Module Flash Loan Arbitrage Platform"
+dependencies = [
+    "Flask==2.3.3",
+    "Werkzeug==2.3.7",
+    "Jinja2==3.1.2",
+    "gunicorn==21.2.0",
+]
