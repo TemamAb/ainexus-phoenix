@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Trading - AINEXUS</title>
+    <style>
+        :root {
+            --quantum-blue: #00f0ff;
+            --profit-green: #00ff88;
+            --warning-orange: #ffaa00;
+            --dark-bg: #0c0c2b;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: var(--dark-bg);
+            color: white;
+            min-height: 100vh;
+        }
+        
+        .dashboard-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .dashboard-header h1 {
+            background: linear-gradient(90deg, var(--quantum-blue), #b967ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 2.5em;
+        }
+        
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .metric-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .metric-value {
+            font-size: 2.2em;
+            font-weight: 800;
+            margin: 10px 0;
+        }
+        
+        .profit { color: var(--profit-green); }
+        .active { color: var(--quantum-blue); }
+        
+        .opportunities-grid {
+            display: grid;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .opportunity-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 4px solid var(--profit-green);
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        
+        .opportunity-card:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateY(-2px);
+        }
+        
+        .profit-badge {
+            background: var(--profit-green);
+            color: black;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.9em;
+        }
+        
+        .confidence-indicator {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        
+        .confidence-fill {
+            height: 100%;
+            background: var(--quantum-blue);
+            border-radius: 3px;
+        }
+        
+        .navigation {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px 30px;
+            border-radius: 50px;
+            backdrop-filter: blur(20px);
+        }
+        
+        .nav-btn {
+            padding: 12px 25px;
+            background: rgba(0, 240, 255, 0.2);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            border: 1px solid var(--quantum-blue);
+        }
+        
+        .nav-btn.active {
+            background: var(--quantum-blue);
+            color: black;
+            font-weight: 700;
+        }
+        
+        .nav-btn:hover {
+            background: var(--quantum-blue);
+            color: black;
+        }
+        
+        .live-indicator {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            background: var(--profit-green);
+            border-radius: 50%;
+            margin-right: 8px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-header">
+        <h1>íº AINEXUS LIVE TRADING DASHBOARD</h1>
+        <p><span class="live-indicator"></span> Real-time Arbitrage Execution Active</p>
+    </div>
+    
+    <div class="metrics-grid">
+        <div class="metric-card">
+            <div>Active Opportunities</div>
+            <div class="metric-value active" id="activeOpps">0</div>
+            <div>Real-time Detection</div>
+        </div>
+        <div class="metric-card">
+            <div>Total Trades</div>
+            <div class="metric-value active" id="totalTrades">0</div>
+            <div>Successful Executions</div>
+        </div>
+        <div class="metric-card">
+            <div>Success Rate</div>
+            <div class="metric-value profit" id="successRate">0%</div>
+            <div>Execution Accuracy</div>
+        </div>
+        <div class="metric-card">
+            <div>Total Profit</div>
+            <div class="metric-value profit" id="totalProfit">0 ETH</div>
+            <div>Accumulated Earnings</div>
+        </div>
+    </div>
+    
+    <div class="metric-card">
+        <h3>í¾¯ Active Arbitrage Opportunities</h3>
+        <div class="opportunities-grid" id="opportunitiesContainer">
+            <!-- Opportunities will load here -->
+        </div>
+    </div>
+    
+    <div class="navigation">
+        <a href="/" class="nav-btn">í¿  Activation</a>
+        <a href="/trading" class="nav-btn active">í³ Live Trading</a>
+        <a href="/production" class="nav-btn">â¡ Production</a>
+        <a href="/profit" class="nav-btn">í²° Profit</a>
+    </div>
+
+    <script>
+        async function loadTradingData() {
+            try {
+                // Load opportunities
+                const oppsResponse = await fetch('/api/live-opportunities');
+                const oppsData = await oppsResponse.json();
+                
+                // Load metrics
+                const metricsResponse = await fetch('/api/execution-metrics');
+                const metricsData = await metricsResponse.json();
+                
+                updateTradingUI(oppsData, metricsData);
+            } catch (error) {
+                console.error('Error loading trading data:', error);
+            }
+        }
+        
+        function updateTradingUI(oppsData, metricsData) {
+            // Update metrics
+            document.getElementById('activeOpps').textContent = oppsData.total_count;
+            document.getElementById('totalTrades').textContent = metricsData.total_trades;
+            document.getElementById('successRate').textContent = metricsData.success_rate + '%';
+            document.getElementById('totalProfit').textContent = 
+                (metricsData.avg_profit_per_trade * metricsData.total_trades).toFixed(3) + ' ETH';
+            
+            // Update opportunities
+            const container = document.getElementById('opportunitiesContainer');
+            container.innerHTML = '';
+            
+            oppsData.opportunities.forEach(opp => {
+                const oppCard = document.createElement('div');
+                oppCard.className = 'opportunity-card';
+                oppCard.innerHTML = `
+                    <div>
+                        <strong>${opp.pair}</strong><br>
+                        <small>${opp.exchange_a} â ${opp.exchange_b}</small>
+                    </div>
+                    <div class="profit-badge">+${opp.profit_percent}%</div>
+                    <div>Gas: ${opp.estimated_gas} ETH</div>
+                    <div>
+                        <div>Confidence: ${opp.confidence}%</div>
+                        <div class="confidence-indicator">
+                            <div class="confidence-fill" style="width: ${opp.confidence}%"></div>
+                        </div>
+                    </div>
+                    <div><small>${new Date(opp.timestamp).toLocaleTimeString()}</small></div>
+                `;
+                container.appendChild(oppCard);
+            });
+        }
+        
+        // Auto-refresh every 5 seconds
+        setInterval(loadTradingData, 5000);
+        loadTradingData();
+    </script>
+</body>
+</html>

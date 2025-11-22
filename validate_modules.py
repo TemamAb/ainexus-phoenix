@@ -16,13 +16,13 @@ def validate_96_modules():
         try:
             importlib.import_module(module)
             working.append(module)
-            print(f"✅ {module} - INITIALIZED")
+            print(f"â {module} - INITIALIZED")
         except Exception as e:
-            print(f"❌ {module} - FAILED: {e}")
+            print(f"â {module} - FAILED: {e}")
     
-    print(f"\\n��� MODULE INITIALIZATION SUMMARY:")
-    print(f"✅ SUCCESS: {len(working)}/96 modules")
-    print(f"��� COVERAGE: {(len(working)/96)*100:.1f}%")
+    print(f"\\ní¾¯ MODULE INITIALIZATION SUMMARY:")
+    print(f"â SUCCESS: {len(working)}/96 modules")
+    print(f"í³ COVERAGE: {(len(working)/96)*100:.1f}%")
 
 if __name__ == "__main__":
     validate_96_modules()

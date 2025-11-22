@@ -346,14 +346,14 @@
         <div class="header">
             <h1>AINEXUS QUANTUM AI</h1>
             <div class="tagline">96-Module Institutional Arbitrage Engine</div>
-            <div class="tagline">Two-Click Activation • Zero Capital Required • AI-Optimized</div>
+            <div class="tagline">Two-Click Activation â¢ Zero Capital Required â¢ AI-Optimized</div>
         </div>
         
         <div class="activation-flow">
             <!-- PHASE 1: SYSTEM VALIDATION -->
             <div class="phase-card" id="phase1Card">
                 <div class="phase-header">
-                    <div class="phase-icon">���</div>
+                    <div class="phase-icon">í´</div>
                     <div>
                         <h2 class="phase-title">CLICK 1: QUANTUM VALIDATION</h2>
                         <p class="phase-subtitle">System Intelligence Boot & AI Readiness</p>
@@ -398,14 +398,14 @@
                 </div>
                 
                 <button class="activation-button" onclick="startQuantumValidation()" id="phase1Btn">
-                    ��� INITIATE QUANTUM VALIDATION
+                    íº INITIATE QUANTUM VALIDATION
                 </button>
             </div>
             
             <!-- PHASE 2: CONFIDENCE DEPLOYMENT -->
             <div class="phase-card" id="phase2Card">
                 <div class="phase-header">
-                    <div class="phase-icon">⚡</div>
+                    <div class="phase-icon">â¡</div>
                     <div>
                         <h2 class="phase-title">CLICK 2: AI DEPLOYMENT</h2>
                         <p class="phase-subtitle">Confidence-Based Live Activation</p>
@@ -458,7 +458,7 @@
                 </div>
                 
                 <button class="activation-button" onclick="startAIDeployment()" id="phase2Btn" disabled>
-                    ⚡ ACTIVATE AI TRADING
+                    â¡ ACTIVATE AI TRADING
                 </button>
             </div>
         </div>
@@ -525,7 +525,7 @@
         async function startQuantumValidation() {
             const btn = document.getElementById('phase1Btn');
             btn.disabled = true;
-            btn.textContent = '��� VALIDATING QUANTUM SYSTEMS...';
+            btn.textContent = 'íº VALIDATING QUANTUM SYSTEMS...';
             
             const steps = [
                 { id: 'step1-1', duration: 2000, modules: [1,2,3,4] },
@@ -582,14 +582,14 @@
             // Phase 1 complete
             document.getElementById('phase1Card').classList.add('active');
             document.getElementById('phase2Btn').disabled = false;
-            btn.textContent = '✅ QUANTUM VALIDATION COMPLETE';
+            btn.textContent = 'â QUANTUM VALIDATION COMPLETE';
         }
         
         // Phase 2: AI Deployment
         async function startAIDeployment() {
             const btn = document.getElementById('phase2Btn');
             btn.disabled = true;
-            btn.textContent = '⚡ DEPLOYING AI INTELLIGENCE...';
+            btn.textContent = 'â¡ DEPLOYING AI INTELLIGENCE...';
             
             const steps = [
                 { id: 'step2-1', duration: 3000, confidence: 15 },
@@ -664,7 +664,7 @@
             
             // Phase 2 complete - trigger auto-deployment
             document.getElementById('phase2Card').classList.add('active');
-            btn.textContent = '��� AI DEPLOYMENT COMPLETE';
+            btn.textContent = 'í¾¯ AI DEPLOYMENT COMPLETE';
             
             // Auto-redirect to trading dashboard
             setTimeout(() => {
