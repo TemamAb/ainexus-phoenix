@@ -1,6 +1,5 @@
 FROM python:3.11-slim
 
-# PERMANENT UTF-8 SOLUTION
 RUN apt-get update && apt-get install -y locales && \
     sed -i '/en_US.UTF-8/s/^# //g' /etc/locale.gen && \
     locale-gen en_US.UTF-8
@@ -13,17 +12,14 @@ ENV PYTHONIOENCODING=utf-8
 
 WORKDIR /app
 
-# Install system dependencies
 RUN apt-get update && apt-get install -y \
     build-essential \
     curl \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy requirements and install Python dependencies
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy application files
 COPY . .
 
 EXPOSE 5000
