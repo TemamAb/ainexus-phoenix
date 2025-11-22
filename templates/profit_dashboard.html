@@ -1,122 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
+    <title>Profit - AINEXUS</title>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profit Management - AINEXUS</title>
-    <style>
-        .withdrawal-form {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 30px;
-            border-radius: 15px;
-            margin-top: 30px;
-        }
-        
-        .withdrawal-form input {
-            padding: 12px;
-            border: none;
-            border-radius: 8px;
-            margin: 10px 0;
-            width: 200px;
-        }
-        
-        .withdrawal-form button {
-            background: #00ff88;
-            color: black;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 8px;
-            font-weight: 700;
-            cursor: pointer;
-            margin-left: 10px;
-        }
-    </style>
 </head>
 <body>
-    <h1>í²° AINEXUS PROFIT MANAGEMENT</h1>
-    <p>Earnings Analytics & Withdrawal System</p>
-    
-    <div class="metrics-grid">
-        <div class="metric-card">
-            <div>Total Profit</div>
-            <div class="metric-value profit" id="totalProfit">0 ETH</div>
-            <div id="totalProfitUSD">$0</div>
-        </div>
-        <div class="metric-card">
-            <div>Withdrawable</div>
-            <div class="metric-value profit" id="withdrawable">0 ETH</div>
-            <div>Available Balance</div>
-        </div>
-        <div class="metric-card">
-            <div>Daily Earnings</div>
-            <div class="metric-value profit" id="dailyProfit">0 ETH</div>
-            <div>24h Performance</div>
-        </div>
-    </div>
-    
-    <div class="withdrawal-form">
-        <h3>ï¿½ï¿½ Withdraw Profits</h3>
-        <input type="number" id="withdrawAmount" placeholder="Amount in ETH" step="0.001" min="0.001">
-        <button onclick="initiateWithdrawal()">WITHDRAW</button>
-        <div id="withdrawalStatus"></div>
-    </div>
-    
-    <div class="navigation">
-        <a href="/" class="nav-btn">í¿  Activation</a>
-        <a href="/trading" class="nav-btn">í³ Live Trading</a>
-        <a href="/production" class="nav-btn">â¡ Production</a>
-        <a href="/profit" class="nav-btn active">í²° Profit</a>
-    </div>
-
-    <script>
-        async function loadProfitData() {
-            try {
-                const response = await fetch('/api/profit-metrics');
-                const data = await response.json();
-                
-                document.getElementById('totalProfit').textContent = data.total_profit_eth + ' ETH';
-                document.getElementById('totalProfitUSD').textContent = '$' + data.total_profit_usd;
-                document.getElementById('withdrawable').textContent = data.withdrawable_balance + ' ETH';
-                document.getElementById('dailyProfit').textContent = data.daily_profit + ' ETH';
-                
-                // Set max withdrawal amount
-                document.getElementById('withdrawAmount').max = data.withdrawable_balance;
-            } catch (error) {
-                console.error('Error loading profit data:', error);
-            }
-        }
-        
-        async function initiateWithdrawal() {
-            const amount = document.getElementById('withdrawAmount').value;
-            if (!amount || amount <= 0) {
-                alert('Please enter a valid amount');
-                return;
-            }
-            
-            try {
-                const response = await fetch('/api/initiate-withdrawal', {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({ amount: parseFloat(amount) })
-                });
-                
-                const result = await response.json();
-                document.getElementById('withdrawalStatus').innerHTML = `
-                    <p style="color: #00ff88;">â ${result.message}</p>
-                    <p>TX: ${result.transaction_hash}</p>
-                    <p>Estimated: ${new Date(result.estimated_completion).toLocaleTimeString()}</p>
-                `;
-                
-                // Reload profit data
-                setTimeout(loadProfitData, 2000);
-            } catch (error) {
-                document.getElementById('withdrawalStatus').innerHTML = 
-                    '<p style="color: #ff3860;">â Withdrawal failed</p>';
-            }
-        }
-        
-        setInterval(loadProfitData, 10000);
-        loadProfitData();
-    </script>
+    <h1>��� Profit Dashboard</h1>
+    <p>Revenue Analytics & Withdrawal System</p>
+    <a href="/">← Back to Activation</a>
 </body>
 </html>

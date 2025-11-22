@@ -1,86 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
+    <title>Production - AINEXUS</title>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Production Monitor - AINEXUS</title>
-    <style>
-        /* Similar styling to trading dashboard with module-specific visuals */
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background: #0c0c2b;
-            color: white;
-        }
-        
-        .module-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
-            margin-top: 30px;
-        }
-        
-        .module-card {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 20px;
-            border-radius: 12px;
-            border-left: 4px solid #00f0ff;
-        }
-        
-        .module-card.warning {
-            border-left-color: #ffaa00;
-        }
-        
-        .status-active { color: #00ff88; }
-        .status-warning { color: #ffaa00; }
-    </style>
 </head>
 <body>
-    <h1>â¡ AINEXUS PRODUCTION MONITOR</h1>
-    <p>96-Module System Health & Performance</p>
-    
-    <div class="module-grid" id="moduleGrid">
-        <!-- Modules will load here -->
-    </div>
-    
-    <div class="navigation">
-        <a href="/" class="nav-btn">í¿  Activation</a>
-        <a href="/trading" class="nav-btn">í³ Live Trading</a>
-        <a href="/production" class="nav-btn active">â¡ Production</a>
-        <a href="/profit" class="nav-btn">í²° Profit</a>
-    </div>
-
-    <script>
-        async function loadSystemHealth() {
-            try {
-                const response = await fetch('/api/system-health');
-                const data = await response.json();
-                updateModuleGrid(data.modules);
-            } catch (error) {
-                console.error('Error loading system health:', error);
-            }
-        }
-        
-        function updateModuleGrid(modules) {
-            const grid = document.getElementById('moduleGrid');
-            grid.innerHTML = '';
-            
-            modules.forEach(module => {
-                const card = document.createElement('div');
-                card.className = `module-card ${module.status === 'warning' ? 'warning' : ''}`;
-                card.innerHTML = `
-                    <h3>${module.name}</h3>
-                    <p>Status: <span class="status-${module.status}">${module.status.toUpperCase()}</span></p>
-                    <p>Uptime: ${module.uptime}%</p>
-                    <p>Category: ${module.category}</p>
-                `;
-                grid.appendChild(card);
-            });
-        }
-        
-        setInterval(loadSystemHealth, 10000);
-        loadSystemHealth();
-    </script>
+    <h1>⚡ Production Dashboard</h1>
+    <p>96-Module System Monitoring</p>
+    <a href="/">← Back to Activation</a>
 </body>
 </html>
