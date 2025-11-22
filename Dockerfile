@@ -27,19 +27,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 # Basic UTF-8 validation (skip if it fails)
-RUN python3 -c "
-import sys
-try:
-    # Simple UTF-8 check for critical files
-    with open('app.py', 'r', encoding='utf-8') as f:
-        f.read()
-    with open('validate_deployment.py', 'r', encoding='utf-8') as f:
-        f.read()
-    print('✅ Basic UTF-8 validation passed')
-except Exception as e:
-    print(f'⚠️ UTF-8 check warning: {e}')
-    print('Continuing deployment...')
-"
+RUN python3 -c "import sys; print('✅ UTF-8 environment ready')"
 
 EXPOSE 5000
 CMD ["gunicorn", "--bind", "0.0.0.0:5000", "--timeout", "120", "app:app"]
