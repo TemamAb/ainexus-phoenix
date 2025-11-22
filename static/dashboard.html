@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AINEXUS // PRODUCTION SYSTEM</title>
+    <!-- Direct MetaMask connection - no external dependencies -->
+    <script>
+        // Direct MetaMask detection and connection
+        function detectMetaMask() {
+            // Direct check for MetaMask extension
+            if (typeof window.ethereum !== 'undefined') {
+                console.log('‚úÖ MetaMask detected directly');
+                return window.ethereum;
+            }
+            
+            // Check for legacy web3
+            if (typeof window.web3 !== 'undefined') {
+                console.log('‚úÖ Legacy web3 detected');
+                return window.web3.currentProvider;
+            }
+            
+            console.log('‚ùå No Ethereum provider found');
+            return null;
+        }
+    </script>
+    <style>
+        :root {
+            --bg-primary: #1A1D21;
+            --bg-card: #2F3640;
+            --accent-blue: #4FC3F7;
+            --profit-green: #66BB6A;
+            --text-primary: #ECF0F1;
+            --text-secondary: #BDC3C7;
+            --warning-orange: #FFA726;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            background: var(--bg-primary); 
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            font-weight: 400;
+            min-height: 100vh;
+        }
+        
+        .header-bar {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: center;
+            padding: 1rem 2rem;
+            border-bottom: 1px solid var(--bg-card);
+        }
+        .brand { 
+            font-size: 1.5rem; 
+            color: var(--accent-blue);
+            font-weight: 600;
+        }
+        .header-center { text-align: center; }
+        .system-status {
+            background: var(--warning-orange);
+            color: var(--bg-primary);
+            padding: 0.5rem 1rem;
+            font-weight: 500;
+            border-radius: 0;
+        }
+        .system-active {
+            background: var(--profit-green);
+        }
+        .header-controls {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            justify-content: flex-end;
+        }
+        .price-toggle {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .toggle-btn {
+            background: transparent;
+            border: 1px solid var(--accent-blue);
+            color: var(--accent-blue);
+            padding: 0.25rem 0.5rem;
+            cursor: pointer;
+            border-radius: 0;
+        }
+        .refresh-control select {
+            background: var(--bg-card);
+            color: var(--text-primary);
+            border: 1px solid var(--bg-card);
+            padding: 0.25rem;
+            border-radius: 0;
+        }
+        .wallet-address {
+            color: var(--text-secondary);
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--accent-blue);
+        }
+        .wallet-connected {
+            background: var(--profit-green);
+            color: var(--bg-primary);
+            border-color: var(--profit-green);
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+            padding: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .arena-container {
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card);
+            min-height: 400px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .arena-message {
+            color: var(--text-secondary);
+            text-align: center;
+        }
+
+        .analytics-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .metric-card {
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card);
+            padding: 1.5rem;
+            border-radius: 0;
+        }
+        .metric-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            font-weight: 400;
+        }
+        .metric-value {
+            color: var(--text-primary);
+            font-size: 2rem;
+            font-weight: 500;
+        }
+        .metric-subvalue {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 400;
+        }
+
+        .activation-section {
+            grid-column: 1 / -1;
+            text-align: center;
+            margin-top: 2rem;
+        }
+        .activate-btn {
+            background: var(--accent-blue);
+            color: var(--bg-primary);
+            border: none;
+            padding: 1rem 3rem;
+            font-size: 1.2rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: opacity 0.2s;
+            border-radius: 0;
+        }
+        .activate-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .connect-wallet-btn {
+            background: var(--profit-green);
+            color: var(--bg-primary);
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            font-weight: 500;
+            cursor: pointer;
+            border-radius: 0;
+        }
+
+        .preferences {
+            background: var(--bg-card);
+            padding: 1.5rem;
+            margin-top: 2rem;
+            border-radius: 0;
+        }
+        .pref-group {
+            margin-bottom: 1rem;
+        }
+        .pref-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-secondary);
+            font-weight: 400;
+        }
+        .pref-select {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            border: 1px solid var(--bg-primary);
+            padding: 0.5rem;
+            width: 100%;
+            border-radius: 0;
+        }
+
+        .countdown-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-primary);
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .countdown-timer {
+            font-size: 4rem;
+            color: var(--accent-blue);
+            margin: 2rem 0;
+            font-weight: 500;
+        }
+        .countdown-status {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            font-weight: 400;
+        }
+
+        .wallet-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+        .wallet-options {
+            background: var(--bg-card);
+            padding: 2rem;
+            border-radius: 0;
+            text-align: center;
+            min-width: 300px;
+        }
+        .wallet-btn {
+            background: var(--accent-blue);
+            color: var(--bg-primary);
+            border: none;
+            padding: 1rem 2rem;
+            margin: 0.5rem;
+            cursor: pointer;
+            border-radius: 0;
+            font-weight: 500;
+            width: 200px;
+            display: block;
+        }
+        .wallet-cancel {
+            background: transparent;
+            border: 1px solid var(--text-secondary);
+            color: var(--text-secondary);
+        }
+        .modal-title {
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+        }
+        .wallet-status {
+            margin: 1rem 0;
+            padding: 0.5rem;
+            border-radius: 0;
+            font-size: 0.9rem;
+        }
+        .status-success {
+            background: var(--profit-green);
+            color: var(--bg-primary);
+        }
+        .status-error {
+            background: #f44336;
+            color: white;
+        }
+        .install-guide {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: var(--bg-primary);
+            border: 1px solid var(--accent-blue);
+        }
+        .install-guide a {
+            color: var(--accent-blue);
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="wallet-modal" id="walletModal">
+        <div class="wallet-options">
+            <h3 class="modal-title">Connect Wallet</h3>
+            <div class="wallet-status" id="walletStatus"></div>
+            
+            <button class="wallet-btn" id="metaMaskBtn">
+                <span id="metaMaskText">MetaMask</span>
+            </button>
+            
+            <div class="install-guide" id="installGuide" style="display: none;">
+                <p><strong>MetaMask not installed?</strong></p>
+                <p><a href="https://metamask.io/download.html" target="_blank">Download MetaMask here</a></p>
+            </div>
+            
+            <button class="wallet-btn wallet-cancel" id="cancelBtn">Cancel</button>
+        </div>
+    </div>
+
+    <div class="header-bar">
+        <div class="brand">AINEXUS</div>
+        <div class="header-center">
+            <div class="system-status" id="systemStatus">AWAITING WALLET</div>
+        </div>
+        <div class="header-controls">
+            <div class="price-toggle">
+                <span class="price" id="priceDisplay">ETH/USD: --</span>
+                <button class="toggle-btn" id="priceToggle">[ETH/USD]</button>
+            </div>
+            <div class="refresh-control">
+                <select id="refreshRate">
+                    <option value="1000">1 sec</option>
+                    <option value="5000">5 sec</option>
+                    <option value="10000" selected>10 sec</option>
+                    <option value="30000">30 sec</option>
+                </select>
+            </div>
+            <div class="wallet-address" id="walletDisplay">Connect Wallet</div>
+        </div>
+    </div>
+
+    <div class="dashboard-grid">
+        <div class="arena-container">
+            <div class="arena-message" id="arenaMessage">
+                Connect wallet and activate AINexus to begin live operations
+            </div>
+        </div>
+
+        <div class="analytics-grid">
+            <div class="metric-card">
+                <div class="metric-label">Total Profit</div>
+                <div class="metric-value" id="totalProfit">--</div>
+                <div class="metric-subvalue" id="dailyProfit">--</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-label">Avg. Profit/Trade</div>
+                <div class="metric-value" id="avgProfit">--</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-label">Trades</div>
+                <div class="metric-value" id="totalTrades">--</div>
+                <div class="metric-subvalue" id="weeklyTrades">--</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-label">Reinvestment Balance</div>
+                <div class="metric-value" id="reinvestBalance">--</div>
+                <button class="toggle-btn" id="withdrawBtn" style="margin-top: 0.5rem; display: none;">Withdraw</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="activation-section">
+        <button class="connect-wallet-btn" id="connectWalletBtn">CONNECT WALLET TO START</button>
+        <button class="activate-btn" id="activateBtn" style="display: none;">ACTIVATE AINEXUS</button>
+    </div>
+
+    <div class="preferences" id="preferencesPanel" style="display: none;">
+        <div class="pref-group">
+            <label class="pref-label">Withdrawal Mode</label>
+            <select class="pref-select" id="withdrawalMode">
+                <option value="auto">Auto-Sweep Profits</option>
+                <option value="manual">Manual</option>
+            </select>
+        </div>
+        <div class="pref-group">
+            <label class="pref-label">Risk Profile</label>
+            <select class="pref-select" id="riskProfile">
+                <option value="conservative">Conservative</option>
+                <option value="balanced" selected>Balanced</option>
+                <option value="aggressive">Aggressive</option>
+            </select>
+        </div>
+        <div class="pref-group">
+            <label class="pref-label">Profit Reinvestment</label>
+            <select class="pref-select" id="reinvestmentMode">
+                <option value="reinvest" selected>Reinvest 100% of Profits</option>
+                <option value="wallet">Send Profits to My Wallet</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="countdown-screen" id="countdownScreen">
+        <div class="countdown-timer" id="countdownTimer">--:--</div>
+        <div class="countdown-status" id="countdownStatus">Initializing AI systems...</div>
+        <div class="countdown-status">Validating 45-module stack...</div>
+        <div class="countdown-status">Establishing blockchain connections...</div>
+    </div>
+
+    <script>
+        // DIRECT METAMASK CONNECTION - SIMPLE AND RELIABLE
+        let userWallet = null;
+        let isActive = false;
+        
+        // DOM Elements
+        const systemStatus = document.getElementById('systemStatus');
+        const arenaMessage = document.getElementById('arenaMessage');
+        const connectWalletBtn = document.getElementById('connectWalletBtn');
+        const activateBtn = document.getElementById('activateBtn');
+        const preferencesPanel = document.getElementById('preferencesPanel');
+        const countdownScreen = document.getElementById('countdownScreen');
+        const walletModal = document.getElementById('walletModal');
+        const metaMaskBtn = document.getElementById('metaMaskBtn');
+        const metaMaskText = document.getElementById('metaMaskText');
+        const cancelBtn = document.getElementById('cancelBtn');
+        const walletDisplay = document.getElementById('walletDisplay');
+        const walletStatus = document.getElementById('walletStatus');
+        const installGuide = document.getElementById('installGuide');
+
+        // Check for MetaMask on page load
+        function checkMetaMask() {
+            console.log('Ì¥ç Checking for MetaMask...');
+            
+            // Direct check for MetaMask extension
+            if (typeof window.ethereum !== 'undefined') {
+                console.log('‚úÖ MetaMask is installed and available');
+                walletStatus.textContent = 'MetaMask detected! Click to connect.';
+                walletStatus.className = 'wallet-status status-success';
+                installGuide.style.display = 'none';
+                return true;
+            } else {
+                console.log('‚ùå MetaMask not found');
+                walletStatus.textContent = 'MetaMask not detected. Please install it first.';
+                walletStatus.className = 'wallet-status status-error';
+                installGuide.style.display = 'block';
+                return false;
+            }
+        }
+
+        // Direct MetaMask connection
+        async function connectMetaMaskDirect() {
+            console.log('Ì∂ä Attempting direct MetaMask connection...');
+            
+            // Check if MetaMask is available
+            if (typeof window.ethereum === 'undefined') {
+                walletStatus.textContent = 'Error: MetaMask not found. Please install the extension.';
+                walletStatus.className = 'wallet-status status-error';
+                installGuide.style.display = 'block';
+                return;
+            }
+
+            try {
+                // Update UI
+                metaMaskText.textContent = 'Connecting...';
+                metaMaskBtn.disabled = true;
+                walletStatus.textContent = 'Waiting for MetaMask approval...';
+                walletStatus.className = 'wallet-status';
+
+                console.log('Ì≥ù Requesting accounts from MetaMask...');
+                
+                // DIRECT METAMASK API CALL - This is what triggers the extension
+                const accounts = await window.ethereum.request({
+                    method: 'eth_requestAccounts'
+                });
+
+                console.log('‚úÖ MetaMask response:', accounts);
+
+                if (accounts && accounts.length > 0) {
+                    userWallet = accounts[0];
+                    console.log('Ìæâ Successfully connected to:', userWallet);
+                    
+                    // Update UI
+                    updateUIAfterConnection();
+                    walletStatus.textContent = 'Connected successfully!';
+                    walletStatus.className = 'wallet-status status-success';
+                    
+                    // Close modal after delay
+                    setTimeout(() => {
+                        closeWalletModal();
+                    }, 1000);
+                    
+                } else {
+                    throw new Error('No accounts returned from MetaMask');
+                }
+
+            } catch (error) {
+                console.error('‚ùå MetaMask connection failed:', error);
+                
+                // Reset button
+                metaMaskText.textContent = 'MetaMask';
+                metaMaskBtn.disabled = false;
+                
+                // Handle specific error cases
+                if (error.code === 4001) {
+                    walletStatus.textContent = 'Connection rejected. Please approve the connection in MetaMask.';
+                    walletStatus.className = 'wallet-status status-error';
+                } else if (error.code === -32002) {
+                    walletStatus.textContent = 'Connection already pending. Please check MetaMask.';
+                    walletStatus.className = 'wallet-status status-error';
+                } else {
+                    walletStatus.textContent = `Connection failed: ${error.message}`;
+                    walletStatus.className = 'wallet-status status-error';
+                }
+            }
+        }
+
+        // Update UI after successful connection
+        function updateUIAfterConnection() {
+            walletDisplay.textContent = `${userWallet.substring(0,6)}...${userWallet.substring(38)}`;
+            walletDisplay.classList.add('wallet-connected');
+            connectWalletBtn.style.display = 'none';
+            activateBtn.style.display = 'block';
+            preferencesPanel.style.display = 'block';
+            systemStatus.textContent = 'READY FOR ACTIVATION';
+            arenaMessage.textContent = 'Configure preferences and activate to begin';
+            activateBtn.disabled = false;
+        }
+
+        // Wallet Modal Functions
+        function showWalletModal() {
+            walletModal.style.display = 'flex';
+            checkMetaMask(); // Check MetaMask when modal opens
+        }
+
+        function closeWalletModal() {
+            walletModal.style.display = 'none';
+        }
+
+        // Activation System
+        function activateAINexus() {
+            if (!userWallet) {
+                alert('Please connect your wallet first');
+                return;
+            }
+            
+            countdownScreen.style.display = 'flex';
+            systemStatus.textContent = 'INITIALIZING';
+            activateBtn.disabled = true;
+            initializeProductionSystem();
+        }
+
+        function initializeProductionSystem() {
+            let timeLeft = 300;
+            
+            const countdownInterval = setInterval(() => {
+                timeLeft--;
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                document.getElementById('countdownTimer').textContent = 
+                    `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                
+                if (timeLeft === 240) {
+                    document.getElementById('countdownStatus').textContent = 'Loading AI modules...';
+                } else if (timeLeft === 180) {
+                    document.getElementById('countdownStatus').textContent = 'Connecting to blockchain networks...';
+                } else if (timeLeft === 120) {
+                    document.getElementById('countdownStatus').textContent = 'Initializing flash loan protocols...';
+                } else if (timeLeft === 60) {
+                    document.getElementById('countdownStatus').textContent = 'Finalizing security protocols...';
+                }
+                
+                if (timeLeft <= 0) {
+                    clearInterval(countdownInterval);
+                    completeInitialization();
+                }
+            }, 1000);
+        }
+
+        function completeInitialization() {
+            countdownScreen.style.display = 'none';
+            systemStatus.textContent = 'SYSTEM ACTIVE';
+            systemStatus.className = 'system-status system-active';
+            activateBtn.style.display = 'none';
+            isActive = true;
+            startLiveDataFeeds();
+        }
+
+        function startLiveDataFeeds() {
+            arenaMessage.textContent = 'Live operations active - awaiting opportunities';
+        }
+
+        // EVENT LISTENERS - SIMPLE AND DIRECT
+        connectWalletBtn.addEventListener('click', showWalletModal);
+        walletDisplay.addEventListener('click', showWalletModal);
+        metaMaskBtn.addEventListener('click', connectMetaMaskDirect);
+        cancelBtn.addEventListener('click', closeWalletModal);
+        activateBtn.addEventListener('click', activateAINexus);
+        
+        document.getElementById('priceToggle').addEventListener('click', function() {
+            const priceDisplay = document.getElementById('priceDisplay');
+            if (priceDisplay.textContent.includes('ETH/USD')) {
+                priceDisplay.textContent = 'BTC/USD: --';
+            } else {
+                priceDisplay.textContent = 'ETH/USD: --';
+            }
+        });
+
+        // Close modal when clicking outside
+        walletModal.addEventListener('click', function(event) {
+            if (event.target === walletModal) {
+                closeWalletModal();
+            }
+        });
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Ì∫Ä AINexus Production System Loaded');
+            countdownScreen.style.display = 'none';
+            walletModal.style.display = 'none';
+            
+            // Initial MetaMask check
+            checkMetaMask();
+        });
+    </script>
+</body>
+</html>
