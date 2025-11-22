@@ -1,5 +1,3 @@
-# CREATE THE UPDATED ACTIVATION DASHBOARD WITH REAL TWO-PHASE FLOW
-cat > ./src/templates/activation_dashboard_fixed.html << 'EOF'
 <!DOCTYPE html>
 <html>
 <head>
@@ -90,7 +88,7 @@ cat > ./src/templates/activation_dashboard_fixed.html << 'EOF'
 </head>
 <body>
     <div class="dashboard">
-        <h1>ðŸš€ AINEXUS TWO-PHASE ACTIVATION</h1>
+        <h1>íº€ AINEXUS TWO-PHASE ACTIVATION</h1>
         <p>System Validation â†’ Confidence Building â†’ Auto-Deploy to Live</p>
         
         <div class="phase-container">
@@ -132,7 +130,7 @@ cat > ./src/templates/activation_dashboard_fixed.html << 'EOF'
         
         <!-- AUTO-DEPLOYMENT TRIGGER -->
         <div id="autoDeploy" style="display: none; margin-top: 40px; padding: 20px; background: #1a2e1a; border-radius: 10px;">
-            <h2 class="completed">ðŸŽ‰ 85% CONFIDENCE REACHED!</h2>
+            <h2 class="completed">í¾‰ 85% CONFIDENCE REACHED!</h2>
             <p>Auto-deploying to LIVE mode...</p>
             <div class="status active" id="deployStatus">Activating Real-Time Monitoring</div>
             <button class="btn" onclick="redirectToLive()" id="liveBtn" style="display: none;">Enter Live Dashboard</button>
@@ -240,4 +238,3 @@ cat > ./src/templates/activation_dashboard_fixed.html << 'EOF'
     </script>
 </body>
 </html>
-EOF
