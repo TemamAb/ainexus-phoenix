@@ -1,11 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
+    <title>Live Trading - AINEXUS</title>
     <meta charset="UTF-8">
-    <title>AINEXUS Dashboard</title>
+    <style>
+        body { font-family: Arial; background: #1e1e1e; color: white; padding: 20px; }
+        .opportunity { background: #2d2d2d; padding: 15px; margin: 10px; border-radius: 6px; }
+    </style>
 </head>
 <body>
-    <h1>AINEXUS Dashboard</h1>
-    <a href="/">Back to Activation</a>
+    <h1>��� Live Trading Dashboard</h1>
+    <p>Gasless • Zero-Capital • Real-time</p>
+    
+    <div id="opportunities">
+        <h3>Active Arbitrage Opportunities</h3>
+        <div class="opportunity">
+            <strong>ETH/USDC</strong> - Profit: 0.45% 
+            <br><small>Uniswap → Binance • Gasless</small>
+        </div>
+        <div class="opportunity">
+            <strong>BTC/USDT</strong> - Profit: 0.32%
+            <br><small>Coinbase → Kraken • Zero-Capital</small>
+        </div>
+    </div>
+    
+    <div style="margin-top: 30px;">
+        <a href="/" style="color: #5794f2;">← Back to Activation</a> | 
+        <a href="/production" style="color: #5794f2;">System Health</a> | 
+        <a href="/profit" style="color: #5794f2;">Profit Analytics</a>
+    </div>
 </body>
 </html>
