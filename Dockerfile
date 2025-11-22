@@ -8,29 +8,27 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Final stage
 FROM python:3.11-alpine
 WORKDIR /app
 
-# Copy Python dependencies
 COPY --from=python-builder /usr/local/lib/python3.11/site-packages/ /usr/local/lib/python3.11/site-packages/
 COPY --from=python-builder /usr/local/bin/ /usr/local/bin/
-
-# Copy Node.js dependencies
 COPY --from=js-builder /app/node_modules ./node_modules
-
-# Copy application code
 COPY . .
 
-# Create unified start script
-RUN echo '#!/bin/sh\n\
-echo "íº€ Starting AINEXUS 96-Module Platform..."\n\
-echo "í° Starting Python Flask API..."\n\
-python core/app.py &\n\
-echo "ï¿½ï¿½ Starting JavaScript Modules..."\n\
-node scripts/load-modules.js &\n\
-echo "âœ… Both runtimes started - AINEXUS is live!"\n\
-wait\n' > start.sh && chmod +x start.sh
+# Create start script using proper method
+RUN cat > start.sh << 'EOS'
+#!/bin/sh
+echo "íº€ Starting AINEXUS 96-Module Platform..."
+echo "í° Starting Python Flask API..."
+python core/app.py &
+echo "í´§ Starting JavaScript Modules..."
+node scripts/load-modules.js &
+echo "âœ… Both runtimes started - AINEXUS is live!"
+wait
+EOS
+
+RUN chmod +x start.sh
 
 EXPOSE 8080
 CMD ["./start.sh"]
