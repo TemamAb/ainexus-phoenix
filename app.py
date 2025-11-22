@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify
+from flask import Flask, jsonify
 import datetime
 
 app = Flask(__name__)
@@ -6,7 +6,7 @@ app.secret_key = 'ainexus_quantum_ai_2024'
 
 @app.route('/')
 def home():
-    return """
+    return '''
     <!DOCTYPE html>
     <html>
     <head>
@@ -18,8 +18,8 @@ def home():
         </style>
     </head>
     <body>
-        <h1>íº€ AINEXUS Quantum Engine</h1>
-        <p>Two-Click Gasless Activation â€¢ Zero-Capital Arbitrage</p>
+        <h1>AINEXUS Quantum Engine</h1>
+        <p>Two-Click Gasless Activation - Zero-Capital Arbitrage</p>
         
         <div class="phase">
             <h2>CLICK 1: Gasless Infrastructure</h2>
@@ -35,35 +35,35 @@ def home():
 
         <script>
             function startGasless() {
-                document.getElementById('phase1-status').innerHTML = 'í´„ Deploying ERC-4337 Smart Account...';
+                document.getElementById("phase1-status").innerHTML = "Deploying ERC-4337 Smart Account...";
                 setTimeout(() => {
-                    document.getElementById('phase1-status').innerHTML = 'âœ… Gasless infrastructure ready!';
-                    document.getElementById('phase2-btn').disabled = false;
+                    document.getElementById("phase1-status").innerHTML = "Gasless infrastructure ready!";
+                    document.getElementById("phase2-btn").disabled = false;
                 }, 2000);
             }
             
             function startTrading() {
-                document.getElementById('phase2-status').innerHTML = 'ï¿½ï¿½ Activating zero-capital arbitrage...';
+                document.getElementById("phase2-status").innerHTML = "Activating zero-capital arbitrage...";
                 setTimeout(() => {
-                    window.location.href = '/trading';
+                    window.location.href = "/trading";
                 }, 2000);
             }
         </script>
     </body>
     </html>
-    """
+    '''
 
 @app.route('/trading')
 def trading():
-    return "í³Š Trading Dashboard - Live Arbitrage Monitoring"
+    return "Trading Dashboard - Live Arbitrage Monitoring"
 
 @app.route('/production')
 def production():
-    return "âš¡ Production Dashboard - 96-Module System Health"
+    return "Production Dashboard - 96-Module System Health"
 
 @app.route('/profit')
 def profit():
-    return "í²° Profit Dashboard - Revenue Analytics"
+    return "Profit Dashboard - Revenue Analytics"
 
 @app.route('/health')
 def health():
