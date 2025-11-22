@@ -1,0 +1,21 @@
+# ENFORCE UTF-8 ENCODING FOR ALL TEXT FILES
+*.py      text encoding=utf-8
+*.html    text encoding=utf-8
+*.js      text encoding=utf-8
+*.css     text encoding=utf-8
+*.json    text encoding=utf-8
+*.md      text encoding=utf-8
+*.txt     text encoding=utf-8
+*.yaml    text encoding=utf-8
+*.yml     text encoding=utf-8
+*.xml     text encoding=utf-8
+*.csv     text encoding=utf-8
+*.sol     text encoding=utf-8
+
+# CRLF/LF SETTINGS
+*.py      eol=lf
+*.html    eol=lf
+*.js      eol=lf
+*.css     eol=lf
+*.json    eol=lf
+*.md      eol=lf
