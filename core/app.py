@@ -1,13 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 import os
-from flask import Flask, jsonify, render_template
+from flask import Flask, jsonify
 
-# Configure Flask with correct template and static folders
-app = Flask(__name__, 
-    template_folder='../src/templates',
-    static_folder='../static'
-)
+app = Flask(__name__)
 
 @app.route('/')
 def home():
@@ -24,26 +20,78 @@ def home():
 def health():
     return jsonify({"status": "healthy", "platform": "AINEXUS"})
 
-# DASHBOARD ROUTES - USING render_template WITH CORRECT PATHS
+# DASHBOARD ROUTES WITH EXACT FILE PATHS
 @app.route("/activation")
 def activation_dashboard():
-    return render_template('activation_dashboard.html')
+    try:
+        with open("./src/templates/activation_dashboard.html", "r") as f:
+            return f.read()
+    except Exception as e:
+        return f"<h1>ACTIVATION DASHBOARD</h1><p>Error: {e}</p>"
 
 @app.route("/dashboard")
 def production_dashboard():
     try:
         with open("./core/templates/dashboard.html", "r") as f:
             return f.read()
-    except:
-        return "<h1>PRODUCTION DASHBOARD</h1><p>AINEXUS Platform</p>"
+    except Exception as e:
+        return f"<h1>PRODUCTION DASHBOARD</h1><p>Error: {e}</p>"
 
 @app.route("/trading")
 def trading_dashboard():
     try:
         with open("./monitoring_dashboard.html", "r") as f:
             return f.read()
-    except:
-        return "<h1>TRADING DASHBOARD</h1><p>Quantum Arbitrage</p>"
+    except Exception as e:
+        return f"<h1>TRADING DASHBOARD</h1><p>Error: {e}</p>"
+
+@app.route("/profit")
+def profit_dashboard():
+    try:
+        with open("./profit_dashboard.html", "r") as f:
+            return f.read()
+    except Exception as e:
+        return f"<h1>PROFIT DASHBOARD</h1><p>Error: {e}</p>"
+
+@app.route("/unified")
+def unified_dashboard():
+    try:
+        with open("./frontend-html/unified-dashboard.html", "r") as f:
+            return f.read()
+    except Exception as e:
+        return f"<h1>UNIFIED DASHBOARD</h1><p>Error: {e}</p>"
+
+@app.route("/grafana")
+def grafana_dashboard():
+    try:
+        with open("./grafana_dashboard.html", "r") as f:
+            return f.read()
+    except Exception as e:
+        return f"<h1>GRAFANA DASHBOARD</h1><p>Error: {e}</p>"
+
+@app.route("/live")
+def live_dashboard():
+    try:
+        with open("./frontend-html/ainexus-live.html", "r") as f:
+            return f.read()
+    except Exception as e:
+        return f"<h1>LIVE DASHBOARD</h1><p>Error: {e}</p>"
+
+@app.route("/backend")
+def backend_dashboard():
+    try:
+        with open("./frontend-html/ainexus-backend-live.html", "r") as f:
+            return f.read()
+    except Exception as e:
+        return f"<h1>BACKEND DASHBOARD</h1><p>Error: {e}</p>"
+
+@app.route("/welcome")
+def welcome_dashboard():
+    try:
+        with open("./src/templates/welcome_screen.html", "r") as f:
+            return f.read()
+    except Exception as e:
+        return f"<h1>WELCOME DASHBOARD</h1><p>Error: {e}</p>"
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 8080))
