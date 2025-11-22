@@ -20,49 +20,54 @@ def home():
 def health():
     return jsonify({"status": "healthy", "platform": "AINEXUS"})
 
-@app.route('/api/v1/system/health')
-def system_health():
-    return jsonify({
-        "status": "operational",
-        "quantum_ai": "24/24 modules",
-        "institutional_execution": "24/24 modules",
-        "enterprise_security": "16/16 modules",
-        "cross_chain_infrastructure": "16/16 modules",
-        "institutional_platform": "16/16 modules"
-    })
-
-@app.route('/api/v1/activate')
-def activate():
-    return jsonify({
-        "status": "activated",
-        "message": "AINEXUS ACTIVATED",
-        "revenue_streams": "6 streams active"
-    })
-
-# DASHBOARD ROUTES
+# DASHBOARD ROUTES - SERVING ACTUAL HTML FILES
 @app.route("/dashboard")
 def production_dashboard():
-    return "PRODUCTION DASHBOARD - AINEXUS 96-Module Platform"
+    try:
+        with open("./core/templates/dashboard.html", "r") as f:
+            return f.read()
+    except:
+        return "<h1>PRODUCTION DASHBOARD</h1><p>AINEXUS 96-Module Platform</p>"
 
 @app.route("/trading")
 def trading_dashboard():
-    return "TRADING DASHBOARD - Quantum Arbitrage Engine"
+    try:
+        with open("./monitoring_dashboard.html", "r") as f:
+            return f.read()
+    except:
+        return "<h1>TRADING DASHBOARD</h1><p>Quantum Arbitrage Engine</p>"
 
 @app.route("/profit")
 def profit_dashboard():
-    return "PROFIT DASHBOARD - Revenue Optimization"
+    try:
+        with open("./profit_dashboard.html", "r") as f:
+            return f.read()
+    except:
+        return "<h1>PROFIT DASHBOARD</h1><p>Revenue Optimization</p>"
 
 @app.route("/activation")
 def activation_dashboard():
-    return "ACTIVATION DASHBOARD - Two-Click System"
+    try:
+        with open("./src/templates/activation_dashboard.html", "r") as f:
+            return f.read()
+    except:
+        return "<h1>ACTIVATION DASHBOARD</h1><p>Two-Click System</p>"
 
 @app.route("/unified")
 def unified_dashboard():
-    return "UNIFIED DASHBOARD - Complete Interface"
+    try:
+        with open("./frontend-html/unified-dashboard.html", "r") as f:
+            return f.read()
+    except:
+        return "<h1>UNIFIED DASHBOARD</h1><p>Complete Interface</p>"
 
 @app.route("/grafana")
 def grafana_dashboard():
-    return "GRAFANA DASHBOARD - Analytics"
+    try:
+        with open("./grafana_dashboard.html", "r") as f:
+            return f.read()
+    except:
+        return "<h1>GRAFANA DASHBOARD</h1><p>Analytics</p>"
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 8080))
