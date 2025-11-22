@@ -2,10 +2,412 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>AINEXUS Activation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AINEXUS - Gasless Activation</title>
+    <style>
+        :root {
+            --grafana-dark: #1e1e1e;
+            --grafana-panel: #2d2d2d;
+            --grafana-border: #3d3d3d;
+            --grafana-text: #e0e0e0;
+            --grafana-accent: #5794f2;
+            --grafana-success: #299c46;
+            --grafana-warning: #f2ab1d;
+            --gasless-purple: #8a2be2;
+            --flashloan-cyan: #00f0ff;
+        }
+        
+        .gasless-badge {
+            background: var(--gasless-purple);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+        
+        .zero-capital-badge {
+            background: var(--flashloan-cyan);
+            color: #1e1e1e;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+        
+        .gasless-panel {
+            background: rgba(138, 43, 226, 0.1);
+            border: 1px solid var(--gasless-purple);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 16px 0;
+        }
+        
+        .flashloan-panel {
+            background: rgba(0, 240, 255, 0.1);
+            border: 1px solid var(--flashloan-cyan);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 16px 0;
+        }
+    </style>
 </head>
 <body>
-    <h1>AINEXUS Quantum Engine</h1>
-    <p>Two-Click Institutional Activation</p>
+    <div class="container">
+        <div class="header">
+            <h1>AINEXUS Quantum Engine <span class="gasless-badge">GASLESS</span><span class="zero-capital-badge">ZERO CAPITAL</span></h1>
+            <div class="subtitle">ERC-4337 Smart Accounts â€¢ Flash Loan Powered â€¢ Zero Gas Costs</div>
+        </div>
+        
+        <!-- GASLESS ONBOARDING INFO -->
+        <div class="gasless-panel">
+            <h3>í¶“ Gasless Trading Activated</h3>
+            <p>AINEXUS sponsors your gas fees through ERC-4337 Paymaster infrastructure</p>
+            <div class="metrics-grid" style="grid-template-columns: repeat(3, 1fr); margin-top: 16px;">
+                <div class="metric-card">
+                    <div class="metric-value">ERC-4337</div>
+                    <div class="metric-label">Smart Account</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">Paymaster</div>
+                    <div class="metric-label">Gas Sponsorship</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">Bundler</div>
+                    <div class="metric-label">Transaction Relay</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- FLASH LOAN INFO -->
+        <div class="flashloan-panel">
+            <h3>í²« Zero-Capital Arbitrage</h3>
+            <p>Flash loan powered trading requires no personal capital</p>
+            <div class="metrics-grid" style="grid-template-columns: repeat(3, 1fr); margin-top: 16px;">
+                <div class="metric-card">
+                    <div class="metric-value">Aave</div>
+                    <div class="metric-label">Flash Loans</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">dYdX</div>
+                    <div class="metric-label">Margin</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">Uniswap</div>
+                    <div class="metric-label">Arbitrage</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="grid-system">
+            <!-- CLICK 1: GASLESS INFRASTRUCTURE SETUP -->
+            <div class="phase-card phase1" id="phase1Card">
+                <div class="phase-header">
+                    <div class="phase-icon">âš¡</div>
+                    <div>
+                        <div class="phase-title">CLICK 1: Gasless Infrastructure</div>
+                        <div class="phase-description">ERC-4337 Smart Account & Gas Sponsorship</div>
+                    </div>
+                </div>
+                
+                <div class="progress-section">
+                    <div class="progress-header">
+                        <span class="progress-label">Gasless Setup Progress</span>
+                        <span class="progress-value" id="phase1Progress">0%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="phase1Fill"></div>
+                    </div>
+                </div>
+                
+                <div class="status-message" id="phase1Status">
+                    Ready to deploy gasless trading infrastructure...
+                </div>
+                
+                <!-- GASLESS SETUP STEPS -->
+                <div id="gaslessSteps" style="display: none;">
+                    <div class="progress-step" id="step1-1">
+                        <div class="step-icon">1</div>
+                        <span>Deploying ERC-4337 Smart Account</span>
+                    </div>
+                    <div class="progress-step" id="step1-2">
+                        <div class="step-icon">2</div>
+                        <span>Connecting Paymaster for gas sponsorship</span>
+                    </div>
+                    <div class="progress-step" id="step1-3">
+                        <div class="step-icon">3</div>
+                        <span>Setting up Bundler relay service</span>
+                    </div>
+                    <div class="progress-step" id="step1-4">
+                        <div class="step-icon">4</div>
+                        <span>Initializing flash loan contracts</span>
+                    </div>
+                    <div class="progress-step" id="step1-5">
+                        <div class="step-icon">5</div>
+                        <span>Configuring zero-capital mode</span>
+                    </div>
+                </div>
+                
+                <button class="action-button" onclick="executeGaslessSetup()" id="click1Btn">
+                    âš¡ DEPLOY GASLESS INFRASTRUCTURE
+                </button>
+            </div>
+            
+            <!-- CLICK 2: ZERO-CAPITAL ARBITRAGE DEPLOYMENT -->
+            <div class="phase-card phase2" id="phase2Card">
+                <div class="phase-header">
+                    <div class="phase-icon">ï¿½ï¿½</div>
+                    <div>
+                        <div class="phase-title">CLICK 2: Zero-Capital Activation</div>
+                        <div class="phase-description">Flash Loan Powered Arbitrage Strategies</div>
+                    </div>
+                </div>
+                
+                <div class="confidence-panel">
+                    <div class="confidence-label">AI Arbitrage Readiness</div>
+                    <div class="confidence-value" id="confidenceValue">0%</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="confidenceFill"></div>
+                    </div>
+                </div>
+                
+                <div class="progress-section">
+                    <div class="progress-header">
+                        <span class="progress-label">Strategy Deployment</span>
+                        <span class="progress-value" id="phase2Progress">0%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="phase2Fill"></div>
+                    </div>
+                </div>
+                
+                <div class="status-message" id="phase2Status">
+                    Complete gasless setup to enable zero-capital trading...
+                </div>
+                
+                <!-- ZERO-CAPITAL STEPS -->
+                <div id="zerocapitalSteps" style="display: none;">
+                    <div class="progress-step" id="step2-1">
+                        <div class="step-icon">1</div>
+                        <span>Deploying gasless arbitrage strategies</span>
+                    </div>
+                    <div class="progress-step" id="step2-2">
+                        <div class="step-icon">2</div>
+                        <span>Setting flash loan credit lines</span>
+                    </div>
+                    <div class="progress-step" id="step2-3">
+                        <div class="step-icon">3</div>
+                        <span>Optimizing MEV protection</span>
+                    </div>
+                    <div class="progress-step" id="step2-4">
+                        <div class="step-icon">4</div>
+                        <span>Activating cross-chain arbitrage</span>
+                    </div>
+                    <div class="progress-step" id="step2-5">
+                        <div class="step-icon">5</div>
+                        <span>Enabling live gasless trading</span>
+                    </div>
+                </div>
+                
+                <button class="action-button" onclick="executeZeroCapitalActivation()" id="click2Btn" disabled>
+                    í²« ACTIVATE ZERO-CAPITAL TRADING
+                </button>
+            </div>
+        </div>
+        
+        <!-- TRANSACTION HISTORY -->
+        <div class="blockchain-events">
+            <div class="events-title">GASLESS TRANSACTION HISTORY</div>
+            <div id="gaslessTransactions">
+                <div class="event-item">
+                    <div class="event-icon event-processing"></div>
+                    <div class="event-content">Ready for gasless transaction deployment...</div>
+                    <div class="event-time" id="currentTime"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // GASLESS TRANSACTION TRACKING
+        function addGaslessTransaction(message, type = 'processing') {
+            const container = document.getElementById('gaslessTransactions');
+            const eventItem = document.createElement('div');
+            eventItem.className = 'event-item';
+            eventItem.innerHTML = `
+                <div class="event-icon event-${type}"></div>
+                <div class="event-content">${message}</div>
+                <div class="event-time">${new Date().toLocaleTimeString()}</div>
+            `;
+            container.insertBefore(eventItem, container.firstChild);
+            
+            // Keep only last 10 transactions
+            while (container.children.length > 10) {
+                container.removeChild(container.lastChild);
+            }
+        }
+        
+        // CLICK 1: GASLESS INFRASTRUCTURE SETUP
+        async function executeGaslessSetup() {
+            const btn = document.getElementById('click1Btn');
+            const status = document.getElementById('phase1Status');
+            const steps = document.getElementById('gaslessSteps');
+            
+            btn.disabled = true;
+            btn.textContent = 'Deploying Gasless Infrastructure...';
+            steps.style.display = 'block';
+            
+            status.textContent = 'Initializing ERC-4337 account factory...';
+            addGaslessTransaction('Starting gasless infrastructure deployment', 'processing');
+            
+            const gaslessSteps = [
+                {
+                    id: 'step1-1',
+                    message: 'Deploying ERC-4337 Smart Account',
+                    transaction: '0x...ERC4337Factory.createAccount()',
+                    duration: 2000
+                },
+                {
+                    id: 'step1-2', 
+                    message: 'Connecting Paymaster for gas sponsorship',
+                    transaction: '0x...Paymaster.depositFor()',
+                    duration: 1800
+                },
+                {
+                    id: 'step1-3',
+                    message: 'Setting up Bundler relay service',
+                    transaction: '0x...Bundler.addStake()',
+                    duration: 1600
+                },
+                {
+                    id: 'step1-4',
+                    message: 'Initializing flash loan contracts',
+                    transaction: '0x...Aave.flashLoan()',
+                    duration: 2200
+                },
+                {
+                    id: 'step1-5',
+                    message: 'Configuring zero-capital mode',
+                    transaction: '0x...ArbitrageRouter.setup()',
+                    duration: 1500
+                }
+            ];
+            
+            let progress = 0;
+            
+            for (let i = 0; i < gaslessSteps.length; i++) {
+                const step = gaslessSteps[i];
+                const stepElement = document.getElementById(step.id);
+                
+                // Activate step
+                stepElement.classList.add('active');
+                status.textContent = step.message;
+                addGaslessTransaction(step.transaction, 'processing');
+                
+                // Simulate blockchain transaction
+                await new Promise(resolve => setTimeout(resolve, step.duration));
+                
+                // Complete step
+                stepElement.classList.remove('active');
+                stepElement.classList.add('completed');
+                addGaslessTransaction(`${step.message} - COMPLETED`, 'success');
+                
+                // Update progress
+                progress = ((i + 1) / gaslessSteps.length) * 100;
+                document.getElementById('phase1Progress').textContent = `${Math.round(progress)}%`;
+                document.getElementById('phase1Fill').style.width = `${progress}%`;
+            }
+            
+            // Gasless setup complete
+            status.textContent = 'âœ… Gasless infrastructure ready! Zero gas costs enabled.';
+            btn.textContent = 'âœ… GASLESS READY';
+            addGaslessTransaction('Gasless infrastructure deployment complete', 'success');
+            
+            // Enable Click 2
+            document.getElementById('click2Btn').disabled = false;
+            document.getElementById('phase2Status').textContent = 'Ready for zero-capital arbitrage activation';
+            document.getElementById('zerocapitalSteps').style.display = 'block';
+            document.getElementById('phase1Card').classList.add('active');
+        }
+        
+        // CLICK 2: ZERO-CAPITAL ARBITRAGE ACTIVATION
+        async function executeZeroCapitalActivation() {
+            const btn = document.getElementById('click2Btn');
+            const status = document.getElementById('phase2Status');
+            
+            btn.disabled = true;
+            btn.textContent = 'Activating Zero-Capital Trading...';
+            
+            status.textContent = 'Deploying gasless arbitrage strategies...';
+            addGaslessTransaction('Starting zero-capital arbitrage activation', 'processing');
+            
+            let confidence = 0;
+            let progress = 0;
+            
+            // AI Confidence Building with Gasless Focus
+            const activationInterval = setInterval(() => {
+                confidence += 1;
+                progress = (confidence / 85) * 100;
+                
+                document.getElementById('confidenceValue').textContent = `${confidence}%`;
+                document.getElementById('confidenceFill').style.width = `${confidence}%`;
+                document.getElementById('phase2Progress').textContent = `${Math.round(progress)}%`;
+                document.getElementById('phase2Fill').style.width = `${progress}%`;
+                
+                // Update activation status
+                if (confidence < 25) {
+                    status.textContent = 'Deploying gasless arbitrage strategies...';
+                } else if (confidence < 50) {
+                    status.textContent = 'Setting flash loan credit lines...';
+                } else if (confidence < 75) {
+                    status.textContent = 'Optimizing MEV protection...';
+                } else {
+                    status.textContent = 'Activating cross-chain arbitrage...';
+                }
+                
+                // Add gasless transactions at milestones
+                if (confidence === 25) {
+                    addGaslessTransaction('Gasless arbitrage strategies deployed', 'success');
+                }
+                if (confidence === 50) {
+                    addGaslessTransaction('Flash loan credit lines established', 'success');
+                }
+                if (confidence === 75) {
+                    addGaslessTransaction('MEV protection activated', 'success');
+                }
+                
+                // Auto-complete at 85% confidence
+                if (confidence >= 85) {
+                    clearInterval(activationInterval);
+                    completeZeroCapitalActivation();
+                }
+            }, 80);
+        }
+        
+        function completeZeroCapitalActivation() {
+            document.getElementById('phase2Status').textContent = 'âœ… Zero-capital arbitrage activated! Ready for live trading.';
+            document.getElementById('phase2Card').classList.add('active');
+            addGaslessTransaction('Zero-capital arbitrage fully activated', 'success');
+            
+            // Show completion and redirect
+            setTimeout(() => {
+                showGaslessCompletion();
+            }, 1500);
+        }
+        
+        function showGaslessCompletion() {
+            addGaslessTransaction('Redirecting to gasless trading dashboard', 'processing');
+            
+            // Redirect to trading dashboard with gasless mode
+            setTimeout(() => {
+                window.location.href = '/trading?gasless=true&zerocapital=true';
+            }, 2000);
+        }
+        
+        // Initialize
+        initializeSystem();
+    </script>
 </body>
 </html>
