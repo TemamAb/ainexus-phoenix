@@ -1,15 +1,11 @@
 services:
   - type: web
     name: ainexus-platform
-    env: node
+    env: python
     plan: free
     region: oregon
-    buildCommand: |
-      pip install -r requirements.txt
-      npm install
-    startCommand: npm start
+    buildCommand: pip install -r requirements.txt
+    startCommand: python core/app.py
     envVars:
       - key: PYTHON_VERSION
         value: 3.11.4
-      - key: NODE_ENV
-        value: production

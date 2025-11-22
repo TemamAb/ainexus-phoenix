@@ -1,17 +1,9 @@
 {
   "name": "ainexus-platform",
   "version": "3.0.0",
-  "type": "commonjs",
+  "description": "AINEXUS 96-Module Quantum AI Platform",
+  "main": "core/app.py",
   "scripts": {
-    "start": "node scripts/orchestrator.js",
-    "python": "python core/app.py",
-    "dev": "concurrently \"npm run python\" \"npm run js-modules\"",
-    "js-modules": "node scripts/load-js-modules.js"
-  },
-  "dependencies": {
-    "web3": "^4.0.0",
-    "axios": "^1.0.0",
-    "express": "^4.18.0",
-    "cors": "^2.8.5"
+    "postinstall": "echo 'JavaScript dependencies available for modules'"
   }
 }
