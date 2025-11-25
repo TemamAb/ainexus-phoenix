@@ -1,17 +1,18 @@
 FROM node:18-alpine AS base
-
-# Create app directory
 WORKDIR /usr/src/app
 
-# Install only production dependencies
+# Install production dependencies
 COPY package*.json ./
 RUN npm ci --only=production
 
 # Copy app source
 COPY . .
 
-# Expose port (Render sets PORT env at runtime)
+# Create non-root user
+RUN addgroup -S app && adduser -S app -G app
+USER app
+
+# Expose port (Render injects PORT at runtime)
 EXPOSE 3000
 
-# Start the API server
 CMD ["node", "app.js"]
