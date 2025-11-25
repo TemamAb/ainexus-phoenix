@@ -1,0 +1,456 @@
+---
+# QUANTUMNEX v2.0 - KUBERNETES ORCHESTRATION
+# REF: Kubernetes Production Patterns + Google Borg Architecture
+# Enterprise-grade container orchestration for institutional trading
+
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: quantumnex-institutional
+  labels:
+    name: quantumnex-institutional
+    environment: production
+    tier: institutional
+---
+# CONFIG MAPS - Centralized Configuration
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: quantumnex-core-config
+  namespace: quantumnex-institutional
+data:
+  NODE_ENV: "production"
+  LOG_LEVEL: "info"
+  METRICS_ENABLED: "true"
+  TRACING_ENABLED: "true"
+  REDIS_CLUSTER_ENABLED: "true"
+  GRPC_ENABLED: "true"
+  # AI Model Configuration
+  AI_MODEL_ENDPOINT: "ai-predictor.quantumnex-institutional.svc.cluster.local:50051"
+  AI_MODEL_TIMEOUT: "10000"
+  # Trading Configuration
+  MAX_POSITION_SIZE: "1000000"
+  MIN_PROFIT_THRESHOLD: "500"
+  MAX_SLIPPAGE: "0.005"
+  # Security Configuration
+  ZERO_TRUST_ENABLED: "true"
+  MULTI_SIG_REQUIRED: "true"
+  COMPLIANCE_ENABLED: "true"
+---
+# SECRETS - Sensitive Configuration
+apiVersion: v1
+kind: Secret
+metadata:
+  name: quantumnex-secrets
+  namespace: quantumnex-institutional
+type: Opaque
+data:
+  # Base64 encoded secrets
+  JWT_SECRET: "cXVhbnR1bm5leC1pbnN0aXR1dGlvbmFsLXNlY3JldC1rZXk="
+  REDIS_PASSWORD: "cmVkaXMtY2x1c3Rlci1wYXNzd29yZA=="
+  DATABASE_URL: "cG9zdGdyZXNxbDovL3VzZXI6cGFzc0BkYi5xdWFudHVtbmV4LmNvbS9wcm9k"
+  BLOCKCHAIN_RPC_URL: "aHR0cHM6Ly9tYWlubmV0LmluZnVyYS5pby92My9hcGlfa2V5"
+  EXCHANGE_API_KEY: "ZXhjaGFuZ2UtYXBpLWtleS1zZWNyZXQ="
+  EXCHANGE_API_SECRET: "ZXhjaGFuZ2UtYXBpLXNlY3JldC1rZXk="
+---
+# DEPLOYMENTS - Application Services
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: quantumnex-api-gateway
+  namespace: quantumnex-institutional
+  labels:
+    app: quantumnex-api-gateway
+    tier: frontend
+    version: v2.0
+spec:
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: quantumnex-api-gateway
+  template:
+    metadata:
+      labels:
+        app: quantumnex-api-gateway
+        version: v2.0
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "3000"
+        prometheus.io/path: "/metrics"
+    spec:
+      containers:
+      - name: api-gateway
+        image: quantumnex/api-gateway:v2.0.0
+        ports:
+        - containerPort: 3000
+        env:
+        - name: NODE_ENV
+          valueFrom:
+            configMapKeyRef:
+              name: quantumnex-core-config
+              key: NODE_ENV
+        - name: JWT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: quantumnex-secrets
+              key: JWT_SECRET
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "250m"
+          limits:
+            memory: "1Gi"
+            cpu: "500m"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 3000
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: 3000
+          initialDelaySeconds: 5
+          periodSeconds: 5
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: quantumnex-ai-orchestrator
+  namespace: quantumnex-institutional
+  labels:
+    app: quantumnex-ai-orchestrator
+    tier: ai
+    version: v2.0
+spec:
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: quantumnex-ai-orchestrator
+  template:
+    metadata:
+      labels:
+        app: quantumnex-ai-orchestrator
+        version: v2.0
+    spec:
+      containers:
+      - name: ai-orchestrator
+        image: quantumnex/ai-orchestrator:v2.0.0
+        ports:
+        - containerPort: 50051
+          protocol: TCP
+        env:
+        - name: AI_MODEL_ENDPOINT
+          valueFrom:
+            configMapKeyRef:
+              name: quantumnex-core-config
+              key: AI_MODEL_ENDPOINT
+        - name: REDIS_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: quantumnex-secrets
+              key: REDIS_PASSWORD
+        resources:
+          requests:
+            memory: "2Gi"
+            cpu: "1000m"
+          limits:
+            memory: "4Gi"
+            cpu: "2000m"
+        livenessProbe:
+          exec:
+            command: ["python", "/app/health_check.py"]
+          initialDelaySeconds: 60
+          periodSeconds: 30
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: quantumnex-trading-engine
+  namespace: quantumnex-institutional
+  labels:
+    app: quantumnex-trading-engine
+    tier: trading
+    version: v2.0
+spec:
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: quantumnex-trading-engine
+  template:
+    metadata:
+      labels:
+        app: quantumnex-trading-engine
+        version: v2.0
+    spec:
+      containers:
+      - name: trading-engine
+        image: quantumnex/trading-engine:v2.0.0
+        ports:
+        - containerPort: 3001
+        env:
+        - name: MAX_POSITION_SIZE
+          valueFrom:
+            configMapKeyRef:
+              name: quantumnex-core-config
+              key: MAX_POSITION_SIZE
+        - name: EXCHANGE_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: quantumnex-secrets
+              key: EXCHANGE_API_KEY
+        resources:
+          requests:
+            memory: "1Gi"
+            cpu: "500m"
+          limits:
+            memory: "2Gi"
+            cpu: "1000m"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 3001
+          initialDelaySeconds: 30
+          periodSeconds: 10
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: quantumnex-security-layer
+  namespace: quantumnex-institutional
+  labels:
+    app: quantumnex-security-layer
+    tier: security
+    version: v2.0
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: quantumnex-security-layer
+  template:
+    metadata:
+      labels:
+        app: quantumnex-security-layer
+        version: v2.0
+    spec:
+      containers:
+      - name: security-layer
+        image: quantumnex/security-layer:v2.0.0
+        ports:
+        - containerPort: 3002
+        env:
+        - name: ZERO_TRUST_ENABLED
+          valueFrom:
+            configMapKeyRef:
+              name: quantumnex-core-config
+              key: ZERO_TRUST_ENABLED
+        - name: COMPLIANCE_ENABLED
+          valueFrom:
+            configMapKeyRef:
+              name: quantumnex-core-config
+              key: COMPLIANCE_ENABLED
+        resources:
+          requests:
+            memory: "1Gi"
+            cpu: "500m"
+          limits:
+            memory: "2Gi"
+            cpu: "1000m"
+        securityContext:
+          runAsNonRoot: true
+          runAsUser: 1000
+          allowPrivilegeEscalation: false
+---
+# SERVICES - Network Exposure
+apiVersion: v1
+kind: Service
+metadata:
+  name: quantumnex-api-service
+  namespace: quantumnex-institutional
+  labels:
+    app: quantumnex-api-gateway
+    tier: frontend
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 3000
+    protocol: TCP
+    name: http
+  - port: 443
+    targetPort: 3000
+    protocol: TCP
+    name: https
+  selector:
+    app: quantumnex-api-gateway
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: quantumnex-ai-service
+  namespace: quantumnex-institutional
+  labels:
+    app: quantumnex-ai-orchestrator
+    tier: ai
+spec:
+  type: ClusterIP
+  ports:
+  - port: 50051
+    targetPort: 50051
+    protocol: TCP
+    name: grpc
+  selector:
+    app: quantumnex-ai-orchestrator
+---
+# HORIZONTAL POD AUTOSCALERS - Auto Scaling
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: quantumnex-api-hpa
+  namespace: quantumnex-institutional
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: quantumnex-api-gateway
+  minReplicas: 3
+  maxReplicas: 10
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 70
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: Utilization
+        averageUtilization: 80
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: quantumnex-trading-hpa
+  namespace: quantumnex-institutional
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: quantumnex-trading-engine
+  minReplicas: 3
+  maxReplicas: 15
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 60
+  - type: Pods
+    pods:
+      metric:
+        name: transactions_per_second
+      target:
+        type: AverageValue
+        averageValue: "1000"
+---
+# POD DISRUPTION BUDGETS - High Availability
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: quantumnex-api-pdb
+  namespace: quantumnex-institutional
+spec:
+  minAvailable: 2
+  selector:
+    matchLabels:
+      app: quantumnex-api-gateway
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: quantumnex-trading-pdb
+  namespace: quantumnex-institutional
+spec:
+  minAvailable: 2
+  selector:
+    matchLabels:
+      app: quantumnex-trading-engine
+---
+# NETWORK POLICIES - Security Isolation
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: quantumnex-frontend-policy
+  namespace: quantumnex-institutional
+spec:
+  podSelector:
+    matchLabels:
+      tier: frontend
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  - from:
+    - ipBlock:
+        cidr: 0.0.0.0/0
+    ports:
+    - protocol: TCP
+      port: 80
+    - protocol: TCP
+      port: 443
+  egress:
+  - to:
+    - podSelector:
+        matchLabels:
+          tier: backend
+    ports:
+    - protocol: TCP
+      port: 3000
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: quantumnex-backend-policy
+  namespace: quantumnex-institutional
+spec:
+  podSelector:
+    matchLabels:
+      tier: backend
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          tier: frontend
+    ports:
+    - protocol: TCP
+      port: 3000
+  egress:
+  - to:
+    - podSelector:
+        matchLabels:
+          tier: database
+    ports:
+    - protocol: TCP
+      port: 5432
