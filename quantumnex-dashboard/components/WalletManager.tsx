@@ -1,0 +1,1 @@
+import React from 'react'\n\nexport default function WalletManager() {\n  return (\n    <div className="card">\n      <h3>Wallet Manager (non-custodial)</h3>\n      <p>Connect MetaMask, WalletConnect, Rabby (stubs)</p>\n      <div>\n        <button>Connect</button>\n        <button style={{ marginLeft: 8 }}>Disconnect</button>\n      </div>\n    </div>\n  )\n}

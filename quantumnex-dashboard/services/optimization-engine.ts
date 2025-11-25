@@ -1,0 +1,1 @@
+export type OptimizationParams = { strategyId: string }\n\nexport function scheduleOptimization(runEveryMs = 15 * 60 * 1000) {\n  // simple scheduler stub: call optimize() periodically\n  const id = setInterval(() => {\n    console.info('Optimization cycle triggered')\n    // TODO: wire real optimization logic\n  }, runEveryMs)\n  return () => clearInterval(id)\n}

@@ -1,0 +1,1 @@
+import React from 'react'\n\nexport default function AdvancedAnalytics() {\n  return (\n    <div className="card">\n      <h3>Advanced Analytics</h3>\n      <p>PnL, latency trends, and capital efficiency (stubs)</p>\n    </div>\n  )\n}

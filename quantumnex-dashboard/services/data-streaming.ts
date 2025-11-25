@@ -1,0 +1,1 @@
+export function createWebSocket(url: string, onMessage: (data: any) => void) {\n  const ws = new WebSocket(url)\n  ws.onmessage = (m) => {\n    try { onMessage(JSON.parse(m.data as string)) } catch (e) { onMessage(m.data) }\n  }\n  ws.onopen = () => console.info('stream open')\n  ws.onerror = (e) => console.error('stream error', e)\n  return ws\n}

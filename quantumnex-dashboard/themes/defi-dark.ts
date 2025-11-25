@@ -1,0 +1,1 @@
+const defiDark = {\n  colors: {\n    background: '#0b0f14',\n    surface: '#0f1720',\n    primary: '#7b61ff',\n    muted: '#9aa4b2',\n    success: '#1dd1a1'\n  },\n  spacing: (n: number) => `${n * 8}px`\n}\n\nexport default defiDark

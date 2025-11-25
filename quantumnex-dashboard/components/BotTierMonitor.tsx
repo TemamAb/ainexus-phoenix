@@ -1,0 +1,1 @@
+import React from 'react'\n\nexport default function BotTierMonitor() {\n  return (\n    <div className="card">\n      <h3>Bot Tier Monitor</h3>\n      <ul>\n        <li>Arbitrage - status: idle</li>\n        <li>MEV - status: idle</li>\n        <li>Strategic - status: idle</li>\n      </ul>\n    </div>\n  )\n}

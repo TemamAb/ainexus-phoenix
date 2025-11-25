@@ -1,0 +1,1 @@
+import React from 'react'\n\nexport default function DeploymentWorkflow() {\n  return (\n    <div className="card">\n      <h3>Deployment Workflow</h3>\n      <ol>\n        <li>Simulate</li>\n        <li>Validate</li>\n        <li>Deploy</li>\n        <li>Optimize</li>\n      </ol>\n      <button>Run Simulation</button>\n    </div>\n  )\n}

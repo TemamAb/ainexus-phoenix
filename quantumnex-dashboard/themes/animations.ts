@@ -1,0 +1,1 @@
+export const animations = {\n  pulse: { animation: 'pulse 2s infinite' },\n  progress: { transition: 'width 300ms ease' }\n}

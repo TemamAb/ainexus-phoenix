@@ -1,0 +1,1 @@
+:root { --bg: #0b0f14; --surface: #0f1720; --muted: #9aa4b2; --accent: #7b61ff }\nhtml,body,#__next { height:100%; }\nbody { margin:0; font-family: Inter, system-ui, sans-serif; background: var(--bg); color: #e6eef8 }\n\n.container { padding: 20px; max-width: 1200px; margin: 0 auto }\n.card { background: var(--surface); border-radius: 8px; padding: 16px; margin: 8px 0 }
