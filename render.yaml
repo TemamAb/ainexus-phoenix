@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: quantumnex-dashboard
+    env: docker
+    repo: https://github.com/TemamAb/ainexus-phoenix
+    branch: render/deploy-config
+    plan: starter
+    dockerfilePath: Dockerfile
+    envVars:
+      - key: NODE_ENV
+        value: production
