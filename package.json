@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node index-cors.js",
     "dev": "nodemon index-cors.js",
-    "test": "jest"
+    "test": "jest",
+    "benchmark": "node scripts/verify-optimizations.js && node monitoring/performance-tracker.js --validate"
   },
   "dependencies": {
     "axios": "^1.13.2",
