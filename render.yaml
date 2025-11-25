@@ -1,11 +1,59 @@
 services:
   - type: web
-    name: quantumnex-dashboard
+    name: quantumnex-frontend
+    env: node
+    repo: https://github.com/TemamAb/ainexus-phoenix
+    branch: render/deploy-config
+    plan: starter
+    buildCommand: cd quantumnex-dashboard && npm ci && npm run build
+    startCommand: cd quantumnex-dashboard && npm run start
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+  - type: web
+    name: quantumnex-api
     env: docker
     repo: https://github.com/TemamAb/ainexus-phoenix
     branch: render/deploy-config
     plan: starter
     dockerfilePath: Dockerfile
+    healthCheckPath: /health
     envVars:
       - key: NODE_ENV
         value: production
+      - key: DATABASE_URL
+        fromDatabase:
+          name: quantumnex-db
+      - key: REDIS_URL
+        fromService:
+          name: quantumnex-redis
+  - type: worker
+    name: quantumnex-worker
+    env: docker
+    repo: https://github.com/TemamAb/ainexus-phoenix
+    branch: render/deploy-config
+    plan: starter
+    dockerfilePath: Dockerfile
+    startCommand: node worker.js
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        fromDatabase:
+          name: quantumnex-db
+      - key: REDIS_URL
+        fromService:
+          name: quantumnex-redis
+
+databases:
+  - name: quantumnex-db
+    engine: postgresql
+    version: '14'
+    plan: starter
+
+services_managed:
+  - name: quantumnex-redis
+    type: redis
+    plan: starter
