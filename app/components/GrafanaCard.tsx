@@ -1,25 +1,9 @@
 import React from 'react';
-import { clsx } from 'clsx';
-
-export const GrafanaCard = ({ title, children, className, accent = 'blue' }: any) => {
-  const borderColors = {
-    blue: 'border-t-grafana-blue',
-    green: 'border-t-grafana-green',
-    red: 'border-t-grafana-red',
-    amber: 'border-t-grafana-amber',
-    neon: 'border-t-grafana-neon'
-  };
-
+export const GrafanaCard = ({ title, children, accent = 'blue' }: any) => {
+  const colors: any = { blue: 'border-blue-500', green: 'border-green-500', red: 'border-red-500', neon: 'border-[#00FF9D]' };
   return (
-    <div className={clsx(
-      "bg-grafana-panel border border-grafana-border rounded-sm p-4 relative overflow-hidden",
-      "border-t-2", 
-      borderColors[accent as keyof typeof borderColors] || 'border-t-gray-500',
-      className
-    )}>
-      <h3 className="text-gray-400 text-xs font-bold uppercase tracking-wider mb-2 flex justify-between">
-        {title}
-      </h3>
+    <div className={`bg-[#181b1f] border border-[#22252b] rounded-sm p-4 border-t-2 ${colors[accent]}`}>
+      <h3 className="text-gray-400 text-xs font-bold uppercase mb-2">{title}</h3>
       {children}
     </div>
   );
