@@ -4,20 +4,23 @@ WORKDIR /app
 
 # 1. Install Dependencies
 COPY package.json package-lock.json* ./
-# using legacy-peer-deps to ignore version conflicts in your fragmented repo
+# Force install to ensure node_modules are fresh
 RUN npm install --legacy-peer-deps
 
-# 2. Copy Source Code
+# 2. Copy Source
 COPY . .
 
-# 3. Build the Project
-# This creates the standard .next folder
+# 3. Build (This generates the .next folder)
 RUN npm run build
 
-# 4. Expose and Start
-ENV NODE_ENV production
-ENV PORT 3000
-EXPOSE 3000
+# 4. Runtime Configuration
+ENV NODE_ENV=production
+# Hostname 0.0.0.0 is MANDATORY for Render/Docker networking
+ENV HOSTNAME="0.0.0.0"
 
-# We explicitly call next start to avoid confusion with any legacy app.js
-CMD ["npx", "next", "start"]
+# We do not hardcode PORT. We let Render inject it.
+EXPOSE 10000
+
+# 5. Start Command
+# calls 'next start' from package.json
+CMD ["npm", "start"]
