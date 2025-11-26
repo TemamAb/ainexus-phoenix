@@ -2,25 +2,25 @@ FROM node:18-alpine
 
 WORKDIR /app
 
-# 1. Install Dependencies
-COPY package.json package-lock.json* ./
-# Force install to ensure node_modules are fresh
-RUN npm install --legacy-peer-deps
+# 1. Copy ONLY package.json (Ignored lockfile to force fresh install)
+COPY package.json ./
 
-# 2. Copy Source
+# 2. Install Dependencies (Clean Slate)
+RUN npm install
+
+# 3. Copy Source Code
 COPY . .
 
-# 3. Build (This generates the .next folder)
+# 4. Build the Dashboard
 RUN npm run build
 
-# 4. Runtime Configuration
-ENV NODE_ENV=production
-# Hostname 0.0.0.0 is MANDATORY for Render/Docker networking
-ENV HOSTNAME="0.0.0.0"
+# 5. DEBUG: Verify build output exists (Will show in build logs)
+RUN echo ">> VERIFYING BUILD OUTPUT:" && ls -la .next
 
-# We do not hardcode PORT. We let Render inject it.
+# 6. Runtime Config
+ENV NODE_ENV=production
+ENV HOSTNAME="0.0.0.0"
 EXPOSE 10000
 
-# 5. Start Command
-# calls 'next start' from package.json
+# 7. Start
 CMD ["npm", "start"]
