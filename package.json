@@ -1,34 +1,21 @@
 {
-  "name": "quantumnex-dashboard",
+  "name": "quantumnex-ai-trading",
   "version": "1.0.0", 
-  "description": "QuantumNex AI Trading Engine Dashboard",
-  "main": "app.js",
+  "description": "QuantumNex AI Trading Engine - Multi-Chain DeFi Platform",
+  "type": "module",
   "scripts": {
     "start": "node app.js",
-    "dev": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "dev": "vite",
+    "build": "vite build",
+    "render-build": "npm install && npm run build"
   },
   "dependencies": {
     "react": "^18.2.0",
-    "react-dom": "^18.2.0", 
-    "react-scripts": "5.0.1",
+    "react-dom": "^18.2.0",
     "express": "^4.18.2"
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead", 
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "engines": {
-    "node": ">=18.0.0"
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.0.3",
+    "vite": "^4.4.5"
   }
 }
