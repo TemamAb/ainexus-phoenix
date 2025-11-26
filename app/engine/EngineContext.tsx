@@ -37,6 +37,9 @@ export const EngineProvider = ({ children }: { children: React.ReactNode }) => {
     ];
 
     let i = 0;
+    // Reset log
+    setBootLog([]);
+    
     const bootInterval = setInterval(() => {
       setBootLog(prev => [...prev, sequence[i]]);
       i++;
@@ -44,7 +47,7 @@ export const EngineProvider = ({ children }: { children: React.ReactNode }) => {
         clearInterval(bootInterval);
         setTimeout(() => setState('SIMULATION'), 1000); // Enter Simulation after boot
       }
-    }, 400); // Speed of text scrolling
+    }, 600); // Speed of text scrolling
   };
 
   // Simulation Logic (Confidence Builder)

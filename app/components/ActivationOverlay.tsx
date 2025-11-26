@@ -32,8 +32,8 @@ export const ActivationOverlay = () => {
               <span className="text-gray-600">[{new Date().toLocaleTimeString()}]</span>
               <span className={
                 log.includes("ERROR") ? "text-red-500" :
-                log.includes("OK") || log.includes("ACTIVE") || log.includes("SECURE") ? "text-[#00FF9D]" :
-                log.includes("Waking") ? "text-[#5794F2]" :
+                log.includes("OK") || log.includes("ACTIVE") || log.includes("SECURE") || log.includes("READY") || log.includes("SYNCED") || log.includes("PASS") ? "text-[#00FF9D]" :
+                log.includes("Waking") || log.includes("Loading") ? "text-[#5794F2]" :
                 "text-gray-300"
               }>
                 {log}
@@ -50,6 +50,10 @@ export const ActivationOverlay = () => {
                className="bg-[#5794F2] h-full transition-all duration-300"
                style={{ width: `${(bootLog.length / 12) * 100}%` }}
              />
+           </div>
+           <div className="flex justify-between mt-1 text-[10px] text-gray-500">
+             <span>VERIFYING MODULES</span>
+             <span>{(bootLog.length / 12 * 100).toFixed(0)}%</span>
            </div>
         </div>
       </div>
