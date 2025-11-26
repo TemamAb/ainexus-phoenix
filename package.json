@@ -2,7 +2,6 @@
   "name": "quantumnex-ai-trading",
   "version": "1.0.0", 
   "description": "QuantumNex AI Trading Engine - Multi-Chain DeFi Platform",
-  "type": "module",
   "scripts": {
     "start": "node app.js",
     "dev": "vite",
