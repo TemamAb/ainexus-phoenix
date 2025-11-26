@@ -1,26 +1,15 @@
 FROM node:18-alpine
-
 WORKDIR /app
-
-# 1. Copy ONLY package.json (Ignored lockfile to force fresh install)
+# Copy package.json (from the Grafana engine we just moved)
 COPY package.json ./
-
-# 2. Install Dependencies (Clean Slate)
+# Clean install
 RUN npm install
-
-# 3. Copy Source Code
+# Copy everything (now at root)
 COPY . .
-
-# 4. Build the Dashboard
+# Build Next.js
 RUN npm run build
-
-# 5. DEBUG: Verify build output exists (Will show in build logs)
-RUN echo ">> VERIFYING BUILD OUTPUT:" && ls -la .next
-
-# 6. Runtime Config
+# Runtime
 ENV NODE_ENV=production
 ENV HOSTNAME="0.0.0.0"
 EXPOSE 10000
-
-# 7. Start
 CMD ["npm", "start"]
