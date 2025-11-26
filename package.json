@@ -9,6 +9,8 @@
     "render-build": "npm install && npm run build"
   },
   "dependencies": {
+    "@aave/core-v3": "^1.19.3",
+    "@openzeppelin/contracts": "^5.4.0",
     "@web3modal/ethers": "^5.1.11",
     "clsx": "^2.1.1",
     "ethers": "^6.15.0",

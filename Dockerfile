@@ -1,45 +1,23 @@
-# STAGE 1: DEPENDENCIES
-FROM node:18-alpine AS deps
-# Install libc6-compat for Next.js image optimization dependencies
-RUN apk add --no-cache libc6-compat
+FROM node:18-alpine
+
 WORKDIR /app
 
-# Copy package files
+# 1. Install Dependencies
 COPY package.json package-lock.json* ./
+# using legacy-peer-deps to ignore version conflicts in your fragmented repo
+RUN npm install --legacy-peer-deps
 
-# CRITICAL FIX: Use 'npm install' instead of 'npm ci' to handle platform diffs
-RUN npm install
-
-# STAGE 2: BUILDER
-FROM node:18-alpine AS builder
-WORKDIR /app
-COPY --from=deps /app/node_modules ./node_modules
+# 2. Copy Source Code
 COPY . .
 
-# Disable telemetry
-ENV NEXT_TELEMETRY_DISABLED 1
-
-# Build the application
+# 3. Build the Project
+# This creates the standard .next folder
 RUN npm run build
 
-# STAGE 3: RUNNER
-FROM node:18-alpine AS runner
-WORKDIR /app
+# 4. Expose and Start
 ENV NODE_ENV production
-ENV NEXT_TELEMETRY_DISABLED 1
-
-RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 nextjs
-
-# Copy assets from builder
-COPY --from=builder /app/public ./public
-COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
-COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
-
-USER nextjs
-
-EXPOSE 3000
 ENV PORT 3000
-ENV HOSTNAME "0.0.0.0"
+EXPOSE 3000
 
-CMD ["node", "server.js"]
+# We explicitly call next start to avoid confusion with any legacy app.js
+CMD ["npx", "next", "start"]
