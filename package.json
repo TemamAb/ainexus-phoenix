@@ -1,6 +1,6 @@
 {
   "name": "quantumnex-ai-trading",
-  "version": "1.0.0", 
+  "version": "1.0.0",
   "description": "QuantumNex AI Trading Engine - Multi-Chain DeFi Platform",
   "scripts": {
     "start": "node app.js",
@@ -9,9 +9,16 @@
     "render-build": "npm install && npm run build"
   },
   "dependencies": {
+    "@web3modal/ethers": "^5.1.11",
+    "clsx": "^2.1.1",
+    "ethers": "^6.15.0",
+    "express": "^4.18.2",
+    "framer-motion": "^12.23.24",
+    "lucide-react": "^0.555.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "express": "^4.18.2"
+    "recharts": "^3.5.0",
+    "tailwind-merge": "^3.4.0"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.0.3",
